@@ -1,0 +1,73 @@
+
+/* Overlay that covers the entire screen */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+  z-index: 10;
+}
+
+/* The modal container */
+.modal1 {
+  position: fixed;
+  background-color: #F1FBFC;
+  width: 80%;
+  max-width: 700px; /* Adjust width as needed */
+  margin: auto;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  z-index: 11; /* Higher than the overlay */
+  border-radius: 10px; /* Rounded corners */
+  padding: 20px;
+  text-align: center;
+}
+
+/* Modal header */
+.modal-header1 {
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* Close button in the top right corner */
+.close-button1 {
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-size: 1.5rem;
+}
+
+/* Success icon styles */
+.modal-icon1 {
+  color: #28a745; /* Success color */
+  font-size: 2rem; /* Large checkmark icon */
+}
+
+/* Modal content styles */
+.modal-content1 {
+  padding: 20px;
+}
+
+h2 {
+  color: #333; /* Text color for the header */
+}
+
+p {
+  color: #666; /* Text color for the paragraph */
+}
+
+/* Add responsiveness as needed */
+@media (max-width: 768px) {
+  .modal1 {
+    width: 90%;
+  }
+}
+
+/* Ensure the body does not scroll when the modal is open */
+body.modal-open {
+  overflow: hidden;
+}

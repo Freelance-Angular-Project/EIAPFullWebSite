@@ -1,0 +1,199 @@
+<!-- @if (schoolProject) { -->
+<div class="container-fluid background1">
+  <div class="d-flex align-items-center h-50 p-5">
+
+    <h5 class="text-light project-header-title">School Task Project</h5>
+  </div>
+</div>
+
+<div class="container-fluid">
+  <!-- Charts -->
+  <div class="row margintop gx-3 gy-2 w-90 mx-auto charts-bg p-5">
+    <h1>{{schoolProject.name}}</h1>
+
+    <!-- pie chart -->
+    <div class="col-lg-4 shadow-lg rounded-3 chart-section position-relative">
+      <p class="tolalVisit">Total Percentage</p>
+      <p>{{schoolProject.taskCompletePercentage}}</p>
+      <!-- chart -->
+      <div style="display: block" class="h-50 w-100">
+        <canvas baseChart [data]="pieChartData" [options]="pieChartOptions" [type]="pieChartType">
+        </canvas>
+      </div>
+    </div>
+
+    <!-- tasks -->
+    <div class="col-lg-8">
+      <div class="row g-5 p-md-3">
+        <div class="col-lg-6 rounded-3">
+          <div class="widget">
+            <div class="icon-container">
+              <img src="../../../assets/completedtask.png" alt="Tasks" class="icon icon1 img-fluid mt-2" />
+            </div>
+            <div class="info-container">
+              <div class="title">Completed Tasks</div>
+              <div class="w-100 d-flex gapClass">
+                <div class="count">{{schoolProject.completeTask}}</div>
+                <!-- <div class="percentage-change">+ 20%</div> -->
+              </div>
+            </div>
+          </div>
+
+
+        </div>
+        <div class="col-lg-6  rounded-3">
+          <div class="widget">
+            <div class="icon-container">
+              <img src="../../../assets/Group 60.png" alt="Tasks" class="icon icon2 img-fluid mt-2" />
+            </div>
+            <div class="info-container">
+              <div class="title">Tasks Reject</div>
+              <div class="w-100 d-flex gapClass">
+                <div class="count">{{schoolProject.regectedTasks}}</div>
+                <!-- <div class="percentage-change">+ 20%</div> -->
+              </div>
+            </div>
+          </div>
+
+
+        </div>
+        <div class="col-lg-6  rounded-3">
+          <div class="widget">
+            <div class="icon-container">
+              <img src="../../../assets/Group 59.png" alt="Tasks" class="icon icon3 img-fluid mt-2" />
+            </div>
+            <div class="info-container">
+              <div class="title">Tasks new</div>
+              <div class="w-100 d-flex gapClass">
+                <div class="count">{{schoolProject.newTasks}}</div>
+                <!-- <div class="percentage-change">+ 20%</div> -->
+              </div>
+            </div>
+          </div>
+
+
+        </div>
+        <div class="col-lg-6  rounded-3">
+          <div class="widget">
+            <div class="icon-container">
+              <img src="../../../assets/Group 61.png" alt="Tasks" class="icon icon4 img-fluid mt-2" />
+            </div>
+            <div class="info-container">
+              <div class="title">Total Tasks</div>
+              <div class="w-100 d-flex gapClass">
+                <div class="count">{{schoolProject.totalTasks}}</div>
+                <!-- <div class="percentage-change">+ 20%</div> -->
+              </div>
+            </div>
+          </div>
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+</div>
+
+
+<div class="margintop">
+    <!-- Tasks -->
+    <div class="row mt-5 w-90 mx-auto marginBottom">
+      <h1 class="reportTitle">Tasks</h1>
+      <div class="tableReports-container">
+        <table class="table-responsive">
+          <thead>
+            <tr>
+              <th>Tasks</th>
+              <th>Date</th>
+              <th>Status</th>
+              <th>Details</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (task of schoolProject.tasks; track task.id) {
+            <tr>
+              <td>{{task.name}}</td>
+              <td>{{task.endDate|date}}</td>
+              <td [class.text-success]="task.status==='New'" [class.text-danger]="task.status==='Rejected'"
+                [class.text-primary]="task.status==='Completed'">{{task.status}}</td>
+              <td><button class="border border-1 rounded-2 p-1 downloadBtn text-light"
+                  (click)="showModel1(task.id)">View</button></td>
+            </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+</div>
+<!-- } -->
+
+
+<!-- model -->
+<!-- Semi-transparent background overlay -->
+
+@if(showModel){
+<div class="overlay"></div>
+<div class="modal1">
+  <div class="modal-header1">
+    <button class="btn-close" (click)="hideModel()"></button>
+  </div>
+
+  <div class="modal-content1">
+    <div class="alert alert-danger mx-auto">
+      Comment : {{currentTask.commentToSchool}}
+    </div>
+    <div class="container margintop">
+      <div class="row justify-content-between margintop mb-5">
+
+        <div class="col-lg-4 text-start">
+          <h3 class="fw-bold taskTitle color1 ">{{currentTask.name}} </h3>
+          <p class="color1">{{currentTask.details}}</p>
+          @for (note of currentTask.assignments; track $index) {
+          <!-- <div class="d-flex gap-2"> -->
+            <p class="color1">Assignment Name{{$index+1}}: {{note.name}}</p>
+          <button class="download-upload-button" (click)="downloadFile(note.url)">download assignment
+
+          </button>
+          <!-- </div> -->
+          <hr>
+          }
+          <div class="margintop">
+            <button class="submit-button me-3" (click)="hideModel()">Cancel</button>
+            <!-- <button class="submit-button">Done</button> -->
+          </div>
+        </div>
+        <!-- <div class="col-lg-1"></div> -->
+        <div class="col-lg-8 mt-3 ">
+          <div class="right-rect d-flex flex-column justify-content-center align-items-center">
+            <img src="assets/file.png" width="80" height="77">
+            <button class="download-upload-button mt-2 mb-2" (click)="downloadFile(currentTask.files[0].url)">download template</button>
+            <!-- upload.component.html -->
+            <div class="row pt-3">
+              <!-- <div class="col-3 mb-3"> -->
+              <form (ngSubmit)="onSubmit()">
+                <input class="form-control mb-3" type="text" [(ngModel)]="model.Name" name="name" placeholder="describtion"
+                  required>
+                <input class="form-control mb-3" type="file" (change)="onFileSelected($event)" name="file" required>
+                <button type="submit" class="download-upload-button mb-3">Upload</button>
+              </form>
+            </div>
+            <!-- </div> -->
+            <!-- @for (fileurl of currentTask.files; track $index) { -->
+            <!-- <button class="download-upload-button mb-3 w-75" (click)="downloadFile(fileurl.url)">File No {{$index+1}}:
+              {{fileurl.url}}</button> -->
+              <!-- <button class="download-upload-button mb-3 w-75" (click)="downloadFile(currentTask.files[0].url)">File
+                {{currentTask.files[0].url}}</button> -->
+            <!-- } -->
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+}

@@ -1,0 +1,201 @@
+* {
+  font-family: 'LatoFont', sans-serif;
+}
+
+// section one
+// left side
+
+.section1-title {
+  font-weight: bold;
+  font-size: 56px;
+  // word-wrap: break-word;
+  color: #fff;
+}
+
+.welcomeFont {
+  font-size: 25px;
+}
+
+// projects cards
+$card-background: #F2FBFC; // Adjust to the background color of the cards
+$card-shadow: rgba(0, 0, 0, 0.2); // Adjust to the shadow color of the cards
+$header-background: #FFFFFF; // Slightly darker than card background
+
+.cardProject {
+  background: $card-background;
+  border-radius: 16px; // Adjust to match border-radius of cards
+  box-shadow: 0 4px 6px $card-shadow;
+  padding: 20px;
+  position: relative;
+  height: 250px;
+  margin-top: 60px; // Space for header
+  // width: 250px; // Adjust to match width of cards
+  color: #0B0D39;
+}
+
+.cardProject-header {
+  background: $header-background;
+  border-radius: 50%;
+  width: 100px; // Adjust to match the size of header circles
+  height: 100px; // Adjust to match the size of header circles
+  position: absolute;
+  top: -70px; // Half of the height to move it up above the card
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-weight: bold;
+  font-size: 30px;
+}
+
+// Add responsive styling as needed
+@media (max-width: 768px) {
+  .cards-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .card-header {
+    top: -50px;
+    width: 100px; // Adjust to match the size of header circles
+    height: 100px; // Adjust to match the size of header circles
+  }
+}
+
+// right side
+/* form style */
+
+.container1 {
+  width: 100%;
+  max-width: 380px;
+  margin: 0 auto;
+  padding-top: 50px;
+  box-sizing: border-box;
+  text-align: left;
+}
+
+.input-group {
+  margin-bottom: 24px;
+}
+
+.input-group label {
+  display: block;
+  color: #8c98a9;
+  font-size: 12px;
+  margin-bottom: 8px;
+}
+
+.input-group input {
+  width: 100%;
+  height: 40px;
+  border-radius: 5px;
+  border: 1px solid #E0E7FF;
+  padding: 8px;
+  font-size: 13px;
+  font-family: 'Segoe UI', SegoeUI-Semibold, sans-serif;
+  font-weight: 600;
+  color: #2e384d;
+}
+
+
+.login-btn {
+  width: 100%;
+  height: 40px;
+  border-radius: 5px;
+  background-color: #2e384d;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.login-btn:hover {
+  background-color: #1a2131;
+}
+
+.login-title {
+  color: #2e384d;
+  font-size: 28px;
+  margin-top: 29.549px;
+}
+
+
+// login card
+.card {
+  height: 600px; // Adjust based on actual size
+  background: #F2FBFC;
+  border-radius: 24px; // Adjust based on actual corner radius
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); // Placeholder for shadow
+  // Add any additional styling for the card here
+  margin-bottom: 10px;
+
+}
+
+// Responsive adjustments can be added here
+@media (max-width: 768px) {
+  .card {
+    width: 100%;
+    height: auto;
+    margin-top: 100px; // Increase space for header on small screens
+    padding: 10px;
+  }
+
+  .login-btn {
+    margin-bottom: 20px;
+  }
+
+  // .input-group input {
+  //   margin-left: 2px;
+  //   margin-right: 2px;
+  // }
+
+}
+
+
+// buttons in login form
+// .group-btns {
+//   display: flex;
+//   margin: 60px auto;
+//   gap: 4em;
+// }
+
+// .learn-more-btn {
+//   font-size: 20px;
+//   border: 4px solid #000;
+//   border-radius: 180px 200px 200px 75px;
+//   padding: 20px 40px;
+//   cursor: pointer;
+//   outline: none;
+//   transition: all 0.3s ease;
+// }
+
+// .btn-white {
+//   border: 4px solid #000;
+//   color: #0b0d39;
+//   background-color: transparent;
+// }
+
+// .btn-primary {
+//   border: 4px solid #356DFF;
+//   background-color: #356DFF;
+//   color: #FFFFFF;
+
+
+// }
+
+// .btn-white:hover {
+//   background-color: #0b0d39;
+//   color: #fff;
+//   border-style: solid;
+// }
+
+// @media (max-width: 768px) {
+//   .learn-more-btn {
+//     padding: 10px 20px;
+//     font-size: 16px;
+//   }
+// }

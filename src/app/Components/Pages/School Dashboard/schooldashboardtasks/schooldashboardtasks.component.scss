@@ -1,0 +1,556 @@
+*{
+  font-family: LatoFont, sans-serif;
+
+}
+
+// charts
+/* pie chart */
+.chart-section {
+  height: 300px;
+}
+
+.tolalVisit {
+  color: #707070;
+  font-size: 12px;
+}
+
+.charts-bg {
+  background-color: #F2FBFC;
+  border-radius: 20px;
+  // height: 400px;
+}
+
+.leftPoistion {
+  left: 30%;
+  top: 10%;
+}
+
+@media screen and (max-width:768px) {
+  .leftPoistion {
+    left: 0;
+  }
+}
+
+/* tasks */
+.widget {
+  display: flex;
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 10px;
+
+}
+
+.icon-container {
+  padding-right: 10px;
+
+}
+
+.icon {
+  height: 40px;
+  /* Adjust as needed */
+  width: 40px;
+  /* Adjust as needed */
+  border-radius: 8px;
+  padding: 10px;
+
+}
+
+.icon1 {
+  background-color: #baf5f9;
+
+}
+.icon2 {
+  background-color: #f6e5ad;
+
+}
+.icon3 {
+  background-color: #f0b4c6;
+
+}
+.icon4 {
+  background-color: #acccfc;
+
+}
+.info-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.title {
+  font-size: 14px;
+  color: #333;
+  margin-bottom: 5px;
+}
+
+.count {
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+}
+
+.percentage-change {
+  font-size: 14px;
+  color: #2ecc71;
+  /* Adjust color as needed */
+  font-weight: bold;
+}
+
+@media (max-width: 768px) {
+  .widget {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+
+  }
+
+  .icon-container {
+    padding-bottom: 10px;
+    padding-right: 0;
+    height: 30px;
+  }
+
+  .info-container {
+    align-items: center;
+  }
+}
+
+// .gapClass {
+//   gap: 6em;
+// }
+
+
+
+
+/* table */
+.tableReports-container {
+  width: 100%;
+  padding: 20px;
+  // overflow-x: auto;
+  background-color: #F2FBFC;
+  border-radius: 10px;
+
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.reportCaption {
+  caption-side: top;
+  text-align: left;
+  font-size: 15px;
+  margin-bottom: 10px;
+  border-bottom: 3px solid #7B7B7B;
+  border-top: 3px solid #7B7B7B;
+  color: #707070;
+}
+
+
+th,
+td {
+  text-align: left;
+  padding: 12px 15px;
+  color: #707070;
+
+}
+
+th {
+  border-bottom: 1px solid #7B7B7B;
+  border-top: 1px solid #7B7B7B;
+  color: #707070;
+}
+
+td a {
+  color: #fff;
+  text-decoration: none;
+  border-color: #EBEBEB;
+}
+
+/* Responsive table */
+@media screen and (max-width: 600px) {
+  .table-container {
+    padding: 0;
+  }
+
+
+
+  table,
+  table tbody,
+  table tr,
+  table td {
+    display: block;
+    width: 100%;
+    // text-align: left;
+  }
+
+  table tr {
+    margin-bottom: 15px;
+  }
+  table thead{
+    display: none;
+  }
+}
+
+// width 90%
+.w-90 {
+  width: 90%;
+
+}
+
+
+
+// last Participated Assessments part
+$primary-color: #2b2e83; // The primary color for the shadow, you may need to adjust this based on the exact color
+$text-color: #333; // Adjust as needed
+$shadow-spread: 10px; // Adjust as needed for the depth of the shadow
+
+/*last news */
+.news-header {
+  display: flex;
+  justify-content: space-between;
+
+}
+
+.row-bg2 {
+  background-color: #FFFFFF;
+  border-radius: 30px;
+  /* width: 90%; */
+}
+
+.header-container {
+  display: flex;
+  gap: 1em;
+  align-items: center;
+}
+
+.row-bg {
+  background-color: #F2FBFC;
+  border-radius: 50px;
+}
+
+// cards
+
+.shadow-card {
+  background: #fff;
+  border-radius: 20px; // Adjust to match border-radius of card
+  padding: 40px; // Adjust padding to match design
+  position: relative;
+  color: $text-color;
+
+
+}
+
+// Add responsive styling as needed
+@media (max-width: 768px) {
+  .shadow-card {
+    width: 90%;
+    padding: 20px;
+  }
+}
+
+$card-bg-color: #fff; // Replace with actual background color
+$primary-color: #0B0D39; // Replace with actual primary color
+$secondary-color: #000000; // Replace with actual secondary color
+$text-color: #333; // Replace with actual text color
+
+.card {
+  background: $card-bg-color;
+  border-radius: 10px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+  .header {
+    h2 {
+      color: $primary-color;
+      margin: 0;
+      font-weight: bold;
+      // Insert the font styling here
+    }
+
+    p {
+      color: $text-color;
+      margin: 5px 0;
+      // Insert the font styling here
+    }
+
+    .percentage {
+      color: $secondary-color;
+      // Insert the font styling here
+    }
+  }
+
+
+}
+
+// Add responsive styling as needed
+@media (max-width: 768px) {
+  .card {
+    width: 90%;
+  }
+}
+
+
+// button in card
+// submit button
+$button-color: #4982A4; // This is a placeholder, adjust the color to match your design
+$button-hover-color: darken($button-color, 10%); // Darkens the button color on hover
+
+.submit-button {
+  padding: 10px 20px; // Adjust padding to match your design
+  background-color: $button-color;
+  border: none;
+  border-radius: 4px; // Adjust border-radius to match your design
+  color: white;
+  font-size: 16px; // Adjust font-size to match your design
+  cursor: pointer;
+  transition: background-color 0.3s ease; // Smooth transition for hover effect
+
+  &:hover {
+    background-color: $button-hover-color;
+  }
+
+  &:focus {
+    outline: none;
+    // Optionally, add a style for the focus state
+  }
+}
+
+
+// reports table
+.tableReports-container {
+  width: 100%;
+  padding: 20px;
+  // overflow-x: auto;
+  background-color: #F2FBFC;
+  border-radius: 10px;
+
+}
+
+th,
+td {
+  text-align: left;
+  padding: 12px 15px;
+  color: #707070;
+}
+
+th {
+  border-bottom: 3px solid #7B7B7B;
+  border-top: 3px solid #7B7B7B;
+  color: #707070;
+}
+
+td a {
+  color: #fff;
+  text-decoration: none;
+  border-color: #EBEBEB;
+}
+
+/* Responsive table */
+@media screen and (max-width: 600px) {
+  .table-container {
+    padding: 0;
+  }
+
+  table thead {
+    display: none;
+    /* Hide headers on small screens */
+  }
+
+  table,
+  table tbody,
+  table tr,
+  table td {
+    display: block;
+    width: 100%;
+  }
+
+  table tr {
+    margin-bottom: 15px;
+  }
+
+
+
+  /* Assign labels based on thead */
+  table td:nth-of-type(1)::before {
+    content: "Task: ";
+  }
+
+  table td:nth-of-type(2)::before {
+    content: "Date: ";
+  }
+
+  table td:nth-of-type(3)::before {
+    content: "Status: ";
+  }
+
+}
+
+.reportTitle {
+  color: #707070;
+  font-weight: bold;
+  font-size: 30px;
+}
+
+.downloadBtn {
+  background-color: #5EC1CC;
+
+}
+
+
+// model
+
+/* Overlay that covers the entire screen */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+  z-index: 10;
+}
+
+/* The modal container */
+.modal1 {
+  position: fixed;
+  background-color: #F1FBFC;
+  width: 80%;
+  max-width: 950px; /* Adjust width as needed */
+  margin: auto;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  z-index: 11; /* Higher than the overlay */
+  border-radius: 10px; /* Rounded corners */
+  padding: 20px;
+  text-align: center;
+}
+
+/* Modal header */
+.modal-header1 {
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* Close button in the top right corner */
+.close-button1 {
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-size: 1.5rem;
+}
+
+/* Success icon styles */
+.modal-icon1 {
+  color: #28a745; /* Success color */
+  font-size: 2rem; /* Large checkmark icon */
+}
+
+/* Modal content styles */
+.modal-content1 {
+  padding: 20px;
+  max-height: 90vh; /* Adjust the value based on your needs */
+  overflow-y: auto; /* Enables vertical scrolling if content overflows */
+}
+
+h2 {
+  color: #333; /* Text color for the header */
+}
+
+p {
+  color: #666; /* Text color for the paragraph */
+}
+
+/* Add responsiveness as needed */
+@media (max-width: 768px) {
+  .modal1 {
+    width: 90%;
+  }
+}
+
+/* Ensure the body does not scroll when the modal is open */
+body.modal-open {
+  overflow: hidden;
+}
+
+
+/* titles */
+
+.taskTile {
+  font-size: 3em;
+}
+
+.taskSubTitle {
+  font-size: 33px;
+}
+
+.color1 {
+  color: #1B2F5B;
+
+}
+
+// submit button
+$button-color: #4982A4; // This is a placeholder, adjust the color to match your design
+$button-hover-color: darken($button-color, 10%); // Darkens the button color on hover
+
+.submit-button {
+  padding: 10px 20px; // Adjust padding to match your design
+  background-color: $button-color;
+  border: none;
+  border-radius: 4px; // Adjust border-radius to match your design
+  color: white;
+  font-family: Arial, sans-serif; // Adjust font-family to match your design
+  font-size: 16px; // Adjust font-size to match your design
+  cursor: pointer;
+  transition: background-color 0.3s ease; // Smooth transition for hover effect
+
+  &:hover {
+    background-color: $button-hover-color;
+  }
+
+  &:focus {
+    outline: none;
+    // Optionally, add a style for the focus state
+  }
+}
+
+/* rectangle in right side */
+.right-rect {
+  border: 2.5px dashed #16A596;
+  border-radius: 20px;
+  height: auto;
+  background-color: #fff;
+
+}
+
+/* buttons */
+.download-upload-button {
+  padding: 10px 10px;
+  background-color: #FFFFFF;
+  /* This is a placeholder color; replace with the color from your image */
+  color: #16A596;
+  /* Adjust if necessary */
+  text-transform: uppercase;
+  border: 2px solid #16A596;
+  border-radius: 5px;
+  /* Adjust to match the rounded corners in your image */
+  cursor: pointer;
+  text-align: center;
+  font-size: 16px;
+  /* Adjust based on your image */
+}
+
+/* Responsive sizing */
+@media (max-width: 600px) {
+  .download-button {
+    padding: 8px 15px;
+    /* Smaller padding on smaller screens */
+    font-size: 14px;
+
+  }
+}
+

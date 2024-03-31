@@ -1,0 +1,67 @@
+<!-- @for (project1 of projects; track project1.id) { -->
+@if (projectObj) {
+  <div class="container-fluid background1">
+    <div class="d-flex flex-lg-row flex-column justify-content-md-between mx-auto align-items-center h-50 p-5">
+
+      <h4 class="text-light project-header-title">{{projectObj.name}}</h4>
+
+      <img [src]="projectObj.imageUrl" class="img-fluid">
+    </div>
+  </div>
+  <!-- } -->
+  <div class="container-fluid">
+    <div class="row margintop mx-auto w-90 objectiveTitle" >
+      <div class="col-lg-8">
+        <div class="row">
+          <div class="col-lg-2">
+            <img src="assets/advantagepage2.png" class="img-fluid">
+          </div>
+          <div class="col-lg-10">
+            <h4 class="titlefont">{{projectObj.title1}}</h4>
+            <p>{{projectObj.description1}}
+            </p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-2">
+            <img src="assets/advantagepage3.png" class="img-fluid">
+          </div>
+          <div class="col-lg-10">
+            <h4>{{projectObj.title2}}</h4>
+            <p>{{projectObj.description2}}
+            </p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-2">
+            <img src="assets/advantagepage3.png" class="img-fluid">
+          </div>
+          <div class="col-lg-10">
+            <h4>{{projectObj.title3}}</h4>
+            <p>{{projectObj.description3}}
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <div class="rectangle1 rectangleFontColor1">
+
+          <span>
+            <img src="assets/Group 452.png" class="img-fluid">
+            KEY DATES
+          </span>
+          <div class="mt-3">
+            <p class="mb-3">Start Date: {{projectObj.startDate|date}}
+            </p>
+            <p class="mb-3">End Date : {{projectObj.endDate|date}}
+            </p>
+            <p class="mb-3">Result Announcement : {{projectObj.resultAnnouncement}}</p>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+}
+
