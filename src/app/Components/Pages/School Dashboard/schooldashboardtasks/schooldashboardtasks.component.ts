@@ -194,7 +194,8 @@ export class SchooldashboardtasksComponent implements OnInit {
     this.assignmentsfile.uploadFile(formData).subscribe({
       next: (response) => {
         console.log('Upload successful', response);
-        this.router.navigate(['/SchoolDashboard']);
+        this.router.navigate(['/SchoolDashboardTask',this.schoolProject.id]);
+        this.showModel=false;
         // this.location.back();
       },
       error: (error) => console.error('Error uploading file', error),

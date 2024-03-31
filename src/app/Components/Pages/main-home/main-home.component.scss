@@ -136,66 +136,21 @@ $header-background: #FFFFFF; // Slightly darker than card background
 }
 
 // Responsive adjustments can be added here
-@media (max-width: 768px) {
+@media (max-width: 1750px) {
   .card {
     width: 100%;
     height: auto;
-    margin-top: 100px; // Increase space for header on small screens
     padding: 10px;
+  }
+
+
+}
+@media (max-width: 768px) {
+  .card {
+    margin-top: 100px; // Increase space for header on small screens
   }
 
   .login-btn {
     margin-bottom: 20px;
   }
-
-  // .input-group input {
-  //   margin-left: 2px;
-  //   margin-right: 2px;
-  // }
-
 }
-
-
-// buttons in login form
-// .group-btns {
-//   display: flex;
-//   margin: 60px auto;
-//   gap: 4em;
-// }
-
-// .learn-more-btn {
-//   font-size: 20px;
-//   border: 4px solid #000;
-//   border-radius: 180px 200px 200px 75px;
-//   padding: 20px 40px;
-//   cursor: pointer;
-//   outline: none;
-//   transition: all 0.3s ease;
-// }
-
-// .btn-white {
-//   border: 4px solid #000;
-//   color: #0b0d39;
-//   background-color: transparent;
-// }
-
-// .btn-primary {
-//   border: 4px solid #356DFF;
-//   background-color: #356DFF;
-//   color: #FFFFFF;
-
-
-// }
-
-// .btn-white:hover {
-//   background-color: #0b0d39;
-//   color: #fff;
-//   border-style: solid;
-// }
-
-// @media (max-width: 768px) {
-//   .learn-more-btn {
-//     padding: 10px 20px;
-//     font-size: 16px;
-//   }
-// }
