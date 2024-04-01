@@ -68,32 +68,48 @@ export class AdminDashboardComponent implements OnInit {
       switch (selectedRole) {
         case 'Admin':
           this.userService.registerAdmin(this.account).subscribe({
-            next:(response) => {console.log(response)},
-            error:(err) =>{console.log(err)},
+            next:(response) => {
+              //console.log(response)
+            },
+            error:(err) =>{
+              //console.log(err)
+            },
           });
           break;
         case 'ProjectManager':
           this.userService.registerProjectManager(this.account).subscribe({
-            next:(response) => {console.log(response)},
-            error:(err) =>{console.log(err)},
+            next:(response) => {
+              //console.log(response)
+            },
+            error:(err) =>{
+              //console.log(err)
+            },
           });
           break;
 
           case 'Investigated':
           this.userService.registerInvestigated(this.account).subscribe({
-            next:(response) => {console.log(response)},
-            error:(err) =>{console.log(err)},
+            next:(response) => {
+              //console.log(response)
+            },
+            error:(err) =>{
+              //console.log(err)
+            },
           });
           break;
 
           case 'SchoolManager':
           this.userService.registerSchoolManager(this.account).subscribe({
-            next:(response) => {console.log(response)},
-            error:(err) =>{console.log(err)},
+            next:(response) => {
+              //console.log(response)
+            },
+            error:(err) =>{
+              //console.log(err)
+            },
           });
           break;
         default:
-          console.log('No service action defined for this role');
+          //console.log('No service action defined for this role');
 
       }
 
