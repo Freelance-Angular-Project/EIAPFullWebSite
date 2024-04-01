@@ -1,0 +1,127 @@
+<div class="container-fluid background1 mb-5">
+  <div class="d-flex align-items-center h-50 p-5">
+
+    <h5 class="text-light project-header-title">Admin Dashboard</h5>
+  </div>
+</div>
+
+<div class="container">
+  <form [formGroup]="accountForm" (ngSubmit)="onSubmit()" class="needs-validation" novalidate>
+    <div class="form-group mb-3 row">
+      <label for="fullName" class="col-sm-2">Full Name</label>
+      <div class="col-sm-10">
+        <input type="text" formControlName="fullName" class="form-control" id="fullName" placeholder="Enter full name" autocomplete="name">
+        @if(accountForm.get('fullName')?.touched && accountForm.get('fullName')?.errors?.['required'])
+      {
+        <div  class="text-danger">
+          Full Name is required
+        </div>
+      }
+      @if(accountForm.get('fullName')?.errors?.['minlength'])
+      {
+        <div class="text-danger">
+          Full Name must be at least 3 characters
+        </div>
+      }
+      </div>
+
+
+    </div>
+
+    <div class="form-group mb-3 row">
+      <label for="email" class="col-sm-2">Email</label>
+      <div class="col-sm-10">
+        <input type="email" formControlName="email" class="form-control" id="email" placeholder="Enter email" autocomplete="email">
+        @if(accountForm.get('email')?.touched &&accountForm.get('email')?.errors?.['required'])
+      {
+        <div class="text-danger">
+          Email is required
+        </div>
+      }
+      @if(accountForm.get('email')?.errors?.['email'])
+      {
+        <div class="text-danger">
+          Please enter a valid email
+        </div>
+      }
+      </div>
+
+    </div>
+
+    <div class="form-group mb-3 row">
+      <label for="password" class="col-sm-2">Password</label>
+      <div class="col-sm-10">
+        <input type="password" formControlName="password" class="form-control" id="password" placeholder="Enter password" autocomplete="new-password">
+        @if(accountForm.get('password')?.touched &&accountForm.get('password')?.errors?.['required'])
+        {
+          <div class="text-danger">
+            Password is required
+          </div>
+        }
+        @if(accountForm.get('password')?.errors?.['minlength'])
+        {
+          <div class="text-danger">
+            Password must be at least 8 characters
+          </div>
+        }
+      </div>
+
+    </div>
+
+    <div class="form-group mb-3 row">
+      <label for="confirmPassword" class="col-sm-2">Confirm Password</label>
+      <div class="col-sm-10">
+        <input type="password" formControlName="confirmPassword" class="form-control" id="confirmPassword" autocomplete="new-password">
+        @if(accountForm.errors?.['notSame'])
+        {
+          <div class="text-danger">
+            Passwords do not match
+          </div>
+        }
+      </div>
+
+
+    </div>
+
+    <div class="form-group mb-3 row">
+      <label for="phoneNumber" class="col-sm-2">Phone Number</label>
+      <div class="col-sm-10">
+        <input type="text" formControlName="phoneNumber" class="form-control" id="phoneNumber" placeholder="Enter phone number">
+        @if(accountForm.get('phoneNumber')?.touched &&accountForm.get('phoneNumber')?.errors?.['required'])
+        {
+          <div  class="text-danger">
+            Phone Number is required
+          </div>
+        }
+      </div>
+
+
+    </div>
+
+    <div class="form-group mb-3 row">
+      <label for="gender" class="col-sm-2">Gender</label>
+      <div class="col-sm-10">
+        <select formControlName="gender" class="form-control" id="gender">
+          <option value="0">Male</option>
+          <option value="1">Female</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-group mb-3 row">
+      <label for="Role" class="col-sm-2">Role</label>
+      <div class="col-sm-10">
+        <select formControlName="Role" class="form-control" id="Role">
+          <option [disabled] value="0">Choose Role</option>
+          @for(role of Roles; track $index)
+          {
+            <option [value]="role">{{role}}</option>
+          }
+        </select>
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary mb-5" [disabled]="!accountForm.valid">Submit</button>
+  </form>
+
+</div>

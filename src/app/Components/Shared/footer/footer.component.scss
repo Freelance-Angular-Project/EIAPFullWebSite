@@ -1,0 +1,45 @@
+#head2 {
+  text-align: left;
+  font-size: 28px;
+}
+
+/* quick links */
+.quick-link-title {
+  color: #707070;
+
+}
+
+.footer-links {
+  display: flex;
+  flex-direction: column;
+  color: #0B0D39;
+}
+.link-color{
+  color: #0B0D39;
+
+}
+
+.text-container {
+  font-family: 'Segoe UI', sans-serif;
+  color: #707070;
+  /* text-align: center; */
+}
+
+.text-item {
+  padding: 18.5px 0; /* This value is half of your SVG tspan y offset to maintain the design */
+}
+
+/* Responsive design adjustments */
+@media (max-width: 768px) {
+  .text-item {
+    font-size: 18px; /* Smaller font size on smaller screens */
+  }
+}
+
+@media (max-width: 480px) {
+  .text-item {
+    font-size: 16px; /* Even smaller font size on mobile screens */
+  }
+}
+
+

@@ -1,0 +1,272 @@
+// right side table progress bars
+/* table */
+.table-container {
+  margin: auto;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  border-radius: 10px;
+  background-color: #fff;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+caption {
+  text-align: left;
+  margin-bottom: 10px;
+  font-weight: bold;
+  font-size: 1.2em;
+}
+
+td {
+  padding: 10px;
+  // vertical-align: middle;
+}
+
+.progress {
+  flex-grow: 1;
+  background-color: #e6e6e6;
+  border-radius: 5px;
+  height: 5px;
+  /* This makes the progress bar thinner */
+  /* margin-right: 8px; */
+}
+
+.progress-bar {
+  background-color: #4791FF;
+  height: 100%;
+  border-radius: 5px;
+  transition: width 0.4s ease;
+}
+
+@media (max-width: 768px) {
+  .table-container {
+    padding: 10px;
+  }
+
+  td {
+    padding: 5px;
+  }
+}
+
+
+// width 90%
+.w-90 {
+  width: 90%;
+
+}
+
+
+
+// last Participated Assessments part
+$primary-color: #2b2e83; // The primary color for the shadow, you may need to adjust this based on the exact color
+$text-color: #333; // Adjust as needed
+$shadow-spread: 10px; // Adjust as needed for the depth of the shadow
+
+/*last news */
+.news-header {
+  display: flex;
+  justify-content: space-between;
+
+}
+
+.row-bg2 {
+  background-color: #FFFFFF;
+  border-radius: 30px;
+  /* width: 90%; */
+}
+.header-container{
+  display: flex;
+  gap: 1em;
+  align-items: center;
+}
+.row-bg {
+  background-color: #F2FBFC;
+  border-radius: 50px;
+}
+
+// cards
+
+.shadow-card {
+  background: #fff;
+  border-radius: 20px; // Adjust to match border-radius of card
+  padding: 40px; // Adjust padding to match design
+  position: relative;
+  color: $text-color;
+
+
+}
+
+// Add responsive styling as needed
+@media (max-width: 768px) {
+  .shadow-card {
+    width: 90%;
+    padding: 20px;
+  }
+}
+
+$card-bg-color: #fff; // Replace with actual background color
+$primary-color: #0B0D39; // Replace with actual primary color
+$secondary-color: #000000; // Replace with actual secondary color
+$text-color: #333; // Replace with actual text color
+
+.card {
+  background: $card-bg-color;
+  border-radius: 10px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+  .header {
+    h2 {
+      color: $primary-color;
+      margin: 0;
+      font-weight: bold;
+      // Insert the font styling here
+    }
+
+    p {
+      color: $text-color;
+      margin: 5px 0;
+      // Insert the font styling here
+    }
+
+    .percentage {
+      color: $secondary-color;
+      // Insert the font styling here
+    }
+  }
+
+
+}
+
+// Add responsive styling as needed
+@media (max-width: 768px) {
+  .card {
+    width: 90%;
+  }
+}
+
+
+// button in card
+// submit button
+$button-color: #4982A4; // This is a placeholder, adjust the color to match your design
+$button-hover-color: darken($button-color, 10%); // Darkens the button color on hover
+
+.submit-button {
+  padding: 10px 20px; // Adjust padding to match your design
+  background-color: $button-color;
+  border: none;
+  border-radius: 4px; // Adjust border-radius to match your design
+  color: white;
+  font-family: Arial, sans-serif; // Adjust font-family to match your design
+  font-size: 16px; // Adjust font-size to match your design
+  cursor: pointer;
+  transition: background-color 0.3s ease; // Smooth transition for hover effect
+
+  &:hover {
+    background-color: $button-hover-color;
+  }
+
+  &:focus {
+    outline: none;
+    // Optionally, add a style for the focus state
+  }
+}
+
+
+// reports table
+.tableReports-container {
+  width: 100%;
+  padding: 20px;
+  // overflow-x: auto;
+  background-color: #F2FBFC;
+  border-radius: 10px;
+
+}
+
+
+.reportCaption {
+  caption-side: top;
+  text-align: left;
+  font-size: 15px;
+  margin-bottom: 10px;
+  border-bottom: 3px solid #7B7B7B;
+  border-top: 3px solid #7B7B7B;
+  color: #707070;
+}
+
+
+th,
+td {
+  text-align: left;
+  padding: 12px 15px;
+  color: #707070;
+
+}
+
+th {
+  border-bottom: 1px solid #7B7B7B;
+  border-top: 1px solid #7B7B7B;
+  color: #707070;
+}
+
+td a {
+  color: #fff;
+  text-decoration: none;
+  border-color: #EBEBEB;
+}
+
+/* Responsive table */
+@media screen and (max-width: 600px) {
+  .table-container {
+    padding: 0;
+  }
+
+
+
+  table,
+  table tbody,
+  table tr,
+  table td {
+    display: block;
+    width: 100%;
+  }
+
+  table tr {
+    margin-bottom: 15px;
+  }
+  table thead{
+    display: none;
+  }
+    /* Assign labels based on thead */
+    table td:nth-of-type(1)::before {
+      content: "Report: ";
+    }
+
+    table td:nth-of-type(2)::before {
+      content: "Date: ";
+    }
+
+}
+.reportTitle {
+  color: #707070;
+  font-weight: bold;
+  font-size: 30px;
+}
+
+.downloadBtn{
+  background-color: #5EC1CC;
+
+}
+
+@media screen and (max-width: 768px) {
+  .rectangle1{
+    height:500px;
+  }
+}
+
+// model

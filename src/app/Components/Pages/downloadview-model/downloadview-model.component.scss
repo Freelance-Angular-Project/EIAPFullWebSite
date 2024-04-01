@@ -1,0 +1,159 @@
+
+/* Overlay that covers the entire screen */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+  z-index: 10;
+}
+
+/* The modal container */
+.modal1 {
+  position: fixed;
+  background-color: #F1FBFC;
+  width: 80%;
+  max-width: 950px; /* Adjust width as needed */
+  margin: auto;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  z-index: 11; /* Higher than the overlay */
+  border-radius: 10px; /* Rounded corners */
+  padding: 20px;
+  text-align: center;
+}
+
+/* Modal header */
+.modal-header1 {
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* Close button in the top right corner */
+.close-button1 {
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-size: 1.5rem;
+}
+
+/* Success icon styles */
+.modal-icon1 {
+  color: #28a745; /* Success color */
+  font-size: 2rem; /* Large checkmark icon */
+}
+
+/* Modal content styles */
+.modal-content1 {
+  padding: 20px;
+}
+
+h2 {
+  color: #333; /* Text color for the header */
+}
+
+p {
+  color: #666; /* Text color for the paragraph */
+}
+
+/* Add responsiveness as needed */
+@media (max-width: 768px) {
+  .modal1 {
+    width: 90%;
+  }
+}
+
+/* Ensure the body does not scroll when the modal is open */
+body.modal-open {
+  overflow: hidden;
+}
+
+
+* {
+  font-family: 'Segoe UI', SegoeUI, sans-serif;
+
+}
+
+/* titles */
+
+.taskTile {
+  font-size: 3em;
+}
+
+.taskSubTitle {
+  font-size: 33px;
+}
+
+.color1 {
+  color: #1B2F5B;
+
+}
+
+// submit button
+$button-color: #4982A4; // This is a placeholder, adjust the color to match your design
+$button-hover-color: darken($button-color, 10%); // Darkens the button color on hover
+
+.submit-button {
+  padding: 10px 20px; // Adjust padding to match your design
+  background-color: $button-color;
+  border: none;
+  border-radius: 4px; // Adjust border-radius to match your design
+  color: white;
+  font-family: Arial, sans-serif; // Adjust font-family to match your design
+  font-size: 16px; // Adjust font-size to match your design
+  cursor: pointer;
+  transition: background-color 0.3s ease; // Smooth transition for hover effect
+
+  &:hover {
+    background-color: $button-hover-color;
+  }
+
+  &:focus {
+    outline: none;
+    // Optionally, add a style for the focus state
+  }
+}
+
+/* rectangle in right side */
+.right-rect {
+  border: 2.5px dashed #16A596;
+  border-radius: 20px;
+  height: 350px;
+  background-color: #fff;
+
+}
+
+/* buttons */
+.download-upload-button {
+  padding: 10px 30px;
+  background-color: #FFFFFF;
+  /* This is a placeholder color; replace with the color from your image */
+  color: #16A596;
+  /* Adjust if necessary */
+  text-transform: uppercase;
+  border: 2px solid #16A596;
+  border-radius: 5px;
+  /* Adjust to match the rounded corners in your image */
+  cursor: pointer;
+  text-align: center;
+  font-size: 16px;
+  /* Adjust based on your image */
+}
+
+/* Responsive sizing */
+@media (max-width: 600px) {
+  .download-button {
+    padding: 8px 15px;
+    /* Smaller padding on smaller screens */
+    font-size: 14px;
+
+  }
+}
+
+
+
+//

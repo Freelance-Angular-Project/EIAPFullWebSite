@@ -1,0 +1,68 @@
+*{
+  font-family: 'LatoFont', sans-serif;
+}
+.w-90{
+  width:100%;
+}
+.backgroundEvents{
+  background-color:#F2FBFC;
+  height: 85%;
+}
+.rectangle-card {
+  height: 200px; // Adjust as per your requirement
+  background-color: #ffffff;
+  border-radius: 12px; // Adjust for desired curvature of corners
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); // Adjust for desired shadow effect
+
+}
+.year-title{
+  color:#0C0C39;
+  font-size: 20px;
+}
+.year-item{
+  color:#707070;
+  font-size: 15px;
+  height: 30px;
+}
+.year-item:hover{
+ background-color: #356DFF;
+ color: white;
+ height: 30px;
+
+}
+
+
+// cards
+$text-color: #333; // Adjust as needed
+.shadow-card {
+  background: #fff;
+  border-radius: 20px; // Adjust to match border-radius of card
+  padding: 40px; // Adjust padding to match design
+  position: relative;
+  color: $text-color;
+
+
+}
+.eventFontColor{
+  color: #0B0D39;
+  font-size: 20px;
+}
+// Add responsive styling as needed
+@media (max-width: 768px) {
+  .shadow-card {
+    width: 90%;
+    padding: 20px;
+  }
+}
+
+
+//
+.selected {
+  background-color: #007bff; /* Change as needed */
+  color: white;
+
+}
+.cursorStyle{
+  cursor: pointer;
+}
+

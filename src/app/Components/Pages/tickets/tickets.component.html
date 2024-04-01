@@ -1,0 +1,80 @@
+<div class="container-fluid background1">
+  <div class="d-flex align-items-lg-center h-50 p-5">
+
+    <h5 class="text-light project-header-title">Tickets</h5>
+  </div>
+</div>
+
+<div class="container margintop">
+  <form #myForm="ngForm" (ngSubmit)="AddTicket(myForm)">
+    <div class="row gy-5">
+      <div class="col-lg-4">
+        <div class="dropdown-card">
+          <select class="project-select form-select" [(ngModel)]="ticket.projectId" name="projectid">
+            <option value="type_support" disabled> Ticket type</option>
+            <!-- <option> General</option> -->
+            @for (project of projectsToselect; track project.id) {
+            <option [value]="project.id">{{project.name}}</option>
+            }
+
+          </select>
+        </div>
+      </div>
+      <div class="col-lg-8 position-relative">
+        <input type="text" name="subject" class="rectangle h-16 w-100 mb-3 form-control shadow"
+          placeholder="Enter Subject" [(ngModel)]="ticket.subject" #subject="ngModel" required
+          [ngClass]="{'is-invalid':(subject.touched || subject.dirty)&&subject.invalid}" minlength="3">
+        <span class='invalid-feedback'>
+          @if(subject.errors?.['required']){
+          <span>
+            Please enter Subject
+          </span>
+          }
+          @if (subject.errors?.['minlength']) {
+          <span>
+            The Subject must be longer than 3 characters
+          </span>
+          }
+        </span>
+        <input type="text" name="describe" class="rectangle w-100 mb-3 form-control shadow"
+          placeholder="Enter Description" [(ngModel)]="ticket.description" #description="ngModel" required
+          [ngClass]="{'is-invalid':(description.touched || description.dirty)&&description.invalid}" minlength="10">
+        <span class='invalid-feedback'>
+          @if(description.errors?.['required']){
+          <span>
+            Please enter description
+          </span>
+          }
+          @if (description.errors?.['minlength']) {
+          <span>
+            The description must be longer than 10 characters
+          </span>
+          }
+        </span>
+        <input type="submit" class="submit-button align-items-end position-absolute start-75"
+          [disabled]="myForm.invalid">
+      </div>
+
+    </div>
+  </form>
+</div>
+
+
+@if(successModel){
+<!-- <app-success-ticket-popup></app-success-ticket-popup> -->
+<!-- Semi-transparent background overlay -->
+<div class="overlay"></div>
+
+<div class="modal1">
+  <div class="modal-header1">
+    <button class="btn-close" (click)="hideFunc()"></button>
+  </div>
+  <div class="modal-content1">
+    <div class="modal-icon1">
+      <span>✔</span> <!-- Replace with an actual checkmark icon if needed -->
+    </div>
+    <h2>Your Ticket has been sent successfully, thank you!</h2>
+    <p class="text-success">Your ticket No. is 00000</p>
+  </div>
+</div>
+}
