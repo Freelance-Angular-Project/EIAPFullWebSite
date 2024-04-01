@@ -35,7 +35,7 @@ export class AdminDashboardComponent implements OnInit {
         password: ['', [Validators.required, Validators.minLength(6)]],
         confirmPassword: ['', [Validators.required]],
         phoneNumber: ['',[Validators.required],],
-        gender: [0, Validators.required],
+        gender: ['', Validators.required],
         Role: ['', [Validators.required]],
       },
       { validator: this.checkPasswords } as FormControlOptions
@@ -59,7 +59,7 @@ export class AdminDashboardComponent implements OnInit {
         password: this.accountForm.value.password,
         confirmPassword: this.accountForm.value.confirmPassword,
         phoneNumber: this.accountForm.value.phoneNumber,
-        gender: this.accountForm.value.gender
+        gender: +this.accountForm.value.gender
         };
       console.log('Account Data:', this.account);
       const selectedRole = this.accountForm.get('Role')!.value;
