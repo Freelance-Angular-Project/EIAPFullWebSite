@@ -102,6 +102,7 @@
       <label for="gender" class="col-sm-2">Gender</label>
       <div class="col-sm-10">
         <select formControlName="gender" class="form-control" id="gender">
+          <option value="-1" disabled>Choose Gender</option>
           <option value="0">Male</option>
           <option value="1">Female</option>
         </select>
@@ -112,7 +113,7 @@
       <label for="Role" class="col-sm-2">Role</label>
       <div class="col-sm-10">
         <select formControlName="Role" class="form-control" id="Role">
-          <option [disabled] value="0">Choose Role</option>
+          <option disabled value="0">Choose Role</option>
           @for(role of Roles; track $index)
           {
             <option [value]="role">{{role}}</option>

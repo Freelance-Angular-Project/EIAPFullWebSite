@@ -35,8 +35,8 @@ export class AdminDashboardComponent implements OnInit {
         password: ['', [Validators.required, Validators.minLength(6)]],
         confirmPassword: ['', [Validators.required]],
         phoneNumber: ['',[Validators.required],],
-        gender: ['', Validators.required],
-        Role: ['', [Validators.required]],
+        gender: ['-1', Validators.required],
+        Role: ['0', [Validators.required]],
       },
       { validator: this.checkPasswords } as FormControlOptions
     );
