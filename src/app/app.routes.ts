@@ -13,8 +13,6 @@ import { TicketsDashboardComponent } from './Components/Pages/Investigated Dashb
 import { TasksDashboardComponent } from './Components/Pages/Investigated Dashboard/tasks-dashboard/tasks-dashboard.component';
 import { InvestigatedAnalyticsComponent } from './Components/Pages/Investigated Dashboard/investigated-analytics/investigated-analytics.component';
 import { AdminDashboardComponent } from './Components/Pages/Admin/admin-dashboard/admin-dashboard.component';
-
-
 export const routes: Routes = [
   { path: '', redirectTo: '/Home', pathMatch: 'full' },
   { path: 'Home', component: MainHomeComponent, title: 'Home Page' },
@@ -23,6 +21,7 @@ export const routes: Routes = [
     component: Project1Component,
     title: 'Project Page'
   },
+
 
   {
     path: 'Tickets',
