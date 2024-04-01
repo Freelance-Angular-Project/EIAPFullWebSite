@@ -16,9 +16,10 @@
       <p class="tolalVisit">Total Percentage</p>
       <p>{{schoolProject.taskCompletePercentage}}</p>
       <!-- chart -->
-      <div style="display: block" class="h-50 w-100">
-        <canvas baseChart [data]="pieChartData" [options]="pieChartOptions" [type]="pieChartType">
-        </canvas>
+      <div style="display: block" class="h-75 w-100">
+        <!-- <canvas baseChart [data]="pieChartData" [options]="pieChartOptions" [type]="pieChartType">
+        </canvas> -->
+        <canvas #chartCanvas></canvas>
       </div>
     </div>
 
@@ -100,34 +101,34 @@
 
 
 <div class="margintop">
-    <!-- Tasks -->
-    <div class="row mt-5 w-90 mx-auto marginBottom">
-      <h1 class="reportTitle">Tasks</h1>
-      <div class="tableReports-container">
-        <table class="table-responsive">
-          <thead>
-            <tr>
-              <th>Tasks</th>
-              <th>Date</th>
-              <th>Status</th>
-              <th>Details</th>
-            </tr>
-          </thead>
-          <tbody>
-            @for (task of schoolProject.tasks; track task.id) {
-            <tr>
-              <td>{{task.name}}</td>
-              <td>{{task.endDate|date}}</td>
-              <td [class.text-success]="task.status==='New'" [class.text-danger]="task.status==='Rejected'"
-                [class.text-primary]="task.status==='Completed'">{{task.status}}</td>
-              <td><button class="border border-1 rounded-2 p-1 downloadBtn text-light"
-                  (click)="showModel1(task.id)">View</button></td>
-            </tr>
-            }
-          </tbody>
-        </table>
-      </div>
+  <!-- Tasks -->
+  <div class="row mt-5 w-90 mx-auto marginBottom">
+    <h1 class="reportTitle">Tasks</h1>
+    <div class="tableReports-container">
+      <table class="table-responsive">
+        <thead>
+          <tr>
+            <th>Tasks</th>
+            <th>Delivery Date</th>
+            <th>Status</th>
+            <th>Details</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (task of schoolProject.tasks; track task.id) {
+          <tr>
+            <td>{{task.name}}</td>
+            <td>{{task.endDate|date}}</td>
+            <td [class.text-success]="task.status==='New'" [class.text-danger]="task.status==='Rejected'"
+              [class.text-primary]="task.status==='Completed'">{{task.status}}</td>
+            <td><button class="border border-1 rounded-2 p-1 downloadBtn text-light"
+                (click)="showModel1(task.id)">View</button></td>
+          </tr>
+          }
+        </tbody>
+      </table>
     </div>
+  </div>
 </div>
 <!-- } -->
 
@@ -145,7 +146,8 @@
 
 
   <div class="modal-content1">
-    <div class="alert alert-danger mx-auto">
+
+    <div class="alert alert-danger mx-auto" [hidden]="currentTask.commentToSchool==null">
       Comment : {{currentTask.commentToSchool}}
     </div>
     <div class="container margintop">
@@ -155,47 +157,67 @@
           <h3 class="fw-bold taskTitle color1 ">{{currentTask.name}} </h3>
           <p class="color1">{{currentTask.details}}</p>
           @for (note of currentTask.assignments; track $index) {
-          <!-- <div class="d-flex gap-2"> -->
-            <p class="color1">Assignment Name{{$index+1}}: {{note.name}}</p>
+          <p class="color1">Assignment Name{{$index+1}}: {{note.name}}</p>
           <button class="download-upload-button" (click)="downloadFile(note.url)">download assignment
-
           </button>
-          <!-- </div> -->
           <hr>
           }
           <div class="margintop">
             <button class="submit-button me-3" (click)="hideModel()">Cancel</button>
-            <!-- <button class="submit-button">Done</button> -->
           </div>
         </div>
-        <!-- <div class="col-lg-1"></div> -->
         <div class="col-lg-8 mt-3 ">
           <div class="right-rect d-flex flex-column justify-content-center align-items-center">
             <img src="assets/file.png" width="80" height="77">
-            <button class="download-upload-button mt-2 mb-2" (click)="downloadFile(currentTask.files[0].url)">download template</button>
-            <!-- upload.component.html -->
+            <button class="download-upload-button mt-2 mb-2" (click)="downloadFile(currentTask.files[0].url)">download
+              template</button>
             <div class="row pt-3">
-              <!-- <div class="col-3 mb-3"> -->
-              <form (ngSubmit)="onSubmit()">
-                <input class="form-control mb-3" type="text" [(ngModel)]="model.Name" name="name" placeholder="describtion"
-                  required>
+              @if(currentTask.assignments && currentTask.assignments.length > 0){
+              <form (ngSubmit)="onSubmit()" [hidden]="currentTask.assignments[0].status==='Review'" #form1="ngForm">
+                <input class="form-control mb-3" type="text" [(ngModel)]="model.Name" name="name"
+                  placeholder="describtion" #description="ngModel" required>
                 <input class="form-control mb-3" type="file" (change)="onFileSelected($event)" name="file" required>
                 <button type="submit" class="download-upload-button mb-3">Upload</button>
               </form>
+              }
+              @else {
+              <form (ngSubmit)="onSubmit()" #form1="ngForm">
+                <input class="form-control mb-3" type="text" [(ngModel)]="model.Name" name="name"
+                  placeholder="describtion" #description="ngModel" required
+                  [ngClass]="{'is-invalid':(description.touched || description.dirty)&&description.invalid}"
+                  minlength="3">
+                <span class='invalid-feedback'>
+                  @if(description.errors?.['required']){
+                  <span>
+                    Please enter description
+                  </span>
+                  }
+                  @if (description.errors?.['minlength']) {
+                  <span>
+                    The description must be longer than 3 characters
+                  </span>
+                  }
+                </span>
+                <input class="form-control mb-3" type="file" (change)="onFileSelected($event)" name="file" required
+                  [ngClass]="{'is-invalid': fileTouched && fileInvalid}">
+                <span class='invalid-feedback'>
+                  @if(fileTouched && fileInvalid){
+                  <span>
+                    Please select a File
+                  </span>
+                  }
+                </span>
+                <button type="submit" class="download-upload-button mb-3" [disabled]="form1.invalid">Upload</button>
+              </form>
+              }
+              @if(isUploading){
+              <div class="loader-container"><span class="loader"></span></div>
+              }
             </div>
-            <!-- </div> -->
-            <!-- @for (fileurl of currentTask.files; track $index) { -->
-            <!-- <button class="download-upload-button mb-3 w-75" (click)="downloadFile(fileurl.url)">File No {{$index+1}}:
-              {{fileurl.url}}</button> -->
-              <!-- <button class="download-upload-button mb-3 w-75" (click)="downloadFile(currentTask.files[0].url)">File
-                {{currentTask.files[0].url}}</button> -->
-            <!-- } -->
           </div>
-
         </div>
       </div>
     </div>
-
   </div>
 </div>
 }

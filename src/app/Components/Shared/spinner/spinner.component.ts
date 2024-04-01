@@ -11,5 +11,7 @@ import { LoadingService } from '../../../Services/Loading/loading.service';
 })
 export class SpinnerComponent {
 
+  isLoading = this.loadingService.loading$;
+
   constructor(private loadingService: LoadingService) {}
 }

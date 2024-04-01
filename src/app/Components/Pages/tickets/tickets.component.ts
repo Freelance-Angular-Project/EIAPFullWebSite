@@ -5,11 +5,12 @@ import { TicketsService } from '../../../Services/Tickets/tickets.service';
 import { Tickets } from '../../../Models/tickets';
 import { SuccessTicketPopupComponent } from '../success-ticket-popup/success-ticket-popup.component';
 import { ProjectToSelect } from '../../../Models/project-to-select';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-tickets',
   standalone: true,
-  imports: [RouterModule, FormsModule, SuccessTicketPopupComponent],
+  imports: [RouterModule, FormsModule, SuccessTicketPopupComponent,CommonModule],
   templateUrl: './tickets.component.html',
   styleUrl: './tickets.component.scss',
 })

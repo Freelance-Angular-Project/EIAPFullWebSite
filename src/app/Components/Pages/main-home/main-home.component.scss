@@ -27,10 +27,11 @@ $header-background: #FFFFFF; // Slightly darker than card background
   box-shadow: 0 4px 6px $card-shadow;
   padding: 20px;
   position: relative;
-  height: 250px;
+  height: auto;
   margin-top: 60px; // Space for header
   // width: 250px; // Adjust to match width of cards
   color: #0B0D39;
+  margin-bottom: 15px;
 }
 
 .cardProject-header {
@@ -154,3 +155,4 @@ $header-background: #FFFFFF; // Slightly darker than card background
     margin-bottom: 20px;
   }
 }
+

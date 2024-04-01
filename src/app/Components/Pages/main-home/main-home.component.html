@@ -1,6 +1,6 @@
 <!-- Global Spinner Configuration -->
 <!-- <ngx-spinner  bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff" type="ball-spin-clockwise" [fullScreen] = "true"><p style="color: white" > Loading...</ngx-spinner> -->
-
+<app-spinner></app-spinner>
 <div class="container-fluid background1 p-lg-5 w-100">
 
   <div class="row gab-xl-3 ">
@@ -27,7 +27,7 @@
 
           <div class="cardProject">
             <div class="cardProject-header titlefont">{{project1.name|sliceFirstWord:5}}</div>
-            <p class="mt-3">{{project1.description1|sliceWord:12}}</p>
+            <p class="mt-3">{{project1.description1|sliceWord:25}}</p>
             <a class="text-primary text-decoration-none" [routerLink]="['/Project',project1.id]">Read More</a>
           </div>
         </div>
@@ -44,17 +44,17 @@
         }
         @else {
 
-          @for (project1 of projects; track project1.id) {
+        @for (project1 of projects; track project1.id) {
 
-            <div class="col-lg-3 col-12">
+        <div class="col-lg-3 col-12">
 
-              <div class="cardProject">
-                <div class="cardProject-header">{{project1.name|sliceFirstWord:5}}</div>
-                <p class="mt-3">{{project1.description1|sliceWord:12}}</p>
-                <a class="text-primary text-decoration-none" [routerLink]="['/Project',project1.id]">Read More</a>
-              </div>
-            </div>
-            }
+          <div class="cardProject">
+            <div class="cardProject-header">{{project1.name|sliceFirstWord:5}}</div>
+            <p class="mt-3">{{project1.description1|sliceWord:12}}</p>
+            <a class="text-primary text-decoration-none" [routerLink]="['/Project',project1.id]">Read More</a>
+          </div>
+        </div>
+        }
 
         }
       </div>
@@ -70,14 +70,38 @@
             <div class="input-group mb-5">
               <label class="form-label" for="email">Email</label>
               <input class="form-control" name="Email" type="email" id="email" placeholder="Enter Your Email"
-                formControlName="email">
+                formControlName="email" [ngClass]="{'is-invalid': (loginForm.get('email')?.touched ||
+                loginForm.get('email')?.dirty) &&
+                !loginForm.get('email')?.valid }" required email>
+
+              <span class="invalid-feedback">
+                @if (loginForm.get('email')?.errors?.['required']) {
+                <span>
+                  Please Enter Email.
+                </span>
+                }
+                @if (loginForm.get('email')?.errors?.['email']) {
+                <span>
+                  The Email must contain &#64; , .com like this test&#64;gmail.com.
+                </span>
+                }
+              </span>
             </div>
             <div class="input-group mb-5">
               <label class="form-label" for="password">Password</label>
               <input class="form-control" name="Password" type="password" id="password" placeholder="* * * * * * * * *"
-                formControlName="password">
+                formControlName="password" required [ngClass]="{'is-invalid': (loginForm.get('password')?.touched ||
+                loginForm.get('password')?.dirty) &&
+                !loginForm.get('password')?.valid }">
+                 <span class="invalid-feedback">
+                  @if (loginForm.get('password')?.errors?.['required']) {
+                  <span>
+                    Please Enter Password.
+                  </span>
+                }
+                  </span>
             </div>
-            <button type="submit" class="login-btn">LOGIN</button>
+            <button type="submit" class="login-btn" [disabled]="loginForm.invalid" [style.cursor]="(loginForm.invalid)?'auto':'pointer'">LOGIN</button>
           </form>
         </div>
       </div>

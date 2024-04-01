@@ -62,7 +62,7 @@ export class MainHomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-      // this.loadingService.startLoading();
+      this.loadingService.startLoading();
       // Assume some data loading logic here
     // get all projects
     this.projectService.getAllProjects().subscribe({
@@ -93,7 +93,12 @@ export class MainHomeComponent implements OnInit {
     this.adjustItemsPerScreen();
 
   }
-
+  get email() {
+    return this.loginForm.get('email');
+  }
+  get password() {
+    return this.loginForm.get('password');
+  }
   onLogin() {
     // console.log("hhhhhhhhhhhhhhhhhh");
 

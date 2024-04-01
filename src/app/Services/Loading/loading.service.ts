@@ -1,21 +1,23 @@
 import { Injectable } from '@angular/core';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoadingService {
-  constructor(private spinner: NgxSpinnerService) {}
+  private loadingSubject = new BehaviorSubject<boolean>(false);
+  public loading$ = this.loadingSubject.asObservable();
+  constructor() {}
 
   startLoading() {
-    this.spinner.show();
+    this.loadingSubject.next(true);
     setTimeout(() => {
-      this.spinner.hide();
-    }, 2000); // Automatically hide after 2 seconds
+      this.loadingSubject.next(false);
+    }, 2000); // Automatically stop loading after 2 seconds
   }
 
-  // You can still manually stop the loading if needed
   stopLoading() {
-    this.spinner.hide();
+    this.loadingSubject.next(false);
   }
 }

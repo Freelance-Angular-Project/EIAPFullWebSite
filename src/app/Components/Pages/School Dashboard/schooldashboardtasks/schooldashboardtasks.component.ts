@@ -1,10 +1,10 @@
 import {
   AfterViewInit,
-  ChangeDetectorRef,
   Component,
+  ElementRef,
   OnInit,
+  ViewChild,
 } from '@angular/core';
-import { DownloadviewModelComponent } from '../../downloadview-model/downloadview-model.component';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { SchoolService } from '../../../../Services/School/school.service';
 import { ProjectInSchool } from '../../../../Models/project-in-school';
@@ -17,7 +17,16 @@ import { FormsModule } from '@angular/forms';
 import { Uploadfile } from '../../../../Models/uploadfile';
 import { School } from '../../../../Models/school';
 import { NgChartsModule } from 'ng2-charts';
-import { ChartData, ChartOptions, ChartType } from 'chart.js';
+import {
+  BubbleDataPoint,
+  Chart,
+  ChartConfiguration,
+  ChartData,
+  ChartOptions,
+  ChartType,
+  ChartTypeRegistry,
+  ScatterDataPoint,
+} from 'chart.js';
 import { AddAssignment } from '../../../../Models/add-assignment';
 import { AssignmentFileService } from '../../../../Services/Assignments/assignment-file.service';
 
@@ -28,7 +37,7 @@ import { AssignmentFileService } from '../../../../Services/Assignments/assignme
   templateUrl: './schooldashboardtasks.component.html',
   styleUrl: './schooldashboardtasks.component.scss',
 })
-export class SchooldashboardtasksComponent implements OnInit {
+export class SchooldashboardtasksComponent implements OnInit, AfterViewInit {
   school: School = {} as School;
 
   currentProjectID: string = '';
@@ -37,22 +46,16 @@ export class SchooldashboardtasksComponent implements OnInit {
   CurrentTaskId: string = '';
   currentTask: TaskDetails = {} as TaskDetails;
   selectedFile: File | null = null;
-  // pie
-  // Pie chart configuration
-  public pieChartOptions: ChartOptions = {
-    responsive: true,
-    // Add any specific options you need
-  };
-  public pieChartType: ChartType = 'pie';
-  public pieChartData: ChartData<'pie'> = {
-    labels: ['Completed', 'Not Completed'],
-    datasets: [
-      {
-        data: [],
-        backgroundColor: ['#4791ff', '#fbdb54'], // Colors for completed and not completed
-      },
-    ],
-  };
+  assignmentofzerostatus: string = '';
+  // form file input check
+  fileTouched = false;
+  fileInvalid = false;
+  // chart
+  @ViewChild('chartCanvas') chartCanvas!: ElementRef<HTMLCanvasElement>;
+  // loader when upload
+  isUploading: boolean = false;
+  private chart: Chart<'pie', number[], string> | undefined;
+
   constructor(
     private activatedrouter: ActivatedRoute,
     private schoolservice: SchoolService,
@@ -61,8 +64,11 @@ export class SchooldashboardtasksComponent implements OnInit {
     private fileService: FilesService,
     private schoolService: SchoolService,
     private router: Router,
-    private assignmentsfile:AssignmentFileService
+    private assignmentsfile: AssignmentFileService
   ) {}
+  ngAfterViewInit(): void {
+    this.initializeChart();
+  }
 
   ngOnInit(): void {
     this.activatedrouter.paramMap.subscribe((param) => {
@@ -77,8 +83,7 @@ export class SchooldashboardtasksComponent implements OnInit {
             // charts
             const completed = project.taskCompletePercentage + 60;
             const notcompleted = 100 - completed;
-            this.pieChartData.datasets[0].data = [completed, notcompleted];
-            this.pieChartData.datasets = [...this.pieChartData.datasets];
+            this.updateChart([completed, notcompleted]);
           },
           error: (err) => {
             console.log('error in project', err);
@@ -93,20 +98,23 @@ export class SchooldashboardtasksComponent implements OnInit {
         console.error('There was an error!', error);
       },
     });
+
+    // this.assignmentofzerostatus=this.currentTask.assignments[0].status;
   }
   showModel1(taskid: string) {
     if (taskid) {
       this.showModel = true;
       this.CurrentTaskId = taskid;
+
       this.schoolService.GetTaskDetailsToSchool(this.CurrentTaskId).subscribe({
         next: (taskDetails) => {
           console.log(taskDetails);
           this.currentTask = taskDetails;
-
         },
-        error:(error)=>{console.log(error);
-        }
-      })
+        error: (error) => {
+          console.log(error);
+        },
+      });
       //Old error logic
       // this.taskService.getTaskById(this.CurrentTaskId).subscribe({
       //   next: (task) => {
@@ -162,10 +170,15 @@ export class SchooldashboardtasksComponent implements OnInit {
   onFileSelected(event: any) {
     if (event.target.files.length > 0) {
       this.model.File = event.target.files[0];
+      this.fileTouched = true;
+      this.fileInvalid = false;
+    } else {
+      this.fileInvalid = true; // No file selected
     }
   }
 
   onSubmit() {
+    this.isUploading = true;
     this.model.TaskId = this.currentTask.id;
     // this.model.ProjectId = this.schoolProject.id;
     // this.model.schoolId = this.school.id;
@@ -194,11 +207,50 @@ export class SchooldashboardtasksComponent implements OnInit {
     this.assignmentsfile.uploadFile(formData).subscribe({
       next: (response) => {
         console.log('Upload successful', response);
-        this.router.navigate(['/SchoolDashboardTask',this.schoolProject.id]);
-        this.showModel=false;
+        this.router.navigate(['/SchoolDashboardTask', this.schoolProject.id]);
+        this.showModel = false;
         // this.location.back();
+        this.isUploading = false;
       },
-      error: (error) => console.error('Error uploading file', error),
+      error: (error) => {
+        console.error('Error uploading file', error);
+        this.isUploading = false;
+      },
     });
+  }
+
+  initializeChart() {
+    if (!this.chartCanvas) return; // Guard clause if chartCanvas is not available
+
+    const context = this.chartCanvas.nativeElement.getContext('2d');
+    if (context) {
+      // Initialize the chart using the context
+      this.chart = new Chart(context, {
+        type: 'pie',
+        data: {
+          labels: ['Completed', 'Not Completed'],
+          datasets: [
+            {
+              data: [], // Example data
+              backgroundColor: ['#4791ff', '#fbdb54'],
+            },
+          ],
+        },
+        options: {
+          responsive: true,
+          // Try initially without animation to see if the error is related to it
+          maintainAspectRatio: false,
+        },
+      });
+    } else {
+      console.error('Failed to get canvas context');
+    }
+  }
+
+  updateChart(data: number[]) {
+    if (this.chart) {
+      this.chart.data.datasets[0].data = data;
+      this.chart.update();
+    }
   }
 }
