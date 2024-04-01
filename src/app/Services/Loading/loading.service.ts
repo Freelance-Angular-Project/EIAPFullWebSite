@@ -14,7 +14,7 @@ export class LoadingService {
     this.loadingSubject.next(true);
     setTimeout(() => {
       this.loadingSubject.next(false);
-    }, 2000); // Automatically stop loading after 2 seconds
+    }, 1000); // Automatically stop loading after 2 seconds
   }
 
   stopLoading() {
