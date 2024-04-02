@@ -1,0 +1,30 @@
+<div class="container-fluid background1 mb-5">
+  <div class="d-flex align-items-center h-50 p-5">
+
+    <h5 class="text-light project-header-title">Admin Dashboard</h5>
+  </div>
+</div>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-lg-2">
+      <div id="dashboard-wrapper">
+        <!-- Sidebar -->
+        <div id="sidebar" class="bg-sidebar">
+          <div class="sidebar-sticky">
+            <ul class="nav flex-column">
+              <li class="nav-item"><a class="nav-link" routerLink="/AdminDashboard" routerLinkActive="active"><i
+                    class="fas fa-project-diagram"></i> Accounts</a></li>
+              <li class="nav-item"><a class="nav-link" routerLink="/AdminSchool" routerLinkActive="active"><i class="fas fa-tasks"></i> School</a></li>
+              <!-- <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-calendar-week"></i> Events</a></li>
+              <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-life-ring"></i> Tickets</a></li>
+              <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-users"></i> Users</a></li> -->
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-10">
+      <router-outlet></router-outlet>
+
+    </div>
+  </div>

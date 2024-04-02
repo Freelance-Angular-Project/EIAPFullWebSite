@@ -13,15 +13,16 @@ import { TicketsDashboardComponent } from './Components/Pages/Investigated Dashb
 import { TasksDashboardComponent } from './Components/Pages/Investigated Dashboard/tasks-dashboard/tasks-dashboard.component';
 import { InvestigatedAnalyticsComponent } from './Components/Pages/Investigated Dashboard/investigated-analytics/investigated-analytics.component';
 import { AdminDashboardComponent } from './Components/Pages/Admin/admin-dashboard/admin-dashboard.component';
+import { MainLayoutAdminComponent } from './Components/Pages/Admin/main-layout-admin/main-layout-admin.component';
+import { SchoolManagementComponent } from './Components/Pages/Admin/school-management/school-management.component';
 export const routes: Routes = [
   { path: '', redirectTo: '/Home', pathMatch: 'full' },
   { path: 'Home', component: MainHomeComponent, title: 'Home Page' },
   {
     path: 'Project/:id',
     component: Project1Component,
-    title: 'Project Page'
+    title: 'Project Page',
   },
-
 
   {
     path: 'Tickets',
@@ -33,7 +34,7 @@ export const routes: Routes = [
   {
     path: 'Events',
     component: EventsComponent,
-    title: 'Events Page'
+    title: 'Events Page',
   },
   //School Manager
   {
@@ -57,16 +58,15 @@ export const routes: Routes = [
     component: ProjectDashboardComponent,
     title: 'Project Dashboard Page',
     canActivate: [roleGuardGuard],
-    data: { role: ['ProjectManager','Admin'] },
+    data: { role: ['ProjectManager', 'Admin'] },
   },
   {
     path: 'ProjectAnalytics',
     component: ProjectAnalyticsComponent,
     title: 'Project Analytics Page',
     canActivate: [roleGuardGuard],
-    data: { role: ['ProjectManager','Admin'] },
+    data: { role: ['ProjectManager', 'Admin'] },
   },
-
 
   //Investigated
   {
@@ -74,7 +74,7 @@ export const routes: Routes = [
     component: TicketsDashboardComponent,
     title: 'Tickets Dashboard Page',
     canActivate: [roleGuardGuard],
-    data: { role: ['Investigated','Admin'] },
+    data: { role: ['Investigated', 'Admin'] },
   },
 
   {
@@ -82,7 +82,7 @@ export const routes: Routes = [
     component: TasksDashboardComponent,
     title: 'Tasks Dashboard Page',
     canActivate: [roleGuardGuard],
-    data: { role: ['Investigated','Admin'] },
+    data: { role: ['Investigated', 'Admin'] },
   },
 
   {
@@ -90,18 +90,36 @@ export const routes: Routes = [
     component: InvestigatedAnalyticsComponent,
     title: 'Investigated Analytics Page',
     canActivate: [roleGuardGuard],
-    data: { role: ['Investigated','Admin'] },
+    data: { role: ['Investigated', 'Admin'] },
   },
   //Admin
+  // {
+  //   path: 'AdminDashboard',
+  //   component: AdminDashboardComponent,
+  //   title: 'Admin Dashboard Page',
+  //   canActivate: [roleGuardGuard],
+  //   data: { role: ['Admin'] },
+  // },
   {
-    path: 'AdminDashboard',
-    component: AdminDashboardComponent,
-    title: 'Admin Dashboard Page',
-    canActivate: [roleGuardGuard],
-    data: { role: ['Admin'] },
+    path: '',
+    component: MainLayoutAdminComponent, canActivate: [roleGuardGuard],
+      data: { role: ['Admin'] },children: [
+      {
+        path: 'AdminDashboard',
+        component: AdminDashboardComponent,
+        title: 'Admin Dashboard Page',
+        canActivate: [roleGuardGuard],
+        data: { role: ['Admin'] },
+      },
+      {
+        path: 'AdminSchool',
+        component: SchoolManagementComponent,
+        title: 'School Dashboard Page',
+        canActivate: [roleGuardGuard],
+        data: { role: ['Admin'] },
+      },
+    ],
   },
-
-
 
   { path: '**', component: NotFoundPageComponent, title: 'not found page' },
 ];

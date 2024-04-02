@@ -6,6 +6,7 @@ import { Schooltoselect } from '../../Models/schooltoselect';
 import { ProjectInSchool } from '../../Models/project-in-school';
 import { environment } from '../../../environments/environment.development';
 import { TaskDetails } from '../../Models/task-details';
+import { PostSchool } from '../../Models/post-school';
 
 @Injectable({
   providedIn: 'root',
@@ -64,18 +65,12 @@ export class SchoolService {
   }
 
 
-
-
-
-
-
-
-
-
   // POST /api/School
-  createSchool(school: School): Observable<School> {
-    return this.http.post<School>(this.baseUrl, school);
+  createSchool(school: PostSchool): Observable<PostSchool> {
+    return this.http.post<PostSchool>(this.baseUrl, school,this.httpOptions);
   }
+
+
 
 
 

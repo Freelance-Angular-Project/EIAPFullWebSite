@@ -1,0 +1,131 @@
+@if(toastService.showToast | async){
+  <div class="alert w-50 mx-auto alert-dismissible" [class.alert-success]="!(toastService.isError | async)"
+    [class.alert-danger]="(toastService.isError | async)">
+
+      {{ toastService.message | async }}
+      <button type="button" class="btn-close" (click)="toastService.showToast.next(false)"></button>
+  </div>
+  }
+
+<div class="container">
+  <form [formGroup]="schoolForm" (ngSubmit)="onSubmitSchool()" class="needs-validation" novalidate>
+    <div class="form-group mb-3 row">
+      <label for="fullName" class="col-sm-2">School Name</label>
+      <div class="col-sm-10">
+        <input type="text" formControlName="name" class="form-control" id="fullName" placeholder="Enter School name">
+        @if(name?.touched && name?.errors?.['required'])
+        {
+        <div class="text-danger">
+          School Name is required
+        </div>
+        }
+
+      </div>
+
+
+    </div>
+
+    <div class="form-group mb-3 row">
+      <label for="code" class="col-sm-2">Code</label>
+      <div class="col-sm-10">
+        <input type="text" formControlName="code" class="form-control" id="code" placeholder="Enter code">
+        @if(code?.touched &&code?.errors?.['required'])
+        {
+        <div class="text-danger">
+          Code is required
+        </div>
+        }
+      </div>
+
+    </div>
+
+    <div class="form-group mb-3 row">
+      <label for="curriculums" class="col-sm-2">Curriculums</label>
+      <div class="col-sm-10">
+        <input type="text" formControlName="curriculums" class="form-control" id="curriculums"
+          placeholder="Enter curriculums">
+        @if(curriculums?.touched &&curriculums?.errors?.['required'])
+        {
+        <div class="text-danger">
+          Curriculums is required
+        </div>
+        }
+      </div>
+
+    </div>
+
+    <div class="form-group mb-3 row">
+      <label for="educationType" class="col-sm-2">Education Type</label>
+      <div class="col-sm-10">
+        <input type="text" formControlName="educationType" class="form-control" id="educationType">
+        @if(educationType?.touched &&educationType?.errors?.['required'])
+        {
+        <div class="text-danger">
+          Education Type is required
+        </div>
+        }
+      </div>
+
+
+    </div>
+
+    <div class="form-group mb-3 row">
+      <label for="grade" class="col-sm-2">Grade</label>
+      <div class="col-sm-10">
+        <input type="text" formControlName="grade" class="form-control" id="grade" placeholder="Enter Grade ">
+        @if(grade?.touched &&grade?.errors?.['required'])
+        {
+        <div class="text-danger">
+          Grade is required
+        </div>
+        }
+      </div>
+
+
+    </div>
+
+    <div class="form-group mb-3 row">
+      <label for="zone" class="col-sm-2">Zone</label>
+      <div class="col-sm-10">
+        <input type="text" formControlName="zone" class="form-control" id="zone" placeholder="Enter Zone ">
+        @if(zone?.touched &&zone?.errors?.['required'])
+        {
+        <div class="text-danger">
+          Zone is required
+        </div>
+        }
+      </div>
+    </div>
+
+    <div class="form-group mb-3 row">
+      <label for="userId" class="col-sm-2">School Manager</label>
+      <div class="col-sm-10">
+        <select formControlName="userId" class="form-control" id="userId">
+          <option disabled value="0">Choose Manager</option>
+          @for(smanager of schoolmanagers; track $index)
+          {
+          <option [value]="smanager.id">{{smanager.name}}</option>
+          }
+        </select>
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary mb-5" [disabled]="!schoolForm.valid">Submit</button>
+  </form>
+
+</div>
+
+
+<!-- @if(toastService.showToast | async){
+<div class="toast show" [class.bg-success]="!(toastService.isError | async)"
+  [class.bg-danger]="(toastService.isError | async)" style="position: fixed; top: 200px; right: 20px; z-index: 1060;">
+  <div class="toast-header d-flex justify-content-between">
+    <button type="button" class="ml-2 mb-1 btn-close" data-dismiss="toast" aria-label="Close"
+      (click)="toastService.showToast.next(false)">
+    </button>
+  </div>
+  <div class="toast-body">
+    {{ toastService.message | async }}
+  </div>
+</div>
+} -->

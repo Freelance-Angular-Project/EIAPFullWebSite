@@ -1,9 +1,12 @@
-<div class="container-fluid background1 mb-5">
-  <div class="d-flex align-items-center h-50 p-5">
+@if(toastService.showToast | async){
+  <div class="alert w-50 mx-auto alert-dismissible" [class.alert-success]="!(toastService.isError | async)"
+    [class.alert-danger]="(toastService.isError | async)">
 
-    <h5 class="text-light project-header-title">Admin Dashboard</h5>
+      {{ toastService.message | async }}
+      <button type="button" class="btn-close" (click)="toastService.showToast.next(false)"></button>
   </div>
-</div>
+  }
+
 
 <div class="container">
   <form [formGroup]="accountForm" (ngSubmit)="onSubmit()" class="needs-validation" novalidate>
@@ -71,7 +74,7 @@
     <div class="form-group mb-3 row">
       <label for="confirmPassword" class="col-sm-2">Confirm Password</label>
       <div class="col-sm-10">
-        <input type="password" formControlName="confirmPassword" class="form-control" id="confirmPassword" autocomplete="new-password">
+        <input type="password" formControlName="confirmPassword" class="form-control" id="confirmPassword" placeholder="Enter Confirm password" autocomplete="new-password">
         @if(accountForm.errors?.['notSame'])
         {
           <div class="text-danger">

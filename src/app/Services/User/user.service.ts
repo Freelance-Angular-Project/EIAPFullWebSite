@@ -6,6 +6,7 @@ import { LoginResponse } from '../../Models/login-response';
 import { jwtDecode } from "jwt-decode";
 import { environment } from '../../../environments/environment.development';
 import { Account } from '../../Models/account';
+import { Role } from '../../Models/role';
 
 @Injectable({
   providedIn: 'root',
@@ -56,8 +57,8 @@ export class UserService {
       );
   }
 
-  getUsersInRole(roleName: string): Observable<LoginResponse[]> {
-    return this.http.get<LoginResponse[]>(
+  getUsersInRole(roleName: string): Observable<Role[]> {
+    return this.http.get<Role[]>(
       `${this.baseUrl}/usersInRole/${roleName}`
     );
   }
