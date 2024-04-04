@@ -1,11 +1,11 @@
 @if(toastService.showToast | async){
-  <div class="alert w-50 mx-auto alert-dismissible" [class.alert-success]="!(toastService.isError | async)"
-    [class.alert-danger]="(toastService.isError | async)">
+<div class="alert w-50 mx-auto alert-dismissible" [class.alert-success]="!(toastService.isError | async)"
+  [class.alert-danger]="(toastService.isError | async)">
 
-      {{ toastService.message | async }}
-      <button type="button" class="btn-close" (click)="toastService.showToast.next(false)"></button>
-  </div>
-  }
+  {{ toastService.message | async }}
+  <button type="button" class="btn-close" (click)="toastService.showToast.next(false)"></button>
+</div>
+}
 
 <div class="container">
   <form [formGroup]="schoolForm" (ngSubmit)="onSubmitSchool()" class="needs-validation" novalidate>
@@ -26,13 +26,13 @@
     </div>
 
     <div class="form-group mb-3 row">
-      <label for="code" class="col-sm-2">Code</label>
+      <label for="code" class="col-sm-2">ID</label>
       <div class="col-sm-10">
-        <input type="text" formControlName="code" class="form-control" id="code" placeholder="Enter code">
+        <input type="text" formControlName="code" class="form-control" id="code" placeholder="Enter ID">
         @if(code?.touched &&code?.errors?.['required'])
         {
         <div class="text-danger">
-          Code is required
+          ID is required
         </div>
         }
       </div>
@@ -96,17 +96,36 @@
         }
       </div>
     </div>
-
-    <div class="form-group mb-3 row">
-      <label for="userId" class="col-sm-2">School Manager</label>
+    <!-- <div class="form-group mb-3 row">
+      <label for="userId" class="col-sm-2 col-form-label">School Manager</label>
       <div class="col-sm-10">
-        <select formControlName="userId" class="form-control" id="userId">
-          <option disabled value="0">Choose Manager</option>
-          @for(smanager of schoolmanagers; track $index)
-          {
-          <option [value]="smanager.id">{{smanager.name}}</option>
+        <input class="form-control" list="managers" id="userId" placeholder="Choose Manager" formControlName="userId" />
+        <datalist id="managers">
+          @for (smanager of schoolmanagers; track $index) {
+          <option [value]="smanager.email"></option>
           }
-        </select>
+        </datalist>
+
+      </div>
+    </div> -->
+    <div class="form-group mb-3 row">
+      <label for="userId" class="col-sm-2 col-form-label">School Manager</label>
+      <div class="col-sm-10 position-relative">
+        <input class="form-control" id="userId" placeholder="Choose Manager" formControlName="userId"
+          (input)="performFilter($event)" />
+        <input class="form-control" id="newUserId" placeholder="Choose Manager" formControlName="newUserId" hidden />
+        <input type="hidden" formControlName="userId">
+        @if (filteredSchoolManagers.length > 0) {
+        <div class="filter-results">
+          @for (manager of filteredSchoolManagers; track manager.id) {
+          <div (click)="selectManager(manager)" class="result-item">
+            {{ manager.email }}
+          </div>
+          }
+        </div>
+
+        }
+
       </div>
     </div>
 
@@ -114,18 +133,3 @@
   </form>
 
 </div>
-
-
-<!-- @if(toastService.showToast | async){
-<div class="toast show" [class.bg-success]="!(toastService.isError | async)"
-  [class.bg-danger]="(toastService.isError | async)" style="position: fixed; top: 200px; right: 20px; z-index: 1060;">
-  <div class="toast-header d-flex justify-content-between">
-    <button type="button" class="ml-2 mb-1 btn-close" data-dismiss="toast" aria-label="Close"
-      (click)="toastService.showToast.next(false)">
-    </button>
-  </div>
-  <div class="toast-body">
-    {{ toastService.message | async }}
-  </div>
-</div>
-} -->

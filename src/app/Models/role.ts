@@ -1,4 +1,7 @@
 export interface Role {
   id:string;
-  name:string;
+  fullName:string;
+  email:string;
+  gender:string;
+  phoneNumber:string;
 }

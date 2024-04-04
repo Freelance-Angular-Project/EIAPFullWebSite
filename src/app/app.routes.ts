@@ -15,6 +15,8 @@ import { InvestigatedAnalyticsComponent } from './Components/Pages/Investigated 
 import { AdminDashboardComponent } from './Components/Pages/Admin/admin-dashboard/admin-dashboard.component';
 import { MainLayoutAdminComponent } from './Components/Pages/Admin/main-layout-admin/main-layout-admin.component';
 import { SchoolManagementComponent } from './Components/Pages/Admin/school-management/school-management.component';
+import { AccountsBasedOnRolesComponent } from './Components/Pages/Admin/accounts-based-on-roles/accounts-based-on-roles.component';
+import { GetSchoolsComponent } from './Components/Pages/Admin/get-schools/get-schools.component';
 export const routes: Routes = [
   { path: '', redirectTo: '/Home', pathMatch: 'full' },
   { path: 'Home', component: MainHomeComponent, title: 'Home Page' },
@@ -115,6 +117,18 @@ export const routes: Routes = [
         path: 'AdminSchool',
         component: SchoolManagementComponent,
         title: 'School Dashboard Page',
+        canActivate: [roleGuardGuard],
+        data: { role: ['Admin'] },
+      },{
+        path: 'GetAccounts',
+        component: AccountsBasedOnRolesComponent,
+        title: 'Accounts based on role Page',
+        canActivate: [roleGuardGuard],
+        data: { role: ['Admin'] },
+      },{
+        path: 'GetSchools',
+        component: GetSchoolsComponent,
+        title: 'Get Schools Page',
         canActivate: [roleGuardGuard],
         data: { role: ['Admin'] },
       },
