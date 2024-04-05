@@ -40,7 +40,6 @@ export class AccountsBasedOnRolesComponent implements OnInit {
 
     this.userservice.getUsersInRole(this.selectedRole).subscribe({
       next: (users) => {
-        // console.log(users);
         this.users = users;
       },
       error: (err) => {
