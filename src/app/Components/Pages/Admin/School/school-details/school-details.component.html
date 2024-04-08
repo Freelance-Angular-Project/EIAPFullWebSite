@@ -1,0 +1,72 @@
+@if(schooldetails){
+<section class="intro">
+  <div class="mask d-flex align-items-center h-100">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-body">
+              <div class="table-responsive">
+                <h1 class="text-center colorIntable mb-5">{{schooldetails.name}} Detail Views </h1>
+                <table class="table table-hover mb-0">
+                  <tbody>
+                    <tr>
+                      <th scope="row">School Name</th>
+                      <td>{{schooldetails.name}}</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">School Email</th>
+                      <td>{{schooldetails.schoolEmail}}</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">School ID</th>
+                      <td>
+                        {{schooldetails.code}}
+                      </td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Curriculums</th>
+
+                      <td>
+                        {{schooldetails.curriculums}}
+                      </td>
+
+                    </tr>
+                    <tr>
+                      <th scope="row">Education Type</th>
+
+                      <td>
+                        {{schooldetails.educationType}}
+                      </td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Grade</th>
+
+                      <td>
+                        {{schooldetails.grade}}
+                      </td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Zone</th>
+
+                      <td>
+                        {{schooldetails.zone}}
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+      <button class="button-91 ms-2 mt-3" (click)="goBack()">Back</button>
+
+    </div>
+
+  </div>
+
+</section>
+}

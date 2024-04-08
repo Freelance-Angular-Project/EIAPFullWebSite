@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { UserService } from '../../../../Services/User/user.service';
-import { Role } from '../../../../Models/role';
+import { UserService } from '../../../../../Services/User/user.service';
+import { Role } from '../../../../../Models/role';
 
 @Component({
   selector: 'app-accounts-based-on-roles',

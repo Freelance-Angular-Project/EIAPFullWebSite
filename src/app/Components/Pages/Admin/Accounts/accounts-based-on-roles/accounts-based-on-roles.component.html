@@ -1,0 +1,50 @@
+<div class="container">
+  <form>
+    <div class="form-group mb-3 row">
+      <label for="Role" class="col-sm-2">Role</label>
+      <div class="col-sm-10">
+        <select [(ngModel)]="selectedRole" class="form-control" id="Role" name="role"
+          (ngModelChange)="onRoleChange($event)">
+          <option disabled value="">Choose Role</option>
+          @for(role of Roles; track $index)
+          {
+          <option [value]="role">{{role}}</option>
+          }
+
+        </select>
+      </div>
+    </div>
+  </form>
+  <hr>
+  @if(users){
+    <div class="tbl-header">
+      <table cellpadding="0" cellspacing="0" class="border-0">
+        <thead>
+          <tr>
+            <th scope="col">No</th>
+            <th scope="col">Full Name</th>
+            <th scope="col">Email</th>
+            <th scope="col">Gender</th>
+            <th scope="col">Phone Number</th>
+          </tr>
+        </thead>
+      </table>
+    </div>
+      <div class="tbl-content">
+        <table cellpadding="0" cellspacing="0" class="border-0">
+          <tbody>
+            @for ( user of users ; track $index) {
+            <tr>
+              <td>{{$index+1}}</td>
+              <td>{{user.fullName}}</td>
+              <td>{{user.email}}</td>
+              <td>{{user.gender}}</td>
+              <td>{{user.phoneNumber}}</td>
+            </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+
+  }
+</div>

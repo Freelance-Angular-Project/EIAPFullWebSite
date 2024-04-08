@@ -6,10 +6,10 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { UserService } from '../../../../Services/User/user.service';
-import { Account } from '../../../../Models/account';
+import { UserService } from '../../../../../Services/User/user.service';
+import { Account } from '../../../../../Models/account';
 import { CommonModule } from '@angular/common';
-import { ToastService } from '../../../../Services/Toast/toast.service';
+import { ToastService } from '../../../../../Services/Toast/toast.service';
 
 @Component({
   selector: 'app-admin-dashboard',

@@ -5,11 +5,11 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { SchoolService } from '../../../../Services/School/school.service';
-import { PostSchool } from '../../../../Models/post-school';
-import { UserService } from '../../../../Services/User/user.service';
-import { Role } from '../../../../Models/role';
-import { ToastService } from '../../../../Services/Toast/toast.service';
+import { SchoolService } from '../../../../../Services/School/school.service';
+import { PostSchool } from '../../../../../Models/post-school';
+import { UserService } from '../../../../../Services/User/user.service';
+import { Role } from '../../../../../Models/role';
+import { ToastService } from '../../../../../Services/Toast/toast.service';
 import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-school-management',

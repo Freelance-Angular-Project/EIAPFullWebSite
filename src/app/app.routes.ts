@@ -12,11 +12,15 @@ import { ProjectAnalyticsComponent } from './Components/Pages/Project Manager Da
 import { TicketsDashboardComponent } from './Components/Pages/Investigated Dashboard/tickets-dashboard/tickets-dashboard.component';
 import { TasksDashboardComponent } from './Components/Pages/Investigated Dashboard/tasks-dashboard/tasks-dashboard.component';
 import { InvestigatedAnalyticsComponent } from './Components/Pages/Investigated Dashboard/investigated-analytics/investigated-analytics.component';
-import { AdminDashboardComponent } from './Components/Pages/Admin/admin-dashboard/admin-dashboard.component';
+import { AdminDashboardComponent } from './Components/Pages/Admin/Accounts/admin-dashboard/admin-dashboard.component';
 import { MainLayoutAdminComponent } from './Components/Pages/Admin/main-layout-admin/main-layout-admin.component';
-import { SchoolManagementComponent } from './Components/Pages/Admin/school-management/school-management.component';
-import { AccountsBasedOnRolesComponent } from './Components/Pages/Admin/accounts-based-on-roles/accounts-based-on-roles.component';
-import { GetSchoolsComponent } from './Components/Pages/Admin/get-schools/get-schools.component';
+import { SchoolManagementComponent } from './Components/Pages/Admin/School/school-management/school-management.component';
+import { AccountsBasedOnRolesComponent } from './Components/Pages/Admin/Accounts/accounts-based-on-roles/accounts-based-on-roles.component';
+import { GetSchoolsComponent } from './Components/Pages/Admin/School/get-schools/get-schools.component';
+import { SchoolDetailsComponent } from './Components/Pages/Admin/School/school-details/school-details.component';
+import { EditSchoolComponent } from './Components/Pages/Admin/School/edit-school/edit-school.component';
+import { ViewsNewsComponent } from './Components/Pages/Admin/News/views-news/views-news.component';
+import { ViewTicketsComponent } from './Components/Pages/Admin/Tickets/view-tickets/view-tickets.component';
 export const routes: Routes = [
   { path: '', redirectTo: '/Home', pathMatch: 'full' },
   { path: 'Home', component: MainHomeComponent, title: 'Home Page' },
@@ -94,18 +98,12 @@ export const routes: Routes = [
     canActivate: [roleGuardGuard],
     data: { role: ['Investigated', 'Admin'] },
   },
-  //Admin
-  // {
-  //   path: 'AdminDashboard',
-  //   component: AdminDashboardComponent,
-  //   title: 'Admin Dashboard Page',
-  //   canActivate: [roleGuardGuard],
-  //   data: { role: ['Admin'] },
-  // },
   {
     path: '',
-    component: MainLayoutAdminComponent, canActivate: [roleGuardGuard],
-      data: { role: ['Admin'] },children: [
+    component: MainLayoutAdminComponent,
+    canActivate: [roleGuardGuard],
+    data: { role: ['Admin'] },
+    children: [
       {
         path: 'AdminDashboard',
         component: AdminDashboardComponent,
@@ -119,16 +117,46 @@ export const routes: Routes = [
         title: 'School Dashboard Page',
         canActivate: [roleGuardGuard],
         data: { role: ['Admin'] },
-      },{
+      },
+      {
         path: 'GetAccounts',
         component: AccountsBasedOnRolesComponent,
         title: 'Accounts based on role Page',
         canActivate: [roleGuardGuard],
         data: { role: ['Admin'] },
-      },{
+      },
+      {
         path: 'GetSchools',
         component: GetSchoolsComponent,
         title: 'Get Schools Page',
+        canActivate: [roleGuardGuard],
+        data: { role: ['Admin'] },
+      },
+      {
+        path: 'GetSchoolDetails/:schoolID',
+        component: SchoolDetailsComponent,
+        title: 'School Details Page',
+        canActivate: [roleGuardGuard],
+        data: { role: ['Admin'] },
+      },
+      {
+        path: 'UpdateSchool/:ID',
+        component: EditSchoolComponent,
+        title: 'Update School Page',
+        canActivate: [roleGuardGuard],
+        data: { role: ['Admin'] },
+      },
+      {
+        path: 'TicketsAdminDashboard',
+        component: ViewTicketsComponent,
+        title: 'Tickets Dashboard Page',
+        canActivate: [roleGuardGuard],
+        data: { role: ['Admin'] },
+      },
+      {
+        path: 'NewsDashboard',
+        component: ViewsNewsComponent,
+        title: 'News Dashboard Page',
         canActivate: [roleGuardGuard],
         data: { role: ['Admin'] },
       },

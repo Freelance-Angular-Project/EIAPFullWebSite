@@ -76,6 +76,6 @@ export class SchoolService {
 
   // DELETE /api/School/{id}
   deleteSchool(id: string): Observable<any> {
-    return this.http.delete(`${this.baseUrl}/${id}`);
+    return this.http.delete(`${this.baseUrl}?id=${id}`);
   }
 }
