@@ -1,0 +1,65 @@
+$primary-color: #2b2e83; // The primary color for the shadow, you may need to adjust this based on the exact color
+$text-color: #333; // Adjust as needed
+$shadow-spread: 10px; // Adjust as needed for the depth of the shadow
+
+/*last news */
+.news-header {
+  display: flex;
+  justify-content: space-between;
+
+}
+
+.row-bg2 {
+  background-color: #FFFFFF;
+  border-radius: 30px;
+  /* width: 90%; */
+}
+.header-container{
+  display: flex;
+  gap: 1em;
+  align-items: center;
+}
+.row-bg {
+  background-color: #F2FBFC;
+  border-radius: 50px;
+}
+
+// cards
+
+.shadow-card {
+  background: #fff;
+  border-radius: 20px; // Adjust to match border-radius of card
+  padding: 40px; // Adjust padding to match design
+  position: relative;
+  color: $text-color;
+
+
+}
+
+// Add responsive styling as needed
+@media (max-width: 768px) {
+  .shadow-card {
+    width: 90%;
+    padding: 20px;
+  }
+}
+
+
+//arrow preivois and next
+/* Ensure the button is perfectly circular */
+.btn.rounded-circle {
+  padding: 0.5em; /* Adjust padding to scale the size of the button */
+  width: 3em; /* Match the width and height to ensure a circle */
+  height: 3em; /* Match the width and height to ensure a circle */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Adjust the icon size if necessary */
+.fa-arrow-left {
+  font-size: 1.5em; /* Adjust the size of the arrow as needed */
+}
+.fas.fa-arrow-right {
+  font-size: 1.5em; /* Adjust the size of the arrow as needed */
+}

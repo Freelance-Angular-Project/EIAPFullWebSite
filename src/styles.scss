@@ -1,0 +1,75 @@
+/* You can add global styles to this file, and also import other style files */
+@import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
+
+// * {
+//   font-family: "SegoeUI-Bold, Segoe UI";
+// }
+@font-face {
+  font-family: 'LatoFont';
+  src: url('../src/assets/LatoFont/Lato-Regular.ttf') format('tff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'LatoFontBold';
+  src: url('../src/assets/LatoFont/Lato-Bold.ttf') format('tff');
+  font-weight: bold;
+  font-style: normal;
+}
+
+body {
+  font-family: 'LatoFont', sans-serif;
+}
+
+.titlefont {
+  font-family: 'LatoFontBold', sans-serif;
+}
+
+.margintop {
+  margin-top: 80px;
+}
+
+.marginBottom {
+  margin-bottom: 120px;
+}
+
+
+.background1 {
+  background: linear-gradient(to right, rgb(76, 139, 177), rgb(194, 239, 248), rgb(112, 212, 223));
+  // height: auto;
+  width: 100%;
+}
+
+.project-header-title {
+  font-size: 70px;
+}
+
+.objectiveTitle {
+  color: #0B0D39;
+
+}
+
+
+
+// rectangle part for project and school dashboard component
+.rectangle1 {
+  padding-top: 3%;
+  padding-left: 2%;
+  padding-bottom: 5%;
+  background: linear-gradient(45deg, #F6F0DF, #F3C548);
+  border-radius: 10px;
+  border: solid 1px #dbd2b9;
+  height: 370px;
+  word-break: break-all;
+}
+
+.rectangleFontColor1 {
+  // color: #CB9F26;
+  color: #CB9F26;
+}
+
+.rectangleFontColor2 {
+  // color: #CB9F26;
+  color: #0B0D39;
+}
