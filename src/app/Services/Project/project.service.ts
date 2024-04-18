@@ -1,9 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Project } from '../../Models/project';
+import { Project } from '../../Models/Projects/project';
 import { Observable } from 'rxjs';
-import { ProjectImageUpdate } from '../../Models/project-image-update';
-import { SchoolToProject } from '../../Models/school-to-project';
+import { ProjectImageUpdate } from '../../Models/Projects/project-image-update';
+import { SchoolToProject } from '../../Models/Schools/school-to-project';
 import { environment } from '../../../environments/environment.development';
 
 @Injectable({

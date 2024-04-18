@@ -6,7 +6,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
-import { Project } from '../../../Models/project';
+import { Project } from '../../../Models/Projects/project';
 import { ProjectService } from '../../../Services/Project/project.service';
 import { UserService } from '../../../Services/User/user.service';
 import { FormsModule } from '@angular/forms';

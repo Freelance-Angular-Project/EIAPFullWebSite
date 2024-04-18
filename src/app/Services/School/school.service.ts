@@ -1,12 +1,12 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { School } from '../../Models/school';
-import { Schooltoselect } from '../../Models/schooltoselect';
-import { ProjectInSchool } from '../../Models/project-in-school';
+import { School } from '../../Models/Schools/school';
+import { Schooltoselect } from '../../Models/Schools/schooltoselect';
+import { ProjectInSchool } from '../../Models/Projects/project-in-school';
 import { environment } from '../../../environments/environment.development';
-import { TaskDetails } from '../../Models/task-details';
-import { PostSchool } from '../../Models/post-school';
+import { TaskDetails } from '../../Models/Tasks/task-details';
+import { PostSchool } from '../../Models/Tickets/post-school';
 
 @Injectable({
   providedIn: 'root',

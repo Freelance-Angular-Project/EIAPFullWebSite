@@ -1,10 +1,10 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Tickets } from '../../Models/tickets';
+import { Tickets } from '../../Models/Tickets/tickets';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment.development';
-import { ProjectToSelect } from '../../Models/project-to-select';
-import { TicketResponse } from '../../Models/ticket-response';
+import { ProjectToSelect } from '../../Models/Projects/project-to-select';
+import { TicketResponse } from '../../Models/Tickets/ticket-response';
 
 @Injectable({
   providedIn: 'root',

@@ -1,7 +1,7 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { FooterComponent } from '../../Shared/footer/footer.component';
 import { CommonModule } from '@angular/common';
-import { Project } from '../../../Models/project';
+import { Project } from '../../../Models/Projects/project';
 import { ProjectService } from '../../../Services/Project/project.service';
 import { SliceWordPipe } from '../../../Pipes/slice-word.pipe';
 import { RouterModule } from '@angular/router';

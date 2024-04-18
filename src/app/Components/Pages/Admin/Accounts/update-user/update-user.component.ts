@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UpdateAccount } from '../../../../../Models/update-account';
+import { UpdateAccount } from '../../../../../Models/Accounts/update-account';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '../../../../../Services/User/user.service';
 import { FormsModule, NgForm } from '@angular/forms';

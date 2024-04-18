@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { SchoolService } from '../../../../../Services/School/school.service';
 import { FormsModule, NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { School } from '../../../../../Models/school';
+import { School } from '../../../../../Models/Schools/school';
 
 @Component({
   selector: 'app-edit-school',

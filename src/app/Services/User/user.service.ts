@@ -1,13 +1,13 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, catchError, tap, throwError } from 'rxjs';
-import { User } from '../../Models/user';
-import { LoginResponse } from '../../Models/login-response';
+import { User } from '../../Models/Users/user';
+import { LoginResponse } from '../../Models/Accounts/login-response';
 import { jwtDecode } from "jwt-decode";
 import { environment } from '../../../environments/environment.development';
-import { Account } from '../../Models/account';
-import { Role } from '../../Models/role';
-import { UpdateAccount } from '../../Models/update-account';
+import { Account } from '../../Models/Accounts/account';
+import { Role } from '../../Models/Accounts/role';
+import { UpdateAccount } from '../../Models/Accounts/update-account';
 
 @Injectable({
   providedIn: 'root',

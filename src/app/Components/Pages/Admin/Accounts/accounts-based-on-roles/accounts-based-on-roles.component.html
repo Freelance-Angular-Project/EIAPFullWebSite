@@ -26,6 +26,7 @@
             <th scope="col">Email</th>
             <th scope="col">Gender</th>
             <th scope="col">Phone Number</th>
+            <th scope="col">Password</th>
             <th scope="col">Actions</th>
 
           </tr>
@@ -42,6 +43,7 @@
               <td>{{user.email}}</td>
               <td>{{user.gender}}</td>
               <td>{{user.phoneNumber}}</td>
+              <td>{{user.userPassword}}</td>
               <td>
             <button class="btn btn-success me-2" [routerLink]="['/UpdateUser',selectedRole,user.id]"><i
                 class="fa-solid fa-pen-to-square"></i></button>

@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { PublicNews } from '../../Models/public-news';
+import { PublicNews } from '../../Models/News/public-news';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment.development';
 

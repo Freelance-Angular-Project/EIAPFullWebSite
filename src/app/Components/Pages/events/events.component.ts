@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FooterComponent } from '../../Shared/footer/footer.component';
 import { NewsService } from '../../../Services/News/news.service';
-import { News } from '../../../Models/news';
+import { News } from '../../../Models/News/news';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 

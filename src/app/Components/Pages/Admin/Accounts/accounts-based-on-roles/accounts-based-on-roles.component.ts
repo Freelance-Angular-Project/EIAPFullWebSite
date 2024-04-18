@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { UserService } from '../../../../../Services/User/user.service';
-import { Role } from '../../../../../Models/role';
+import { Role } from '../../../../../Models/Accounts/role';
 import { Router, RouterModule } from '@angular/router';
 declare var bootstrap: any;
 

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TicketsService } from '../../../../../Services/Tickets/tickets.service';
-import { TicketResponse } from '../../../../../Models/ticket-response';
+import { TicketResponse } from '../../../../../Models/Tickets/ticket-response';
 import { Router } from '@angular/router';
 declare var bootstrap: any;
 

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SchoolService } from '../../../../../Services/School/school.service';
-import { School } from '../../../../../Models/school';
+import { School } from '../../../../../Models/Schools/school';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 declare var bootstrap: any;

@@ -22,6 +22,9 @@ import { EditSchoolComponent } from './Components/Pages/Admin/School/edit-school
 import { ViewsNewsComponent } from './Components/Pages/Admin/News/views-news/views-news.component';
 import { ViewTicketsComponent } from './Components/Pages/Admin/Tickets/view-tickets/view-tickets.component';
 import { UpdateUserComponent } from './Components/Pages/Admin/Accounts/update-user/update-user.component';
+import { AllNewsComponent } from './Components/Pages/Admin/News/all-news/all-news.component';
+import { UpdateNewsComponent } from './Components/Pages/Admin/News/update-news/update-news.component';
+import { AddNewsComponent } from './Components/Pages/Admin/News/add-news/add-news.component';
 export const routes: Routes = [
   { path: '', redirectTo: '/Home', pathMatch: 'full' },
   { path: 'Home', component: MainHomeComponent, title: 'Home Page' },
@@ -168,6 +171,25 @@ export const routes: Routes = [
         canActivate: [roleGuardGuard],
         data: { role: ['Admin'] },
       },
+      {
+        path: 'AllNewsDashboard',
+        component: AllNewsComponent,
+        title: 'All News Dashboard Page',
+        canActivate: [roleGuardGuard],
+        data: { role: ['Admin'] },
+      },{
+        path: 'UpdateAllNews/:newsid',
+        component: UpdateNewsComponent,
+        title: 'Update News Dashboard Page',
+        canActivate: [roleGuardGuard],
+        data: { role: ['Admin'] },
+      },{
+        path: 'AddNews',
+        component: AddNewsComponent,
+        title: 'Add News Dashboard Page',
+        canActivate: [roleGuardGuard],
+        data: { role: ['Admin'] },
+      }
     ],
   },
 

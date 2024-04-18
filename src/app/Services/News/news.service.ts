@@ -1,9 +1,10 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { News } from '../../Models/news';
+import { News } from '../../Models/News/news';
 import { Observable } from 'rxjs';
-import { NewsImageUpdate } from '../../Models/news-image-update';
+import { NewsImageUpdate } from '../../Models/News/news-image-update';
 import { environment } from '../../../environments/environment.development';
+import { AddNews } from '../../Models/News/add-news';
 
 @Injectable({
   providedIn: 'root'
@@ -11,12 +12,15 @@ import { environment } from '../../../environments/environment.development';
 export class NewsService {
 
   private baseUrl = `${environment.baseApiURL}/News`; // Replace with the actual base URL
+  httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
 
+    })
+  };
   constructor(private http: HttpClient) { }
 
-  // getPublicNews(): Observable<News[]> {
-  //   return this.http.get<News[]>(`${this.baseUrl}/publicNews?take=50&skip=0`);
-  // }
   getPublicNews(take:number=50, skip:number=0): Observable<News[]> {
     return this.http.get<News[]>(`${this.baseUrl}/publicNews?take=${take}&skip=${skip}`);
   }
@@ -34,14 +38,17 @@ export class NewsService {
     return this.http.get<News[]>(`${this.baseUrl}/GetAll`);
   }
 
-  createNews(newsItem: News): Observable<News> {
-    return this.http.post<News>(this.baseUrl, newsItem);
+  createNews(newsItem: FormData): Observable<any> {
+    return this.http.post(this.baseUrl, newsItem,this.httpOptions);
   }
 
-  deleteNews(id: number): Observable<any> {
-    return this.http.delete(`${this.baseUrl}/${id}`);
+  deleteNews(id: string): Observable<News> {
+    return this.http.delete<News>(`${this.baseUrl}?id=${id}`);
   }
-
+  updateNews(newsid: string,news:News): Observable<News> {
+    // return this.http.put<News>(`${this.baseUrl}/${news.id}`, news, this.httpOptions);
+    return this.http.put<News>(`${this.baseUrl}/${newsid}`,news, this.httpOptions);
+  }
   updateNewsImage(id: number, imageUpdate: NewsImageUpdate): Observable<any> {
     const formData = new FormData();
     formData.append('image', imageUpdate.image);

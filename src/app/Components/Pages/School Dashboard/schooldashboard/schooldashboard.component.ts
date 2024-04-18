@@ -1,12 +1,12 @@
 import { Component, HostListener } from '@angular/core';
-import { School } from '../../../../Models/school';
+import { School } from '../../../../Models/Schools/school';
 import { SchoolService } from '../../../../Services/School/school.service';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { ChartData, ChartType } from 'chart.js';
 
-import { ProjectInSchool } from '../../../../Models/project-in-school';
+import { ProjectInSchool } from '../../../../Models/Projects/project-in-school';
 import { NgChartsModule } from 'ng2-charts';
 import { FormsModule } from '@angular/forms';
 

@@ -1,6 +1,6 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { NewsService } from '../../../Services/News/news.service';
-import { News } from '../../../Models/news';
+import { News } from '../../../Models/News/news';
 
 @Component({
   selector: 'app-last-news',

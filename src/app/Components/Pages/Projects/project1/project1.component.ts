@@ -1,6 +1,6 @@
 import { Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { ProjectService } from '../../../../Services/Project/project.service';
-import { Project } from '../../../../Models/project';
+import { Project } from '../../../../Models/Projects/project';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 @Component({

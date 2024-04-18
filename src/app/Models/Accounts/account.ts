@@ -5,6 +5,6 @@ export interface Account {
     password: string,
     confirmPassword: string,
     phoneNumber: string,
-    gender: number
+    gender: number,
 
 }

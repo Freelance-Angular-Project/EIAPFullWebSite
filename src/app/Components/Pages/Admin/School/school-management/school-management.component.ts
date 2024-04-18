@@ -6,9 +6,9 @@ import {
   Validators,
 } from '@angular/forms';
 import { SchoolService } from '../../../../../Services/School/school.service';
-import { PostSchool } from '../../../../../Models/post-school';
+import { PostSchool } from '../../../../../Models/Tickets/post-school';
 import { UserService } from '../../../../../Services/User/user.service';
-import { Role } from '../../../../../Models/role';
+import { Role } from '../../../../../Models/Accounts/role';
 import { ToastService } from '../../../../../Services/Toast/toast.service';
 import { CommonModule } from '@angular/common';
 @Component({

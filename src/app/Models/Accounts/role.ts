@@ -4,4 +4,6 @@ export interface Role {
   email:string;
   gender:string;
   phoneNumber:string;
+  userPassword:string
+
 }

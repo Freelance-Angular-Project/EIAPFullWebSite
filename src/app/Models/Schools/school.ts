@@ -1,5 +1,5 @@
-import { SchoolFile } from "./file";
-import { ProjectInSchool } from "./project-in-school";
+import { SchoolFile } from "../File/file";
+import { ProjectInSchool } from "../Projects/project-in-school";
 
 export interface School {
   id: string;

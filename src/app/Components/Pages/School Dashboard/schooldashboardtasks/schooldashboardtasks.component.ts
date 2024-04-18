@@ -7,27 +7,17 @@ import {
 } from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { SchoolService } from '../../../../Services/School/school.service';
-import { ProjectInSchool } from '../../../../Models/project-in-school';
+import { ProjectInSchool } from '../../../../Models/Projects/project-in-school';
 import { CommonModule } from '@angular/common';
 import { TaskService } from '../../../../Services/Task/task.service';
-import { TaskDetails } from '../../../../Models/task-details';
+import { TaskDetails } from '../../../../Models/Tasks/task-details';
 import { HttpClient } from '@angular/common/http';
 import { FilesService } from '../../../../Services/Files/files.service';
 import { FormsModule } from '@angular/forms';
-import { Uploadfile } from '../../../../Models/uploadfile';
-import { School } from '../../../../Models/school';
+import { School } from '../../../../Models/Schools/school';
 import { NgChartsModule } from 'ng2-charts';
-import {
-  BubbleDataPoint,
-  Chart,
-  ChartConfiguration,
-  ChartData,
-  ChartOptions,
-  ChartType,
-  ChartTypeRegistry,
-  ScatterDataPoint,
-} from 'chart.js';
-import { AddAssignment } from '../../../../Models/add-assignment';
+import { Chart } from 'chart.js';
+import { AddAssignment } from '../../../../Models/Assignments/add-assignment';
 import { AssignmentFileService } from '../../../../Services/Assignments/assignment-file.service';
 
 @Component({
@@ -59,9 +49,7 @@ export class SchooldashboardtasksComponent implements OnInit, AfterViewInit {
   constructor(
     private activatedrouter: ActivatedRoute,
     private schoolservice: SchoolService,
-    private taskService: TaskService,
     private httpclient: HttpClient,
-    private fileService: FilesService,
     private schoolService: SchoolService,
     private router: Router,
     private assignmentsfile: AssignmentFileService

@@ -7,7 +7,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { UserService } from '../../../../../Services/User/user.service';
-import { Account } from '../../../../../Models/account';
+import { Account } from '../../../../../Models/Accounts/account';
 import { CommonModule } from '@angular/common';
 import { ToastService } from '../../../../../Services/Toast/toast.service';
 
