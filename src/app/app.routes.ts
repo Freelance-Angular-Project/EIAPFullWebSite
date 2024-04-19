@@ -25,6 +25,7 @@ import { UpdateUserComponent } from './Components/Pages/Admin/Accounts/update-us
 import { AllNewsComponent } from './Components/Pages/Admin/News/all-news/all-news.component';
 import { UpdateNewsComponent } from './Components/Pages/Admin/News/update-news/update-news.component';
 import { AddNewsComponent } from './Components/Pages/Admin/News/add-news/add-news.component';
+import { ViewEventsComponent } from './Components/Pages/Admin/EventsDashboard/view-events/view-events.component';
 export const routes: Routes = [
   { path: '', redirectTo: '/Home', pathMatch: 'full' },
   { path: 'Home', component: MainHomeComponent, title: 'Home Page' },
@@ -187,6 +188,12 @@ export const routes: Routes = [
         path: 'AddNews',
         component: AddNewsComponent,
         title: 'Add News Dashboard Page',
+        canActivate: [roleGuardGuard],
+        data: { role: ['Admin'] },
+      },{
+        path: 'EventsDashboard',
+        component: ViewEventsComponent,
+        title: 'Events Dashboard Page',
         canActivate: [roleGuardGuard],
         data: { role: ['Admin'] },
       }

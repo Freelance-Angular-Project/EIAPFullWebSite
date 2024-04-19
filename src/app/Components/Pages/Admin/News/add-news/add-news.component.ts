@@ -49,7 +49,6 @@ export class AddNewsComponent {
   ngOnInit(): void {
     this.projectsservice.getAllProjects().subscribe({
       next: (projects) => {
-        console.log(projects);
         this.allprojects = projects;
       },
       error: (err) => {
@@ -79,43 +78,35 @@ export class AddNewsComponent {
   }
   onFileSelected(event: any) {
     if (event.target.files.length > 0) {
-      this.news.Image = event.target.files[0];
+      this.news.Image = this.selectedFile = event.target.files[0];
       this.fileTouched = true;
       this.fileInvalid = false;
     } else {
       this.fileInvalid = true; // No file selected
     }
   }
+
   onSubmitNews() {
     if (this.newsForm.valid) {
-      // this.news = {
-      //   Details: this.newsForm.value.Details,
-      //   Year: this.newsForm.value.Year,
-      //   IsEvent: this.newsForm.value.IsEvent,
-      //   Image: this.newsForm.value.Image,
-      //   ProjectId: this.newsForm.value.ProjectId,
 
-      // };
-      // console.log(this.school);
-      const formData = new FormData();
+      let formData = new FormData();
       formData.append('Details', this.newsForm.value.Details);
       formData.append('Year', this.newsForm.value.Year);
       formData.append('IsEvent', this.newsForm.value.IsEvent);
-      formData.append('ProjectId', this.newsForm.value.ProjectId);
 
-      // Append file data if available
       if (this.selectedFile) {
         formData.append('Image', this.selectedFile, this.selectedFile.name);
       }
+
       this.newsservice.createNews(formData).subscribe({
-        next: (news) => {
-          console.log(news);
+
+        next: () => {
           this.router.navigate(['/AllNewsDashboard']);
           this.newsForm.reset();
           this.toastService.show('News has been successfully created.', false);
         },
         error: (err) => {
-          // console.log(err);
+          console.log(err);
           this.toastService.show('News has been error in create', true);
         },
       });

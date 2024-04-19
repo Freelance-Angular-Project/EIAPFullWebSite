@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { News } from '../../../../../Models/News/news';
 import { NewsService } from '../../../../../Services/News/news.service';
 import { Router, RouterModule } from '@angular/router';
+import { NewsImageUpdate } from '../../../../../Models/News/news-image-update';
 declare var bootstrap: any;
 
 @Component({
@@ -63,4 +64,30 @@ constructor(private newsService: NewsService,private router:Router) {}
       console.log('No school selected for deletion');
     }
   }
+  fileTouched = false;
+  fileInvalid = false;
+  selectedFile!: NewsImageUpdate ;
+  onFileSelected(event: any, id: string) {
+    if (event.target.files.length > 0) {
+        const file: File = event.target.files[0];
+        this.fileTouched = true;
+        this.fileInvalid = false;
+
+        this.newsService.updateNewsImage(id, file).subscribe({
+            next: () => {
+                console.log("Updated News Image");
+                // Optionally refresh the list or image
+                this.newsService.getAllNews().subscribe(newsItems => {
+                  this.allNews = newsItems;
+                });
+            },
+            error: (err) => {
+                console.error("Error updating news image:", err);
+            }
+        });
+    } else {
+        this.fileInvalid = true; // No file selected
+    }
+}
+
 }

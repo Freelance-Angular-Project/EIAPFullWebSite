@@ -1,4 +1,4 @@
-<!-- <button class="button-71 mb-3" role="button" [routerLink]="['/AddNews']">Create News</button> -->
+<button class="button-71 mb-3" role="button" [routerLink]="['/AddNews']">Create News</button>
 <section>
   <div class="tbl-header">
     <table cellpadding="0" cellspacing="0" class="border-0">
@@ -21,7 +21,21 @@
           <td>{{news.details}}</td>
           <td>{{news.year}}</td>
           <td>{{news.isEvent}}</td>
-          <td><img src="{{news.imageUrl}}" width="100"  class="img-fluid"></td>
+          <td>
+
+            <img [src]="news.imageUrl" width="100" class="img-fluid">
+            <label class="mb-3" for="Image-{{news.id}}">
+              <i class="fa-solid fa-file-arrow-up mt-2 ms-4" style="font-size:25px;"></i>
+              <input
+                type="file"
+                class="form-control-file d-none"
+                id="Image-{{news.id}}"
+                (change)="onFileSelected($event, news.id)"
+                required
+                style="display: none;">
+            </label>
+
+          </td>
           <td>
             <!-- <button class="btn btn-primary me-2"><i
                 class="fa-solid fa-eye"></i></button> -->
@@ -44,7 +58,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        Are you sure you want to delete this ticket?
+        Are you sure you want to delete this item?
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
