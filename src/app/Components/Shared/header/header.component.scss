@@ -1,0 +1,143 @@
+.header-logo img {
+  // Set the logo size appropriately, you may use specific width and height
+  height: auto; // Adjust based on design specifics
+}
+
+.header-title {
+  // Apply font styling that matches the design
+  color: #000; // Use the specific color from the design
+  font-size: 1.5rem; // Adjust based on design specifics
+  margin-left: 15px; // Adjust based on design specifics
+}
+
+.header-nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  gap: 20px; // Adjust based on design specifics
+
+  li a {
+    text-decoration: none;
+    color: #000; // Use the specific color from the design
+    font-size: 1rem; // Adjust based on design specifics
+
+    &:hover {
+      text-decoration: underline;
+      // Add any hover effect styles here
+    }
+  }
+}
+
+.header-portal-logo img {
+  // Set the logo size appropriately, you may use specific width and height
+  height: auto; // Adjust based on design specifics
+}
+
+.elap-text {
+  // Add styles for the "ELAP" text based on design specifics
+  margin-left: 10px; // Adjust the margin as per the spacing in the design
+  color: #000; // Replace with the actual color code from the design
+  font-size: 1.5rem; // Adjust based on design specifics
+  // Add any other specific font styles for "ELAP" text
+}
+
+.class1 {
+  background-color: #fff;
+}
+
+.colorIcon {
+  color: #4E4E4E;
+}
+
+@media screen and (max-width: 768px) {
+  .app-header {
+    display: flex;
+    // align-items: flex-start;
+    flex-direction: column;
+  }
+}
+
+// dropdown
+.navbar {
+  .navbar-nav {
+    list-style: none;
+    padding: 0;
+
+    .nav-item {
+      position: relative;
+
+      .nav-link {
+        display: block;
+        padding: 0.5rem 1rem;
+        text-decoration: none;
+
+        &:hover {
+          background-color: #f8f9fa;
+        }
+      }
+
+      .dropdown-toggle:after {
+        content: "";
+        display: inline-block;
+        margin-left: 0.255em;
+        vertical-align: 0.255em;
+        border-top: 0.3em solid;
+        border-right: 0.3em solid transparent;
+        border-bottom: 0;
+        border-left: 0.3em solid transparent;
+      }
+
+      .dropdown-menu {
+        display: none;
+        position: absolute;
+        left: 0;
+        top: 100%;
+        min-width: 10rem;
+        padding: 0.5rem 0;
+        margin: 0.125rem 0 0;
+        font-size: 1rem;
+        color: #212529;
+        text-align: left;
+        list-style: none;
+        background-color: #fff;
+        background-clip: padding-box;
+        border: 1px solid rgba(0, 0, 0, .15);
+        border-radius: 0.25rem;
+
+        .dropdown-item {
+          padding: 0.25rem 1.5rem;
+
+          &:hover {
+            background-color: #f8f9fa;
+          }
+        }
+
+        .dropdown-divider {
+          height: 0;
+          margin: 0.5rem 0;
+          overflow: hidden;
+          border-top: 1px solid #e9ecef;
+        }
+      }
+
+      &.show .dropdown-menu {
+        display: block;
+      }
+    }
+  }
+}
+
+
+.logout-button {
+  background-color: #0b0d39;
+  color: #fff;
+  border: none;
+  border-radius: 29px;
+  padding: 0.5em 1em;
+  cursor: pointer;
+}
+
+.marginT{
+  margin-top: 2px;
+}

@@ -1,0 +1,100 @@
+@if(toastService.showToast | async){
+  <div class="alert w-50 mx-auto alert-dismissible" [class.alert-success]="!(toastService.isError | async)"
+    [class.alert-danger]="(toastService.isError | async)">
+
+    {{ toastService.message | async }}
+    <button type="button" class="btn-close" (click)="toastService.showToast.next(false)"></button>
+  </div>
+  }
+
+  <div class="container card shadow p-5">
+    <form [formGroup]="newsForm" (ngSubmit)="onSubmitNews()" class="needs-validation" novalidate>
+      <div class="form-group mb-3 row">
+        <label for="fullName" class="col-sm-2">News Details</label>
+        <div class="col-sm-10">
+          <input type="text" formControlName="Details" class="form-control" id="fullName" placeholder="Enter News Details">
+          @if(Details?.touched && Details?.errors?.['required'])
+          {
+          <div class="text-danger">
+            News Details is required
+          </div>
+          }
+
+        </div>
+
+
+      </div>
+
+      <div class="form-group mb-3 row">
+        <label for="Year" class="col-sm-2">Year</label>
+        <div class="col-sm-10">
+          <input type="date" formControlName="Year" class="form-control" id="Year" placeholder="Enter Year">
+          @if(Year?.touched &&Year?.errors?.['required'])
+          {
+          <div class="text-danger">
+            Year is required
+          </div>
+          }
+        </div>
+
+      </div>
+      <div class="form-group mb-3 row">
+        <label class="col-sm-2">Is Event</label>
+        <div class="col-sm-10 row">
+
+          <div class="form-check col-4 m-2">
+            <input type="radio" id="isEventTrue" formControlName="IsEvent" class="form-check-input" value="true">
+            <label for="isEventTrue" class="form-check-label">True</label>
+          </div>
+          <div class="form-check col-4">
+            <input type="radio" id="isEventFalse" formControlName="IsEvent" class="form-check-input" value="false">
+            <label for="isEventFalse" class="form-check-label">False</label>
+          </div>
+          @if(IsEvent?.touched &&IsEvent?.errors?.['required'])
+          {
+          <div class="text-danger">
+            IsEvent is required
+          </div>
+          }
+        </div>
+
+      </div>
+
+      <div class="form-group mb-3 row">
+        <label for="Image" class="col-sm-2">Image</label>
+        <div class="col-sm-10">
+          <input
+          type="file"
+          class="form-control mb-3"
+          id="Image"
+          (change)="onFileSelected($event)"
+          placeholder="Enter Image"
+          required formControlName="Image">
+
+          @if(Image?.touched &&Image?.errors?.['required'])
+          {
+          <div class="text-danger">
+            Image is required
+          </div>
+          }
+        </div>
+
+
+      </div>
+      <div class="form-group mb-3 row">
+        <label for="userId" class="col-sm-2 col-form-label">Projects</label>
+        <div class="col-sm-10">
+          <select id="project" formControlName="ProjectId" class="form-select">
+            @for (project of allprojects; track project.id) {
+            <option [value]="project.id">{{project.name}}</option>
+            }
+          </select>
+
+        </div>
+      </div>
+
+
+      <button type="submit" class="btn btn-primary mb-5" [disabled]="!newsForm.valid">Submit</button>
+    </form>
+
+  </div>

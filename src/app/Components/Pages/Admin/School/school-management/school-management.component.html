@@ -1,0 +1,135 @@
+@if(toastService.showToast | async){
+<div class="alert w-50 mx-auto alert-dismissible" [class.alert-success]="!(toastService.isError | async)"
+  [class.alert-danger]="(toastService.isError | async)">
+
+  {{ toastService.message | async }}
+  <button type="button" class="btn-close" (click)="toastService.showToast.next(false)"></button>
+</div>
+}
+
+<div class="container card shadow p-5">
+  <form [formGroup]="schoolForm" (ngSubmit)="onSubmitSchool()" class="needs-validation" novalidate>
+    <div class="form-group mb-3 row">
+      <label for="fullName" class="col-sm-2">School Name</label>
+      <div class="col-sm-10">
+        <input type="text" formControlName="name" class="form-control" id="fullName" placeholder="Enter School name">
+        @if(name?.touched && name?.errors?.['required'])
+        {
+        <div class="text-danger">
+          School Name is required
+        </div>
+        }
+
+      </div>
+
+
+    </div>
+
+    <div class="form-group mb-3 row">
+      <label for="code" class="col-sm-2">ID</label>
+      <div class="col-sm-10">
+        <input type="text" formControlName="code" class="form-control" id="code" placeholder="Enter ID">
+        @if(code?.touched &&code?.errors?.['required'])
+        {
+        <div class="text-danger">
+          ID is required
+        </div>
+        }
+      </div>
+
+    </div>
+
+    <div class="form-group mb-3 row">
+      <label for="curriculums" class="col-sm-2">Curriculums</label>
+      <div class="col-sm-10">
+        <input type="text" formControlName="curriculums" class="form-control" id="curriculums"
+          placeholder="Enter curriculums">
+        @if(curriculums?.touched &&curriculums?.errors?.['required'])
+        {
+        <div class="text-danger">
+          Curriculums is required
+        </div>
+        }
+      </div>
+
+    </div>
+
+    <div class="form-group mb-3 row">
+      <label for="educationType" class="col-sm-2">Education Type</label>
+      <div class="col-sm-10">
+        <input type="text" formControlName="educationType" class="form-control" id="educationType">
+        @if(educationType?.touched &&educationType?.errors?.['required'])
+        {
+        <div class="text-danger">
+          Education Type is required
+        </div>
+        }
+      </div>
+
+
+    </div>
+
+    <div class="form-group mb-3 row">
+      <label for="grade" class="col-sm-2">Grade</label>
+      <div class="col-sm-10">
+        <input type="text" formControlName="grade" class="form-control" id="grade" placeholder="Enter Grade ">
+        @if(grade?.touched &&grade?.errors?.['required'])
+        {
+        <div class="text-danger">
+          Grade is required
+        </div>
+        }
+      </div>
+
+
+    </div>
+
+    <div class="form-group mb-3 row">
+      <label for="zone" class="col-sm-2">Zone</label>
+      <div class="col-sm-10">
+        <input type="text" formControlName="zone" class="form-control" id="zone" placeholder="Enter Zone ">
+        @if(zone?.touched &&zone?.errors?.['required'])
+        {
+        <div class="text-danger">
+          Zone is required
+        </div>
+        }
+      </div>
+    </div>
+    <!-- <div class="form-group mb-3 row">
+      <label for="userId" class="col-sm-2 col-form-label">School Manager</label>
+      <div class="col-sm-10">
+        <input class="form-control" list="managers" id="userId" placeholder="Choose Manager" formControlName="userId" />
+        <datalist id="managers">
+          @for (smanager of schoolmanagers; track $index) {
+          <option [value]="smanager.email"></option>
+          }
+        </datalist>
+
+      </div>
+    </div> -->
+    <div class="form-group mb-3 row">
+      <label for="userId" class="col-sm-2 col-form-label">School Manager</label>
+      <div class="col-sm-10 position-relative">
+        <input class="form-control" id="userId" placeholder="Choose Manager" formControlName="userId"
+          (input)="performFilter($event)" />
+        <input class="form-control" id="newUserId" placeholder="Choose Manager" formControlName="newUserId" hidden />
+        <input type="hidden" formControlName="userId">
+        @if (filteredSchoolManagers.length > 0) {
+        <div class="filter-results">
+          @for (manager of filteredSchoolManagers; track manager.id) {
+          <div (click)="selectManager(manager)" class="result-item">
+            {{ manager.email }}
+          </div>
+          }
+        </div>
+
+        }
+
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary mb-5" [disabled]="!schoolForm.valid">Submit</button>
+  </form>
+
+</div>

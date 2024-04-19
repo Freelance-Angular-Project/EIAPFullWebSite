@@ -1,0 +1,115 @@
+<!-- Header -->
+<header class="d-flex flex-lg-row flex-column align-items-center justify-content-between p-2">
+  <div class="header-logo">
+    <img src="../../../../assets/UAE_MOEdu_brandmark_Horizontal_RGB_E.png" class="img-fluid"
+      alt="Ministry of Education Logo">
+  </div>
+
+  <div class="header-branding mt-lg-0 mt-3 d-flex align-items-center">
+    <img src="../../../../assets/Group 15910.svg" alt="EIAP Logo" class="img-fluid">
+    <span class="elap-text">
+      <img src="../../../../assets/EIAP.png" alt="EIAP Logo" class="w-lg-25 img-fluid">
+    </span>
+  </div>
+</header>
+
+
+
+<!-- navbar -->
+<div class="container-fluid ">
+  <nav class="navbar navbar-expand-lg class1">
+    <div class="container-fluid">
+      <a class="navbar-brand d-lg-flex d-none" href="#"><i class="fa-solid fa-house colorIcon"></i></a>
+
+      <button class="navbar-toggler" type="button" (click)="toggleNavbarCollapsing()">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent" [class.show]="!isNavbarCollapsed">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link " aria-current="page" routerLink="/Home" routerLinkActive="active">Home</a>
+          </li>
+
+          <li>
+            <select class="form-select border-0 shadow-none marginT" [(ngModel)]="selectedProject"
+              (change)="onProjectChange()" name="sel">
+              <option value="" disabled>Projects</option>
+              @for (project of projects; track $index) {
+
+              <option [value]="project.id" [class.active]="selectedProject">{{project.name}}
+              </option>
+
+              }
+            </select>
+
+          </li>
+          @if(userService.getuRoles('SchoolManager')&&userLogg){
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/Tickets" routerLinkActive="active">Tickets</a>
+          </li>
+          }
+
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/Events" routerLinkActive="active">Events</a>
+          </li>
+
+          @if(userService.getuRoles('SchoolManager')&&userLogg){
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/SchoolDashboard" routerLinkActive="active">School Analytics</a>
+          </li>
+
+          }
+
+
+
+          @if(userService.getuRoles('ProjectManager')||userService.getuRoles('Admin')&&userLogg){
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/ProjectDashboard" routerLinkActive="active">Project Dashboard</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/ProjectAnalytics" routerLinkActive="active">Project Analytics</a>
+          </li>
+          }
+
+
+
+          @if(userService.getuRoles('Investigated')||userService.getuRoles('Admin')&&userLogg){
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/TicketsDashboard" routerLinkActive="active">Tickets Dashboard</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/TasksDashboard" routerLinkActive="active">Tasks Dashboard</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/InvestigatedAnalytics" routerLinkActive="active">Investigated Analytics</a>
+          </li>
+          }
+
+
+
+          @if(userService.getuRoles('Admin')&&userLogg){
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/AdminDashboard" routerLinkActive="active">Admin Dashboard</a>
+            </li>
+
+            }
+
+
+          <!-- @if(userService.getuRoles('SchoolManager')||userService.getuRoles('Admin')&&userLogg){
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/SchoolDashboardTask" routerLinkActive="active">School Dashboard</a>
+          </li>
+          } -->
+
+        </ul>
+        <button class="logout-button" (click)="logOutFunc()" [hidden]="!userLogg">Logout</button>
+
+      </div>
+
+
+    </div>
+
+
+  </nav>
+  <!-- } -->
+</div>
