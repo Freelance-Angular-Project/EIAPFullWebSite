@@ -1,4 +1,4 @@
-<button class="button-71 mb-3" role="button" [routerLink]="['/AddNews']">Create News</button>
+<button class="button-71 mb-3" role="button" [routerLink]="['/AddNews']">Create News/Events</button>
 <section>
   <div class="tbl-header">
     <table cellpadding="0" cellspacing="0" class="border-0">
@@ -6,7 +6,6 @@
         <tr>
           <th>News Details</th>
           <th>Year</th>
-          <th>IsEvent</th>
           <th>Image</th>
           <th>Action</th>
         </tr>
@@ -20,7 +19,6 @@
         <tr (click)="selectNews(news.id)">
           <td>{{news.details}}</td>
           <td>{{news.year}}</td>
-          <td>{{news.isEvent}}</td>
           <td>
 
             <img [src]="news.imageUrl" width="100" class="img-fluid">

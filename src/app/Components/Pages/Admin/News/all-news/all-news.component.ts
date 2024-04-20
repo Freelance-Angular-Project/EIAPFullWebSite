@@ -18,7 +18,7 @@ selectednewsId: string | null = null;
 
 constructor(private newsService: NewsService,private router:Router) {}
   ngOnInit(): void {
-    this.newsService.getAllNews().subscribe({
+    this.newsService.getPublicNews().subscribe({
       next: (news) => {
         this.allNews = news;
       },

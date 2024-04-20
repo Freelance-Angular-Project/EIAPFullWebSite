@@ -19,7 +19,6 @@ import { AccountsBasedOnRolesComponent } from './Components/Pages/Admin/Accounts
 import { GetSchoolsComponent } from './Components/Pages/Admin/School/get-schools/get-schools.component';
 import { SchoolDetailsComponent } from './Components/Pages/Admin/School/school-details/school-details.component';
 import { EditSchoolComponent } from './Components/Pages/Admin/School/edit-school/edit-school.component';
-import { ViewsNewsComponent } from './Components/Pages/Admin/News/views-news/views-news.component';
 import { ViewTicketsComponent } from './Components/Pages/Admin/Tickets/view-tickets/view-tickets.component';
 import { UpdateUserComponent } from './Components/Pages/Admin/Accounts/update-user/update-user.component';
 import { AllNewsComponent } from './Components/Pages/Admin/News/all-news/all-news.component';
@@ -167,16 +166,9 @@ export const routes: Routes = [
         data: { role: ['Admin'] },
       },
       {
-        path: 'TicketsAddResponse',
+        path: 'TicketsAddResponse/:ID',
         component: AddResponseComponent,
         title: 'Tickets Add Response Page',
-        canActivate: [roleGuardGuard],
-        data: { role: ['Admin'] },
-      },
-      {
-        path: 'NewsDashboard',
-        component: ViewsNewsComponent,
-        title: 'News Dashboard Page',
         canActivate: [roleGuardGuard],
         data: { role: ['Admin'] },
       },

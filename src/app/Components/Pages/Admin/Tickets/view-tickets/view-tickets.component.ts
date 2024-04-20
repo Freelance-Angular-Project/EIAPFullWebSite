@@ -64,4 +64,7 @@ export class ViewTicketsComponent implements OnInit {
       console.log('No Ticket selected for deletion');
     }
   }
+
+
+
 }

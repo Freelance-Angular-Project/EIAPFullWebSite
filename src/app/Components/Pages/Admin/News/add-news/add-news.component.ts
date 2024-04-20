@@ -101,7 +101,6 @@ export class AddNewsComponent {
       this.newsservice.createNews(formData).subscribe({
 
         next: () => {
-          this.router.navigate(['/AllNewsDashboard']);
           this.newsForm.reset();
           this.toastService.show('News has been successfully created.', false);
         },

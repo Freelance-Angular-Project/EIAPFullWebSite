@@ -7,26 +7,7 @@
   </div>
   }
 <form [formGroup]="AddResponseForm" (ngSubmit)="onSubmitResponse()" class="needs-validation" novalidate>
-  <div class="form-group mb-3 row">
-    <label for="TicketId" class="col-sm-2 col-form-label">Ticket Subject</label>
-    <div class="col-sm-10 position-relative">
-      <input class="form-control" id="TicketId" placeholder="Choose Subject" formControlName="TicketId"
-        (input)="performFilter($event)" />
-      <input class="form-control" id="newUserId" placeholder="Choose Manager" formControlName="newUserId" hidden />
-      <input type="hidden" formControlName="TicketId">
-      @if (AllTickets.length > 0) {
-      <div class="filter-results">
-        @for (ticket of FilterAllTickets; track ticket.id) {
-        <div (click)="selectManager(ticket)" class="result-item">
-          {{ ticket.subject }}
-        </div>
-        }
-      </div>
 
-      }
-
-    </div>
-  </div>
 
   <div class="form-group mb-3 row">
     <label for="Response" class="col-sm-2">Response</label>

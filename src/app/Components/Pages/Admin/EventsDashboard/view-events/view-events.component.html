@@ -1,3 +1,5 @@
+<button class="button-71 mb-3" role="button" [routerLink]="['/AddNews']">Create News/Events</button>
+
 <section>
   <div class="tbl-header">
     <table cellpadding="0" cellspacing="0" class="border-0">
@@ -5,9 +7,8 @@
         <tr>
           <th>Event Details</th>
           <th>Year</th>
-          <th>IsEvent</th>
           <th>Image</th>
-          <!-- <th>Action</th> -->
+          <th>Action</th>
         </tr>
       </thead>
     </table>
@@ -16,18 +17,28 @@
     <table cellpadding="0" cellspacing="0" class="border-0">
       <tbody>
         @for (event of events; track event.id) {
-        <tr>
+        <tr (click)="selectNews(event.id)">
           <td>{{event.details}}</td>
           <td>{{event.year}}</td>
-          <td>{{event.isEvent}}</td>
-          <td><img src="{{event.imageUrl}}" width="100"  class="img-fluid"></td>
-          <!-- <td>
-            <button class="btn btn-primary me-2"><i
-                class="fa-solid fa-eye"></i></button>
-            <button class="btn btn-success me-2" ><i
-                class="fa-solid fa-pen-to-square"></i></button>
-            <button class="btn btn-danger"><i class="fa-solid fa-trash-can"></i></button>
-          </td> -->
+          <td>
+            <img [src]="event.imageUrl" width="100" class="img-fluid">
+            <label class="mb-3" for="Image-{{event.id}}">
+              <i class="fa-solid fa-file-arrow-up mt-2 ms-4" style="font-size:25px;"></i>
+              <input
+                type="file"
+                class="form-control-file d-none"
+                id="Image-{{event.id}}"
+                (change)="onFileSelected($event, event.id)"
+                required
+                style="display: none;">
+            </label>
+          </td>
+          <td>
+            <button class="btn btn-success me-2" [routerLink]="['/UpdateAllNews',event.id]"><i
+              class="fa-solid fa-pen-to-square"></i></button>
+          <button class="btn btn-danger" (click)="openConfirmModal()"><i class="fa-solid fa-trash-can"></i></button>
+
+          </td>
         </tr>
         }
       </tbody>
@@ -35,7 +46,7 @@
   </div>
 </section>
 
-<!-- <div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+<div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
@@ -51,4 +62,4 @@
       </div>
     </div>
   </div>
-</div> -->
+</div>
