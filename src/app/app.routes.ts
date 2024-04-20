@@ -26,6 +26,7 @@ import { UpdateNewsComponent } from './Components/Pages/Admin/News/update-news/u
 import { AddNewsComponent } from './Components/Pages/Admin/News/add-news/add-news.component';
 import { ViewEventsComponent } from './Components/Pages/Admin/EventsDashboard/view-events/view-events.component';
 import { AddResponseComponent } from './Components/Pages/Admin/Tickets/add-response/add-response.component';
+import { ProjectDetailsComponent } from './Components/Pages/Project Manager Dashboard/project-details/project-details.component';
 export const routes: Routes = [
   { path: '', redirectTo: '/Home', pathMatch: 'full' },
   { path: 'Home', component: MainHomeComponent, title: 'Home Page' },
@@ -68,6 +69,13 @@ export const routes: Routes = [
     path: 'ProjectDashboard',
     component: ProjectDashboardComponent,
     title: 'Project Dashboard Page',
+    canActivate: [roleGuardGuard],
+    data: { role: ['ProjectManager', 'Admin'] },
+  },
+  {
+    path: 'GetProjectDetails/:id',
+    component: ProjectDetailsComponent,
+    title: 'Project Details Page',
     canActivate: [roleGuardGuard],
     data: { role: ['ProjectManager', 'Admin'] },
   },
@@ -178,25 +186,28 @@ export const routes: Routes = [
         title: 'All News Dashboard Page',
         canActivate: [roleGuardGuard],
         data: { role: ['Admin'] },
-      },{
+      },
+      {
         path: 'UpdateAllNews/:newsid',
         component: UpdateNewsComponent,
         title: 'Update News Dashboard Page',
         canActivate: [roleGuardGuard],
         data: { role: ['Admin'] },
-      },{
+      },
+      {
         path: 'AddNews',
         component: AddNewsComponent,
         title: 'Add News Dashboard Page',
         canActivate: [roleGuardGuard],
         data: { role: ['Admin'] },
-      },{
+      },
+      {
         path: 'EventsDashboard',
         component: ViewEventsComponent,
         title: 'Events Dashboard Page',
         canActivate: [roleGuardGuard],
         data: { role: ['Admin'] },
-      }
+      },
     ],
   },
 
