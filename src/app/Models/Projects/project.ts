@@ -1,6 +1,6 @@
 export interface Project {
   id: string;
-  userId: string;
+  userId?: string;
   investigatorId: string;
   name: string;
   title1: string;

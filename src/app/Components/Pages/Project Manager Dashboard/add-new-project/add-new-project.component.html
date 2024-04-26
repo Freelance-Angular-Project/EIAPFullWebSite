@@ -1,0 +1,194 @@
+@if(toastService.showToast | async){
+<div class="alert w-50 mx-auto alert-dismissible" [class.alert-success]="!(toastService.isError | async)"
+  [class.alert-danger]="(toastService.isError | async)">
+
+  {{ toastService.message | async }}
+  <button type="button" class="btn-close" (click)="toastService.showToast.next(false)"></button>
+</div>
+}
+
+<div class="container card shadow p-5">
+  <form [formGroup]="projectForm" (ngSubmit)="onSubmitSchool()" class="needs-validation" novalidate>
+    <div class="form-group mb-3 row">
+      <label for="fullName" class="col-sm-2">Project Name</label>
+      <div class="col-sm-10">
+        <input type="text" formControlName="Name" class="form-control" id="Name" placeholder="Enter Project Name">
+        @if(Name?.touched && Name?.errors?.['required'])
+        {
+        <div class="text-danger">
+          Project Name is required
+        </div>
+        }
+
+      </div>
+
+
+    </div>
+
+    <div class="form-group mb-3 row">
+      <label for="Title1" class="col-sm-2">Title1</label>
+      <div class="col-sm-10">
+        <input type="text" formControlName="Title1" class="form-control" id="Title1" placeholder="Enter Title1">
+        @if(Title1?.touched &&Title1?.errors?.['required'])
+        {
+        <div class="text-danger">
+          Title1 is required
+        </div>
+        }
+      </div>
+
+    </div>
+
+    <div class="form-group mb-3 row">
+      <label for="Description1" class="col-sm-2">Description1</label>
+      <div class="col-sm-10">
+        <input type="text" formControlName="Description1" class="form-control" id="Description1"
+          placeholder="Enter Description1">
+        @if(Description1?.touched &&Description1?.errors?.['required'])
+        {
+        <div class="text-danger">
+          Description1 is required
+        </div>
+        }
+      </div>
+
+    </div>
+
+    <div class="form-group mb-3 row">
+      <label for="Title2" class="col-sm-2">Title2 </label>
+
+
+      <div class="col-sm-10">
+        <input type="text" formControlName="Title2" class="form-control" id="Title2" placeholder="Enter Title2">
+        @if(Title2?.touched &&Title2?.errors?.['required'])
+        {
+        <div class="text-danger">
+          Title2 is required
+        </div>
+        }
+      </div>
+
+
+    </div>
+
+    <div class="form-group mb-3 row">
+      <label for="Description2" class="col-sm-2">Description2</label>
+      <div class="col-sm-10">
+        <input type="text" formControlName="Description2" class="form-control" id="Description2"
+          placeholder="Enter Description2 ">
+        @if(Description2?.touched &&Description2?.errors?.['required'])
+        {
+        <div class="text-danger">
+          Description2 is required
+        </div>
+        }
+      </div>
+
+
+    </div>
+
+    <div class="form-group mb-3 row">
+      <label for="Title3" class="col-sm-2">Title3</label>
+      <div class="col-sm-10">
+        <input type="text" formControlName="Title3" class="form-control" id="Title3" placeholder="Enter Title3 ">
+        @if(Title3?.touched &&Title3?.errors?.['required'])
+        {
+        <div class="text-danger">
+          Title3 is required
+        </div>
+        }
+      </div>
+    </div>
+
+    <div class="form-group mb-3 row">
+      <label for="Description3" class="col-sm-2">Description3</label>
+      <div class="col-sm-10">
+        <input type="text" formControlName="Description3" class="form-control" id="Title3"
+          placeholder="Enter Description3 ">
+        @if(Description3?.touched &&Description3?.errors?.['required'])
+        {
+        <div class="text-danger">
+          Description3 is required
+        </div>
+        }
+      </div>
+    </div>
+    <div class="form-group mb-3 row">
+      <label for="StartDate" class="col-sm-2">Start Date</label>
+      <div class="col-sm-10">
+        <input type="date" formControlName="StartDate" class="form-control" id="StartDate"
+          placeholder="Enter StartDate ">
+        @if(StartDate?.touched &&StartDate?.errors?.['required'])
+        {
+        <div class="text-danger">
+          Start Date is required
+        </div>
+        }
+      </div>
+    </div>
+    <div class="form-group mb-3 row">
+      <label for="EndDate" class="col-sm-2">EndDate</label>
+      <div class="col-sm-10">
+        <input type="date" formControlName="EndDate" class="form-control" id="EndDate" placeholder="Enter End Date ">
+        @if(EndDate?.touched &&EndDate?.errors?.['required'])
+        {
+        <div class="text-danger">
+          End Date is required
+        </div>
+        }
+      </div>
+    </div>
+    <div class="form-group mb-3 row">
+      <label for="ResultAnnouncement" class="col-sm-2">Result Announcement</label>
+      <div class="col-sm-10">
+        <input type="date" formControlName="ResultAnnouncement" class="form-control" id="ResultAnnouncement"
+          placeholder="Enter Result Announcement Date">
+        @if(ResultAnnouncement?.touched &&ResultAnnouncement?.errors?.['required'])
+        {
+        <div class="text-danger">
+          ResultAnnouncement Date is required
+        </div>
+        }
+      </div>
+    </div>
+    <div class="form-group mb-3 row">
+      <label for="Image" class="col-sm-2">Image</label>
+      <div class="col-sm-10">
+        <input type="file" class="form-control mb-3" id="Image" (change)="onFileSelected($event)"
+          placeholder="Enter Image" required formControlName="Image">
+
+        @if(Image?.touched &&Image?.errors?.['required'])
+        {
+        <div class="text-danger">
+          Image is required
+        </div>
+        }
+      </div>
+
+
+    </div>
+    <div class="form-group mb-3 row">
+      <label for="InvestigatorId" class="col-sm-2 col-form-label">Investigator</label>
+      <div class="col-sm-10 position-relative">
+        <input class="form-control" id="InvestigatorId" placeholder="Choose Investigator"
+          formControlName="InvestigatorId" (input)="performFilter($event)" />
+        <input class="form-control" id="newUserId" placeholder="Choose Investigator" formControlName="newUserId"
+          hidden />
+        <input type="hidden" formControlName="InvestigatorId">
+        @if (filteredinvestigator.length > 0) {
+        <div class="filter-results">
+          @for (invest of filteredinvestigator; track invest.id) {
+          <div (click)="selectInvest(invest)" class="result-item">
+            {{ invest.email }}
+          </div>
+          }
+        </div>
+        }
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary mb-5" [disabled]="!projectForm.valid">Submit</button>
+  </form>
+
+</div>
+<!-- {{projectForm.value|json}} -->

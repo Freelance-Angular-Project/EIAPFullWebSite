@@ -4,3 +4,42 @@
     <h5 class="text-light project-header-title">Project Details</h5>
   </div>
 </div>
+@if(project){
+<main>
+  <div class="card">
+    <div class="card__title">
+      <h3>Project Details</h3>
+    </div>
+    <div class="card__body">
+      <div class="half">
+        <div class="featured_text mb-3">
+          <h1 class="mb-5">{{project.name}}</h1>
+          <p class="price">Start Date: {{project.startDate}}</p>
+          <p class="price">End Date: {{project.endDate}}</p>
+          <p class="price">Result Announcement: {{project.resultAnnouncement}}</p>
+        </div>
+        <div class="image">
+          <img [src]="project.imageUrl" alt="project image">
+        </div>
+      </div>
+      <div class="half">
+        <div class="description">
+          <p class="projecttitle">{{project.title1}}</p>
+          <p>Description1: {{project.description1}}</p>
+          <hr>
+          <p class="projecttitle">{{project.title2}}</p>
+          <p>Description2: {{project.description2}}</p>
+          <hr>
+          <p class="projecttitle">{{project.title3}}</p>
+          <p>Description3: {{project.description3}}</p>
+        </div>
+      </div>
+    </div>
+    <div class="card__footer">
+      <div class="action">
+        <button type="button" (click)="goBack()">Back</button>
+      </div>
+    </div>
+  </div>
+</main>
+}

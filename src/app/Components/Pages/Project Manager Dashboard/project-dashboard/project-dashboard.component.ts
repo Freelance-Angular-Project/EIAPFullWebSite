@@ -3,6 +3,8 @@ import { ProjectService } from '../../../../Services/Project/project.service';
 import { ProjectDashboard } from '../../../../Models/Projects/project-dashboard';
 import { Router, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { Project } from '../../../../Models/Projects/project';
+import { UpdateProjectImage } from '../../../../Models/Projects/update-project-image';
 declare var bootstrap: any;
 
 @Component({
@@ -77,5 +79,30 @@ constructor(private projectService : ProjectService,private router: Router){}
       console.log('No school selected for deletion');
     }
   }
+  fileTouched = false;
+  fileInvalid = false;
+  selectedFile!: UpdateProjectImage ;
+  onFileSelected(event: any, id: string) {
+    if (event.target.files.length > 0) {
+        const file: File = event.target.files[0];
+        this.fileTouched = true;
+        this.fileInvalid = false;
+
+        this.projectService.updateProjectImage(id, file).subscribe({
+            next: () => {
+                console.log("Updated News Image");
+                // Optionally refresh the list or image
+                this.projectService.getAllProjectsToDashboard().subscribe(projectsItems => {
+                  this.FilteredProjects = projectsItems;
+                });
+            },
+            error: (err) => {
+                console.error("Error updating news image:", err);
+            }
+        });
+    } else {
+        this.fileInvalid = true; // No file selected
+    }
+}
 
 }

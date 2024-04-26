@@ -66,17 +66,17 @@
           <li class="nav-item">
             <a class="nav-link" routerLink="/ProjectDashboard" routerLinkActive="active">Project Dashboard</a>
           </li>
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <a class="nav-link" routerLink="/ProjectAnalytics" routerLinkActive="active">Project Analytics</a>
-          </li>
+          </li> -->
           }
 
 
 
           @if(userService.getuRoles('Investigated')||userService.getuRoles('Admin')&&userLogg){
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <a class="nav-link" routerLink="/TicketsDashboard" routerLinkActive="active">Tickets Dashboard</a>
-          </li>
+          </li> -->
           <li class="nav-item">
             <a class="nav-link" routerLink="/TasksDashboard" routerLinkActive="active">Tasks Dashboard</a>
           </li>
@@ -93,7 +93,6 @@
             </li>
 
             }
-
 
           <!-- @if(userService.getuRoles('SchoolManager')||userService.getuRoles('Admin')&&userLogg){
           <li class="nav-item">

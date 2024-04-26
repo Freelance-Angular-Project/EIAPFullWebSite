@@ -27,6 +27,9 @@ import { AddNewsComponent } from './Components/Pages/Admin/News/add-news/add-new
 import { ViewEventsComponent } from './Components/Pages/Admin/EventsDashboard/view-events/view-events.component';
 import { AddResponseComponent } from './Components/Pages/Admin/Tickets/add-response/add-response.component';
 import { ProjectDetailsComponent } from './Components/Pages/Project Manager Dashboard/project-details/project-details.component';
+import { AddNewProjectComponent } from './Components/Pages/Project Manager Dashboard/add-new-project/add-new-project.component';
+import { EditProjectComponent } from './Components/Pages/Project Manager Dashboard/edit-project/edit-project.component';
+import { AddSchoolToProjectComponent } from './Components/Pages/Project Manager Dashboard/add-school-to-project/add-school-to-project.component';
 export const routes: Routes = [
   { path: '', redirectTo: '/Home', pathMatch: 'full' },
   { path: 'Home', component: MainHomeComponent, title: 'Home Page' },
@@ -73,9 +76,30 @@ export const routes: Routes = [
     data: { role: ['ProjectManager', 'Admin'] },
   },
   {
+    path: 'CreateProject',
+    component: AddNewProjectComponent,
+    title: 'Create Project Page',
+    canActivate: [roleGuardGuard],
+    data: { role: ['ProjectManager', 'Admin'] },
+  },
+  {
+    path: 'UpdateProject/:projectid',
+    component: EditProjectComponent,
+    title: 'Edit Project Page',
+    canActivate: [roleGuardGuard],
+    data: { role: ['ProjectManager', 'Admin'] },
+  },
+  {
     path: 'GetProjectDetails/:id',
     component: ProjectDetailsComponent,
     title: 'Project Details Page',
+    canActivate: [roleGuardGuard],
+    data: { role: ['ProjectManager', 'Admin'] },
+  },
+  {
+    path: 'addSchooltoProject/:id',
+    component: AddSchoolToProjectComponent,
+    title: 'Add School to Project Page',
     canActivate: [roleGuardGuard],
     data: { role: ['ProjectManager', 'Admin'] },
   },
