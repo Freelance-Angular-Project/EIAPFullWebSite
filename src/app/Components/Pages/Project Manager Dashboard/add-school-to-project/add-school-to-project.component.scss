@@ -1,0 +1,28 @@
+/* General styling for the select box */
+.select-multiple {
+  width: 100%;  /* Full width */
+  height: auto; /* Adjust height based on content */
+  padding: 8px; /* Padding inside the select box */
+  border: 1px solid #ccc; /* Grey border */
+  background-color: white; /* White background color */
+  overflow-y: auto; /* Enable scrolling inside the dropdown */
+  border-radius: 4px; /* Rounded corners */
+}
+
+/* Styling options within the select box */
+.select-multiple option {
+  padding: 8px; /* Padding around each option */
+  cursor: pointer; /* Cursor indicates it's selectable */
+  border-bottom: 1px solid #f0f0f0; /* Light grey line between options */
+}
+
+/* Hover effect for options */
+.select-multiple option:hover {
+  background-color: #f7f7f7; /* Light grey background on hover */
+}
+
+/* Focus styling for the select box */
+.select-multiple:focus {
+  border-color: #0056b3; /* Blue border on focus */
+  outline: none; /* Remove default focus outline */
+}

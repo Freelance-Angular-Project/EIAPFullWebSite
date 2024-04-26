@@ -27,7 +27,7 @@ export class ProjectService {
     return this.http.post(this.baseUrl, newsItem,this.httpOptions);
   }
   addSchoolToProject(school:AddSchoolToProject):Observable<AddSchoolToProject>{
-    return this.http.post<AddSchoolToProject>(this.baseUrl, school,this.httpOptions);
+    return this.http.post<AddSchoolToProject>(`${this.baseUrl}/AddSchoolsToProject`, school,this.httpOptions);
 
   }
   getAllProjects(): Observable<Project[]> {
@@ -42,7 +42,7 @@ export class ProjectService {
     return this.http.get<ProjectDashboard[]>(`${this.baseUrl}/GetAllProjectsToDashboard`);
   }
   deleteProject(id: string): Observable<ProjectDashboard> {
-    return this.http.delete<ProjectDashboard>(`${this.baseUrl}/${id}`);
+    return this.http.delete<ProjectDashboard>(`${this.baseUrl}?id=${id}`);
   }
   editProject(projectID:string,project:Project):Observable<Project>{
     return this.http.put<Project>(`${this.baseUrl}/${projectID}`,project,this.httpOptions);
