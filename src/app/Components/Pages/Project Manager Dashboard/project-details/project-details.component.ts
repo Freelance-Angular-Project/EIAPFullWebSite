@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProjectService } from '../../../../Services/Project/project.service';
-import { Project } from '../../../../Models/Projects/project';
+import { Project, ProjectFile } from '../../../../Models/Projects/project';
 
 @Component({
   selector: 'app-project-details',
@@ -13,7 +13,9 @@ import { Project } from '../../../../Models/Projects/project';
 })
 export class ProjectDetailsComponent implements OnInit {
   project: Project = {} as Project;
+  ProjectFiles : ProjectFile[] | undefined=[];
   currentProjectID: string = '';
+  selectedProjectFileId : string = '';
   constructor(
     private activatedrouter: ActivatedRoute,
     private router: Router,
@@ -26,6 +28,9 @@ export class ProjectDetailsComponent implements OnInit {
     this.projectservices.getProjectById(this.currentProjectID).subscribe({
       next: (currentproject) => {
         this.project = currentproject;
+        console.log(this.project);
+
+        this.ProjectFiles = this.project.files;
       },
       error: (err) => {
         console.log(err);
@@ -34,5 +39,8 @@ export class ProjectDetailsComponent implements OnInit {
   }
   goBack(){
     this.router.navigate(['/ProjectDashboard'])
+  }
+  selectProjectFile(id :string){
+    this.selectedProjectFileId = id;
   }
 }

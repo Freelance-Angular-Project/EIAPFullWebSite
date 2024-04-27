@@ -12,6 +12,18 @@ export interface Project {
   startDate: Date; // or Date for date objects
   endDate: Date; // or Date for date objects
   resultAnnouncement: string;
-  files?: any[]; // Specify the type if you know the structure of files
+  files?: ProjectFile[]; // Specify the type if you know the structure of files
   imageUrl: string;
+}
+
+export interface ProjectFile {
+  created: string;        // Assuming date and time as string
+  description: string;
+  endDate: string;        // Assuming date and time as string
+  fileName: string;
+  id: string;
+  isPublic: boolean;
+  name: string;
+  projectId: string;
+  url: string;
 }

@@ -15,13 +15,16 @@
       <select multiple  class="form-control select-multiple" (change)="onSchoolSelectionChange($event)">
         <ng-container formArrayName="schoolsIds">
           @for(school of schools; track $index) {
-            <option [value]="school.id" >{{ school.name }}</option>
+            <option [value]="school .id" >{{ school.name }}</option>
           }
         </ng-container>
       </select>
       <button type="submit" class="btn btn-primary mt-3" [disabled]="!schoolProjectForm.valid">Submit</button>
     </form>
 
+    <div>
+      <button class="btn btn-primary mt-3" (click)="backToDashboard()">Back</button>
+    </div>
 
   </div>
 

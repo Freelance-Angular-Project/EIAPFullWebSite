@@ -7,7 +7,7 @@ import { ToastService } from '../../../../Services/Toast/toast.service';
 import { ProjectService } from '../../../../Services/Project/project.service';
 import { SchoolToProject } from '../../../../Models/Schools/school-to-project';
 import { Schooltoselect } from '../../../../Models/Schools/schooltoselect';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-school-to-project',
@@ -29,6 +29,7 @@ export class AddSchoolToProjectComponent {
     private projectservice: ProjectService,
     public toastService: ToastService,
     private route: ActivatedRoute,
+    private router: Router
   ) {
     this.schoolProjectForm = this.fb.group({
       schoolsIds: this.fb.array([], [Validators.required]),
@@ -96,6 +97,10 @@ export class AddSchoolToProjectComponent {
         },
       });
     }
+  }
+  backToDashboard()
+  {
+    this.router.navigate(['/ProjectDashboard'])
   }
 
 }

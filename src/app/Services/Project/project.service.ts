@@ -44,9 +44,12 @@ export class ProjectService {
   deleteProject(id: string): Observable<ProjectDashboard> {
     return this.http.delete<ProjectDashboard>(`${this.baseUrl}?id=${id}`);
   }
-  editProject(projectID:string,project:Project):Observable<Project>{
-    return this.http.put<Project>(`${this.baseUrl}/${projectID}`,project,this.httpOptions);
-
+  editProject(projectID:string,project:EditProject):Observable<EditProject>{
+    return this.http.put<EditProject>(`${this.baseUrl}/${projectID}`,project,this.httpOptions);
+  }
+  GetByIdToDashboard(id:string): Observable<ProjectDashboard>
+  {
+    return this.http.get<ProjectDashboard>(`${this.baseUrl}/GetByIdToDashboard${id}`);
   }
   updateProjectImage(id: string, file: File): Observable<any> {
     const formData = new FormData();
