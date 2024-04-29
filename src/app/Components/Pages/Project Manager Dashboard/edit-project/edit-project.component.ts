@@ -53,11 +53,13 @@ export class EditProjectComponent {
             ResultAnnouncement: new Date(this.CurrentProject.resultAnnouncement),
           };
           console.log(this.project);
+          console.log(this.currentProjectId);
 
         },
         error: (err) => console.error(err),
       });
     }
+
 
     this.userservice.getUsersInRole('Investigated').subscribe({
       next: (invest) => {
@@ -68,6 +70,7 @@ export class EditProjectComponent {
       },
     });
   }
+
 
   onSubmit(form: NgForm): void {
     if (form.valid) {
@@ -83,7 +86,6 @@ export class EditProjectComponent {
     }
   }
   performFilter(event: Event) {
-    // filterByRole = filterByRole.toLocaleLowerCase();
     const filterByRole = (event.target as HTMLInputElement).value;
 
     if (filterByRole) {

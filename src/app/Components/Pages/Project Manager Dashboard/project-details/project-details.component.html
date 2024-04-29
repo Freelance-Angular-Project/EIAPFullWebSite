@@ -35,44 +35,7 @@
         </div>
       </div>
     </div>
-    @if(ProjectFiles?.length )
-    {
-      <div class="tbl-header">
-        <table cellpadding="0" cellspacing="0" class="border-0">
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Created Date</th>
-              <th>Description</th>
-              <th>End Date</th>
-              <th>Is Public</th>
-              <th>Image</th>
-            </tr>
-          </thead>
-        </table>
-      </div>
-      <div class="tbl-content">
-        <table cellpadding="0" cellspacing="0" class="border-0">
-          <tbody>
-            @for (projectFile of ProjectFiles; track projectFile.id) {
-            <tr (click)="selectProjectFile(projectFile.id)">
-              <td>{{projectFile.name}}</td>
-              <td>{{projectFile.created}}</td>
-              <td>{{projectFile.description}}</td>
-              <td>{{projectFile.endDate}}</td>
-              <td>{{projectFile.isPublic}}</td>
-              <td>
-                <img [src]="projectFile.url" width="100" class="img-fluid">
 
-              </td>
-
-
-            </tr>
-            }
-          </tbody>
-        </table>
-      </div>
-    }
     <div class="card__footer">
       <div class="action">
         <button type="button" (click)="goBack()">Back</button>
@@ -81,3 +44,115 @@
   </div>
 </main>
 }
+
+<div class="container">
+  @if(ProjectFiles?.length )
+{
+  <h3>Project Files</h3>
+<div class="tbl-header">
+  <table cellpadding="0" cellspacing="0" class="border-0">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Created Date</th>
+        <th>Description</th>
+        <th>End Date</th>
+        <th>Is Public</th>
+        <th>Image</th>
+      </tr>
+    </thead>
+  </table>
+</div>
+<div class="tbl-content">
+  <table cellpadding="0" cellspacing="0" class="border-0">
+    <tbody>
+      @for (projectFile of ProjectFiles; track projectFile.id) {
+      <tr (click)="selectProjectFile(projectFile.id)">
+        <td>{{projectFile.name}}</td>
+        <td>{{projectFile.created}}</td>
+        <td>{{projectFile.description}}</td>
+        <td>{{projectFile.endDate}}</td>
+        <td>{{projectFile.isPublic}}</td>
+        <td>
+          <img [src]="projectFile.url" width="100" class="img-fluid">
+
+        </td>
+
+
+      </tr>
+      }
+    </tbody>
+  </table>
+</div>
+}
+</div>
+<div class="container">
+  @if(SchoolsProject?.length )
+{
+  <h3>Project School</h3>
+<div class="tbl-header">
+  <table cellpadding="0" cellspacing="0" class="border-0">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>School Email</th>
+        <th>Code</th>
+        <th>Curriculums</th>
+        <th>Education Type</th>
+        <th>Grade</th>
+        <th>Zone</th>
+      </tr>
+    </thead>
+  </table>
+</div>
+<div class="tbl-content">
+  <table cellpadding="0" cellspacing="0" class="border-0">
+    <tbody>
+      @for (school of SchoolsProject; track school.id) {
+      <tr (click)="selectSchoolFile(school.id)">
+        <td>{{school.name}}</td>
+        <td>{{school.schoolEmail}}</td>
+        <td>{{school.code}}</td>
+        <td>{{school.curriculums}}</td>
+        <td>{{school.educationType}}</td>
+        <td>{{school.grade}}</td>
+        <td>{{school.zone}}</td>
+      </tr>
+      }
+    </tbody>
+  </table>
+</div>
+}
+</div>
+<div class="container">
+  @if(TasksProject?.length )
+{
+  <h3>Project Tasks</h3>
+<div class="tbl-header">
+  <table cellpadding="0" cellspacing="0" class="border-0">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Details</th>
+        <th>Created At</th>
+        <th>End Date</th>
+      </tr>
+    </thead>
+  </table>
+</div>
+<div class="tbl-content">
+  <table cellpadding="0" cellspacing="0" class="border-0">
+    <tbody>
+      @for (task of TasksProject; track task.id) {
+      <tr (click)="selectProjectTask(task.id)">
+        <td>{{task.name}}</td>
+        <td>{{task.details}}</td>
+        <td>{{task.createdAt}}</td>
+        <td>{{task.endDate}}</td>
+      </tr>
+      }
+    </tbody>
+  </table>
+</div>
+}
+</div>

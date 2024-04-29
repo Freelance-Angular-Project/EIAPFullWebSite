@@ -8,6 +8,7 @@ import { CreateProject } from '../../Models/Projects/create-project';
 import { EditProject } from '../../Models/Projects/edit-project';
 import { ProjectInSchool } from '../../Models/Projects/project-in-school';
 import { AddSchoolToProject } from '../../Models/Projects/add-school-to-project';
+import { ProjectDetailsAll } from '../../Models/Projects/project-details-all';
 
 @Injectable({
   providedIn: 'root'
@@ -44,12 +45,32 @@ export class ProjectService {
   deleteProject(id: string): Observable<ProjectDashboard> {
     return this.http.delete<ProjectDashboard>(`${this.baseUrl}?id=${id}`);
   }
-  editProject(projectID:string,project:EditProject):Observable<EditProject>{
-    return this.http.put<EditProject>(`${this.baseUrl}/${projectID}`,project,this.httpOptions);
+
+  editProject(projectID: string, project: EditProject): Observable<string> {
+    const formData = new FormData();
+
+    // Add project fields to formData
+    Object.keys(project).forEach(key => {
+      if (project[key] instanceof File) {
+        formData.append(key, project[key], (project[key] as File).name);
+      } else {
+        formData.append(key, project[key]);
+      }
+    });
+
+    // Set headers for multipart/form-data and Accept as text/plain
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Accept': 'text/plain'
+      }),
+      responseType: 'text' as 'json'
+    };
+
+    return this.http.put<string>(`${this.baseUrl}/${projectID}`, formData, httpOptions);
   }
-  GetByIdToDashboard(id:string): Observable<ProjectDashboard>
+  GetByIdToDashboard(id:string): Observable<ProjectDetailsAll>
   {
-    return this.http.get<ProjectDashboard>(`${this.baseUrl}/GetByIdToDashboard${id}`);
+    return this.http.get<ProjectDetailsAll>(`${this.baseUrl}/GetByIdToDashboard${id}`);
   }
   updateProjectImage(id: string, file: File): Observable<any> {
     const formData = new FormData();

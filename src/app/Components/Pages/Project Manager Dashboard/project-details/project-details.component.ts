@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProjectService } from '../../../../Services/Project/project.service';
-import { Project, ProjectFile } from '../../../../Models/Projects/project';
+import { ProjectDetailsAll, ProjectFileForProjectDetails, SchoolForProjectDetails, TaskForProjectDetails } from '../../../../Models/Projects/project-details-all';
 
 @Component({
   selector: 'app-project-details',
@@ -12,10 +12,14 @@ import { Project, ProjectFile } from '../../../../Models/Projects/project';
   styleUrl: './project-details.component.scss',
 })
 export class ProjectDetailsComponent implements OnInit {
-  project: Project = {} as Project;
-  ProjectFiles : ProjectFile[] | undefined=[];
+  project: ProjectDetailsAll = {} as ProjectDetailsAll;
+  ProjectFiles : ProjectFileForProjectDetails[] | undefined=[];
+  SchoolsProject:SchoolForProjectDetails[]| undefined=[];
+  TasksProject : TaskForProjectDetails[] | undefined=[];
   currentProjectID: string = '';
   selectedProjectFileId : string = '';
+  selectedProjectSchoolId:string = '';
+  selectedProjectTaskId:string = '';
   constructor(
     private activatedrouter: ActivatedRoute,
     private router: Router,
@@ -25,12 +29,14 @@ export class ProjectDetailsComponent implements OnInit {
     this.currentProjectID =
       this.activatedrouter.snapshot.paramMap.get('id') || '';
 
-    this.projectservices.getProjectById(this.currentProjectID).subscribe({
+    this.projectservices.GetByIdToDashboard(this.currentProjectID).subscribe({
       next: (currentproject) => {
         this.project = currentproject;
         console.log(this.project);
 
         this.ProjectFiles = this.project.files;
+        this.SchoolsProject = this.project.schools;
+        this.TasksProject= this.project.tasks
       },
       error: (err) => {
         console.log(err);
@@ -42,5 +48,11 @@ export class ProjectDetailsComponent implements OnInit {
   }
   selectProjectFile(id :string){
     this.selectedProjectFileId = id;
+  }
+  selectSchoolFile(id :string){
+    this.selectedProjectSchoolId = id;
+  }
+  selectProjectTask(id :string){
+    this.selectedProjectTaskId = id;
   }
 }
