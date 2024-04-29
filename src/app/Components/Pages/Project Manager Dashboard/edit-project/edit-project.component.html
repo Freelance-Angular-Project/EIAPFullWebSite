@@ -71,25 +71,41 @@
       </div>
     </div>
 
-    <div class="form-group mb-3 row">
-      <label for="InvestigatorId" class="col-sm-2 col-form-label">Investigator</label>
-      <div class="col-sm-10 position-relative">
-          <input class="form-control" id="InvestigatorId" placeholder="Choose Investigator"
-            [(ngModel)]="project.InvestigatorId" name="InvestigatorId"
-            (ngModelChange)="performFilter($event)" />
-          <input class="form-control" id="newUserId" [(ngModel)]="selectedInvestigatorId" name="newUserId" hidden>
 
-        @if (filteredinvestigator.length > 0) {
-        <div class="filter-results">
-          @for (invest of filteredinvestigator; track invest.id) {
-          <div (click)="selectInvest(invest)" class="result-item">
-            {{ invest.email }}
+
+
+    <div class="container">
+      <form>
+        <div class="form-group mb-3 row">
+          <label for="userId" class="col-sm-2 col-form-label">School Manager</label>
+          <div class="col-sm-10 position-relative">
+            <!-- Ensure each input using ngModel has a name attribute -->
+            <input class="form-control" id="userId" placeholder="Choose Manager"
+              [(ngModel)]="selectedManagerName" (ngModelChange)="performFilter($event)" name="managerEmail" />
+
+            <!-- Hidden input for the manager ID, also with a name attribute -->
+            <input type="hidden" [(ngModel)]="selectedManagerId" name="managerId" />
+
+            <div *ngIf="filteredinvestigator.length > 0" class="filter-results">
+              <div *ngFor="let manager of filteredinvestigator" (click)="selectManager(manager)"
+                  class="result-item">
+                {{ manager.email }}
+              </div>
+            </div>
           </div>
-          }
         </div>
-        }
-      </div>
+      </form>
     </div>
+
+
+
+
+
+
+
+
+
+
     <button type="submit" class="button-37" [disabled]="newsForm.invalid">Update Project</button>
   </form>
 </div>

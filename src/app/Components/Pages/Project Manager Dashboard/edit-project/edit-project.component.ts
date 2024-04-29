@@ -20,10 +20,9 @@ export class EditProjectComponent {
   project: EditProject = {} as EditProject; // Assuming you have a class or interface named School
   CurrentProject: Project = {} as Project; // Assuming you have a class or interface named School
   currentProjectId: string = '';
-  investigator: Role[] = [];
+  investigatorManager: Role[] = [];
   filteredinvestigator: Role[] = [];
-  selectedinvestigatorName: string = '';
-  selectedInvestigatorId: string = '';
+
   constructor(
     private projectService: ProjectService,
     private route: ActivatedRoute,
@@ -41,7 +40,7 @@ export class EditProjectComponent {
 
           this.project = {
             Name: this.CurrentProject.name,
-            InvestigatorId: this.CurrentProject.investigatorId,
+            InvestigatorId: this.selectedManagerId,
             Title1: this.CurrentProject.title1,
             Description1: this.CurrentProject.description1,
             Title2: this.CurrentProject.title2,
@@ -63,7 +62,8 @@ export class EditProjectComponent {
 
     this.userservice.getUsersInRole('Investigated').subscribe({
       next: (invest) => {
-        this.investigator = invest;
+        this.investigatorManager = invest;
+        this.filteredinvestigator= this.investigatorManager;
       },
       error: (err) => {
         console.log(err);
@@ -85,24 +85,20 @@ export class EditProjectComponent {
         });
     }
   }
-  performFilter(event: Event) {
-    const filterByRole = (event.target as HTMLInputElement).value;
 
-    if (filterByRole) {
-      console.log(filterByRole);
+  performFilter(value: string): void {
+    this.filteredinvestigator = this.investigatorManager.filter(manager =>
+      manager.email.toLowerCase().includes(value.toLowerCase())
+    );
+  }
+  selectedManagerName:string='';
+  selectedManagerId:string='';
+  selectManager(manager: Role): void {
+    this.selectedManagerName = manager.email;
+    this.selectedManagerId = manager.id;
+    this.filteredinvestigator = [];
+  }
 
-      this.filteredinvestigator = this.investigator.filter(
-        (manager: Role) =>
-          manager.email &&
-          manager.email.toLowerCase().includes(filterByRole.toLowerCase())
-      );
-    } else {
-      this.filteredinvestigator = [...this.investigator];
-    }
-  }
-  selectInvest(investgate: Role): void {
-    this.selectedinvestigatorName = investgate.email;
-    this.selectedInvestigatorId = investgate.id;
-    this.filteredinvestigator = []; // Clear filtered list after selection
-  }
+
+
 }
