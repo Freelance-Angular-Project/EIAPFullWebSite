@@ -9,6 +9,7 @@ export interface TaskDetails {
   status:string;
   commentToSchool:string;
   taskResultId:string;
+  taskNotes:notes[];
 
   assignments: Assignments[];
   files: TaskFile[];
@@ -27,4 +28,9 @@ export interface TaskFile {
   id: string;
   taskId: string;
   url: string;
+}
+export interface notes {
+  id: string;
+  taskId: string;
+  details: string;
 }

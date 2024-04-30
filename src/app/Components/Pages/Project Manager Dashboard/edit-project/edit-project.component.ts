@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { EditProject } from '../../../../Models/Projects/edit-project';
 import { ProjectService } from '../../../../Services/Project/project.service';
@@ -16,7 +16,7 @@ import { ProjectDashboard } from '../../../../Models/Projects/project-dashboard'
   templateUrl: './edit-project.component.html',
   styleUrl: './edit-project.component.scss',
 })
-export class EditProjectComponent {
+export class EditProjectComponent implements OnInit {
   project: EditProject = {} as EditProject; // Assuming you have a class or interface named School
   CurrentProject: Project = {} as Project; // Assuming you have a class or interface named School
   currentProjectId: string = '';

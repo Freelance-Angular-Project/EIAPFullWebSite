@@ -3,7 +3,6 @@ import { ProjectService } from '../../../../Services/Project/project.service';
 import { ProjectDashboard } from '../../../../Models/Projects/project-dashboard';
 import { Router, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { Project } from '../../../../Models/Projects/project';
 import { UpdateProjectImage } from '../../../../Models/Projects/update-project-image';
 declare var bootstrap: any;
 

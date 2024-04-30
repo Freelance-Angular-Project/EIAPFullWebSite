@@ -1,0 +1,96 @@
+<div class="container-fluid background1 mb-5">
+  <div class="d-flex align-items-center h-50 p-5">
+
+    <h5 class="text-light project-header-title">Task Details</h5>
+  </div>
+</div>
+@if(task){
+<main>
+  <div class="card">
+    <div class="card__title">
+      <h3>Task Details</h3>
+    </div>
+    <div class="card__body">
+      <div class="half">
+        <div class="featured_text mb-3">
+          <h1 class="mb-5">{{task.name}}</h1>
+          <p class="price"><span class="text-primary">Details:</span> {{task.details}}</p>
+          <p class="price"><span class="text-primary">End Date: </span>{{task.endDate}}</p>
+          <p class="price"><span class="text-primary">Number Of Files: </span>{{task.numberOfFilesToAssignment}}</p>
+        </div>
+      </div>
+      <!-- <div class="half">
+        <div class="description">
+          <p class="projecttitle">{{project.title1}}</p>
+          <p>Description1: {{project.description1}}</p>
+          <hr>
+          <p class="projecttitle">{{project.title2}}</p>
+          <p>Description2: {{project.description2}}</p>
+          <hr>
+          <p class="projecttitle">{{project.title3}}</p>
+          <p>Description3: {{project.description3}}</p>
+        </div>
+      </div> -->
+    </div>
+
+    <div class="card__footer">
+      <div class="action">
+        <button type="button" (click)="goBack()">Back</button>
+      </div>
+    </div>
+  </div>
+</main>
+}
+
+<div class="container">
+
+  <h3>Task Notes</h3>
+<div class="tbl-header">
+  <table cellpadding="0" cellspacing="0" class="border-0">
+    <thead>
+      <tr>
+        <th>Task Id</th>
+        <th>Details</th>
+      </tr>
+    </thead>
+  </table>
+</div>
+<div class="tbl-content">
+  <table cellpadding="0" cellspacing="0" class="border-0">
+    <tbody>
+      @for (taskNotes of task.taskNotes; track taskNotes.id) {
+      <tr>
+        <td>{{taskNotes.taskId}}</td>
+        <td>{{taskNotes.details}}</td>
+      </tr>
+      }
+    </tbody>
+  </table>
+</div>
+</div>
+<div class="container">
+  <h3>Task Files</h3>
+<div class="tbl-header">
+  <table cellpadding="0" cellspacing="0" class="border-0">
+    <thead>
+      <tr>
+        <th>Task ID</th>
+        <th>URL</th>
+      </tr>
+    </thead>
+  </table>
+</div>
+<div class="tbl-content">
+  <table cellpadding="0" cellspacing="0" class="border-0">
+    <tbody>
+      @for (file of task.files; track file.id) {
+      <tr >
+        <td>{{file.taskId}}</td>
+        <td>{{file.url}}</td>
+      </tr>
+      }
+    </tbody>
+  </table>
+</div>
+</div>
+

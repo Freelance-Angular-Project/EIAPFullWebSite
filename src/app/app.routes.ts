@@ -10,7 +10,7 @@ import { roleGuardGuard } from './Guards/role-guard.guard';
 import { ProjectDashboardComponent } from './Components/Pages/Project Manager Dashboard/project-dashboard/project-dashboard.component';
 import { ProjectAnalyticsComponent } from './Components/Pages/Project Manager Dashboard/project-analytics/project-analytics.component';
 import { TicketsDashboardComponent } from './Components/Pages/Investigated Dashboard/tickets-dashboard/tickets-dashboard.component';
-import { TasksDashboardComponent } from './Components/Pages/Investigated Dashboard/tasks-dashboard/tasks-dashboard.component';
+import { TasksDashboardComponent } from './Components/Pages/Investigated Dashboard/TasksDashboard/tasks-dashboard/tasks-dashboard.component';
 import { InvestigatedAnalyticsComponent } from './Components/Pages/Investigated Dashboard/investigated-analytics/investigated-analytics.component';
 import { AdminDashboardComponent } from './Components/Pages/Admin/Accounts/admin-dashboard/admin-dashboard.component';
 import { MainLayoutAdminComponent } from './Components/Pages/Admin/main-layout-admin/main-layout-admin.component';
@@ -30,6 +30,9 @@ import { ProjectDetailsComponent } from './Components/Pages/Project Manager Dash
 import { AddNewProjectComponent } from './Components/Pages/Project Manager Dashboard/add-new-project/add-new-project.component';
 import { EditProjectComponent } from './Components/Pages/Project Manager Dashboard/edit-project/edit-project.component';
 import { AddSchoolToProjectComponent } from './Components/Pages/Project Manager Dashboard/add-school-to-project/add-school-to-project.component';
+import { AddTaskComponent } from './Components/Pages/Investigated Dashboard/TasksDashboard/add-task/add-task.component';
+import { EditTaskComponent } from './Components/Pages/Investigated Dashboard/TasksDashboard/edit-task/edit-task.component';
+import { TaskDetailsComponent } from './Components/Pages/Investigated Dashboard/TasksDashboard/task-details/task-details.component';
 export const routes: Routes = [
   { path: '', redirectTo: '/Home', pathMatch: 'full' },
   { path: 'Home', component: MainHomeComponent, title: 'Home Page' },
@@ -127,7 +130,26 @@ export const routes: Routes = [
     canActivate: [roleGuardGuard],
     data: { role: ['Investigated', 'Admin'] },
   },
-
+  {
+    path: 'AddTaskInDashboard',
+    component: AddTaskComponent,
+    title: 'Add Task Page',
+    canActivate: [roleGuardGuard],
+    data: { role: ['Investigated', 'Admin'] },
+  },
+  {
+    path: 'EditTaskInDashboard/:taskID',
+    component: EditTaskComponent,
+    title: 'Edit Task Page',
+    canActivate: [roleGuardGuard],
+    data: { role: ['Investigated', 'Admin'] },
+  }, {
+    path: 'TaskDetailsInDashboard/:ID',
+    component: TaskDetailsComponent,
+    title: 'Task Details Page',
+    canActivate: [roleGuardGuard],
+    data: { role: ['Investigated', 'Admin'] },
+  },
   {
     path: 'InvestigatedAnalytics',
     component: InvestigatedAnalyticsComponent,
