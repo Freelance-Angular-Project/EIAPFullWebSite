@@ -35,13 +35,23 @@ $shadow-spread: 10px; // Adjust as needed for the depth of the shadow
 
 
 }
-
+.img-responsive{
+  width: 100%;
+  height: 300px;
+}
+@media screen and (max-width: 1200px) {
+  .img-responsive{
+    width: 100%;
+    height: auto;
+  }
+}
 // Add responsive styling as needed
 @media (max-width: 768px) {
   .shadow-card {
     width: 90%;
     padding: 20px;
   }
+
 }
 
 

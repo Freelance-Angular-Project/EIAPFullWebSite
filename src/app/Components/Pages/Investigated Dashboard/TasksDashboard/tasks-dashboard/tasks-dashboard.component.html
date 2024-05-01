@@ -21,7 +21,7 @@
         <thead>
           <tr>
             <th>Name</th>
-            <th>Details</th>
+            <!-- <th>Details</th> -->
             <th>Num Files</th>
             <th>Project Name</th>
             <th>End Date</th>
@@ -37,7 +37,7 @@
           @for (task of tasksInDashboard; track task.id) {
           <tr (click)="selectProject(task.id)">
             <td>{{task.name}}</td>
-            <td>{{task.details}}</td>
+            <!-- <td>{{task.details}}</td> -->
             <td>{{task.numberOfFilesToAssignment}}</td>
             <td>{{task.projectName}}</td>
             <td>{{task.endDate}}</td>

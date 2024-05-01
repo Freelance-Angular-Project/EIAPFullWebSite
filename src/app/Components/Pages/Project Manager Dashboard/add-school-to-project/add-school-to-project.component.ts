@@ -34,6 +34,7 @@ export class AddSchoolToProjectComponent {
     this.schoolProjectForm = this.fb.group({
       schoolsIds: this.fb.array([], [Validators.required]),
     });
+
   }
   ngOnInit(): void {
     this.currentProjectId = this.route.snapshot.paramMap.get('id') || '';
@@ -47,7 +48,9 @@ export class AddSchoolToProjectComponent {
         console.log(err);
       },
     });
+
   }
+
   // Define getters for form controls
   get projectId() {
     return this.schoolProjectForm.get('projectId');
@@ -77,7 +80,7 @@ export class AddSchoolToProjectComponent {
         projectId: this.currentProjectId,
         schoolsIds: this.schoolProjectForm.value.schoolsIds,
       };
-      console.log(this.addSchool);
+      // console.log(this.addSchool);
 
       this.projectservice.addSchoolToProject(this.addSchool).subscribe({
         next: (school) => {
@@ -87,9 +90,10 @@ export class AddSchoolToProjectComponent {
             'School has been successfully added to ptoject.',
             false
           );
+          this.router.navigate(['/ProjectDashboard'])
         },
         error: (err) => {
-          console.log(err);
+          // console.log(err);
           this.toastService.show(
             'School has been error in create ',
             true
