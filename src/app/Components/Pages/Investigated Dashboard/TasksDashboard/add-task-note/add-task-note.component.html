@@ -1,0 +1,36 @@
+@if(toastService.showToast | async){
+<div class="alert w-50 mx-auto alert-dismissible" [class.alert-success]="!(toastService.isError | async)"
+  [class.alert-danger]="(toastService.isError | async)">
+
+  {{ toastService.message | async }}
+  <button type="button" class="btn-close" (click)="toastService.showToast.next(false)"></button>
+</div>
+}
+
+<div class="container card shadow p-5 mt-5">
+  <form [formGroup]="taskForm" (ngSubmit)="onSubmitAddNote()" class="needs-validation" novalidate>
+    <div formArrayName="details">
+      @for (detail of details.controls; track $index) {
+      <div [formGroupName]="$index" class="form-group mb-3 row">
+        <label for="detail{{$index}}" class="col-sm-2">Task Detail {{$index + 1}}</label>
+        <div class="col-sm-8">
+          <input type="text" formControlName="detail" class="form-control" id="detail{{$index}}" placeholder="Enter Task Detail" name="detail{{$index}}">
+          @if(detail.touched && detail.errors?.['required']){
+          <div class="text-danger">
+            Task Detail is required
+          </div>
+        }
+        </div>
+        <button type="button" class="btn btn-danger btn-sm col-sm-2" (click)="removeDetail($index)" [hidden]="$index === 0 && details.length === 1"><i class="fa-solid fa-trash"></i></button>
+
+      </div>
+    }
+    <button type="button" class="btn btn-secondary mb-3" (click)="addDetail()"
+            [disabled]="details.at(details.length - 1).invalid">Add More Details</button>
+    </div>
+
+    <button type="submit" class="btn btn-primary mb-5" [disabled]="!taskForm.valid">Submit</button>
+  </form>
+
+</div>
+<!-- {{taskForm.value|json}} -->

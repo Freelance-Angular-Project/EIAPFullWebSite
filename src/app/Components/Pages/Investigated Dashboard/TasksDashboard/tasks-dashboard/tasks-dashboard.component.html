@@ -25,6 +25,7 @@
             <th>Num Files</th>
             <th>Project Name</th>
             <th>End Date</th>
+            <th>Add Note</th>
             <th>Actions</th>
           </tr>
         </thead>
@@ -40,26 +41,13 @@
             <td>{{task.numberOfFilesToAssignment}}</td>
             <td>{{task.projectName}}</td>
             <td>{{task.endDate}}</td>
-            <!-- <td>
-              <img [src]="project.imageUrl" width="100" class="img-fluid">
-              <label class="mb-3" for="Image-{{project.id}}">
-                <i class="fa-solid fa-file-arrow-up mt-2 ms-4" style="font-size:25px;"></i>
-                <input type="file" class="form-control-file d-none" id="Image-{{project.id}}"
-                  (change)="onFileSelected($event, project.id)" required style="display: none;">
-              </label>
-            </td> -->
-
+            <td> <button class="btn btn-primary me-2" [routerLink]="['/AddTaskNoteInDashboard',task.id]"><i
+                  class="fa-solid fa-notes-medical"></i></button></td>
             <td>
-
-              <!-- <button class="btn btn-primary me-2" (click)="goProjectDetails(project.id)"><i
+              <button class="btn btn-primary me-2" (click)="goTaskDetails(task.id)"><i
                   class="fa-solid fa-eye"></i></button>
-              <button class="btn btn-primary me-2" [routerLink]="['/addSchooltoProject',project.id]"><i
-                  class="fa-solid fa-school"></i></button>
-               -->
-               <button class="btn btn-primary me-2" (click)="goTaskDetails(task.id)"><i
-                class="fa-solid fa-eye"></i></button>
-               <button class="btn btn-success me-2" [routerLink]="['/EditTaskInDashboard',task.id]"><i
-                class="fa-solid fa-pen-to-square"></i></button>
+              <button class="btn btn-success me-2" [routerLink]="['/EditTaskInDashboard',task.id]"><i
+                  class="fa-solid fa-pen-to-square"></i></button>
               <button class="btn btn-danger" (click)="openConfirmModal()"><i class="fa-solid fa-trash-can"></i></button>
             </td>
           </tr>

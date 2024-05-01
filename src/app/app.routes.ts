@@ -33,6 +33,7 @@ import { AddSchoolToProjectComponent } from './Components/Pages/Project Manager 
 import { AddTaskComponent } from './Components/Pages/Investigated Dashboard/TasksDashboard/add-task/add-task.component';
 import { EditTaskComponent } from './Components/Pages/Investigated Dashboard/TasksDashboard/edit-task/edit-task.component';
 import { TaskDetailsComponent } from './Components/Pages/Investigated Dashboard/TasksDashboard/task-details/task-details.component';
+import { AddTaskNoteComponent } from './Components/Pages/Investigated Dashboard/TasksDashboard/add-task-note/add-task-note.component';
 export const routes: Routes = [
   { path: '', redirectTo: '/Home', pathMatch: 'full' },
   { path: 'Home', component: MainHomeComponent, title: 'Home Page' },
@@ -138,12 +139,20 @@ export const routes: Routes = [
     data: { role: ['Investigated', 'Admin'] },
   },
   {
+    path: 'AddTaskNoteInDashboard/:taskid',
+    component: AddTaskNoteComponent,
+    title: 'Add Task Note Page',
+    canActivate: [roleGuardGuard],
+    data: { role: ['Investigated', 'Admin'] },
+  },
+  {
     path: 'EditTaskInDashboard/:taskID',
     component: EditTaskComponent,
     title: 'Edit Task Page',
     canActivate: [roleGuardGuard],
     data: { role: ['Investigated', 'Admin'] },
-  }, {
+  },
+  {
     path: 'TaskDetailsInDashboard/:ID',
     component: TaskDetailsComponent,
     title: 'Task Details Page',
