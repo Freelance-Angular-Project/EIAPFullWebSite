@@ -28,66 +28,73 @@
   </div>
 </main>
 }
+@if(task.taskNotes.length > 0 )
+{
+  <div class="container">
 
-<div class="container">
+    <h3>Task Notes</h3>
+  <div class="tbl-header">
+    <table cellpadding="0" cellspacing="0" class="border-0">
+      <thead>
+        <tr>
+          <th>Details</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+    </table>
+  </div>
+  <div class="tbl-content">
+    <table cellpadding="0" cellspacing="0" class="border-0">
+      <tbody>
+        @for (taskNotes of task.taskNotes; track taskNotes.id) {
+        <tr (click)="selectTaskNoteId(taskNotes.id)">
+          <td>{{taskNotes.details}}</td>
+          <td>
+            <button class="btn btn-danger" (click)="openConfirmModal()" title="Delete Task Note"><i class="fa-solid fa-trash-can" ></i></button>
 
-  <h3>Task Notes</h3>
-<div class="tbl-header">
-  <table cellpadding="0" cellspacing="0" class="border-0">
-    <thead>
-      <tr>
-        <th>Details</th>
-        <th>Action</th>
-      </tr>
-    </thead>
-  </table>
-</div>
-<div class="tbl-content">
-  <table cellpadding="0" cellspacing="0" class="border-0">
-    <tbody>
-      @for (taskNotes of task.taskNotes; track taskNotes.id) {
-      <tr (click)="selectTaskNoteId(taskNotes.id)">
-        <td>{{taskNotes.details}}</td>
-        <td>
-          <button class="btn btn-danger" (click)="openConfirmModal()" title="Delete Task Note"><i class="fa-solid fa-trash-can" ></i></button>
-
-        </td>
-      </tr>
-      }
-    </tbody>
-  </table>
-</div>
-</div>
+          </td>
+        </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+  </div>
+}
 
 
-<div class="container">
-  <h3>Task Files</h3>
-<div class="tbl-header">
-  <table cellpadding="0" cellspacing="0" class="border-0">
-    <thead>
-      <tr>
-        <th>Image</th>
-        <th>Action</th>
-      </tr>
-    </thead>
-  </table>
-</div>
-<div class="tbl-content">
-  <table cellpadding="0" cellspacing="0" class="border-0">
-    <tbody>
-      @for (file of task.files; track file.id) {
-      <tr (click)="selectTaskFileId(file.id)">
-        <td><img [src]="file.url" width="100" class="img-fluid"></td>
-        <td>
-          <button class="btn btn-danger" (click)="openConfirmModal1()" title="Delete Task Note"><i class="fa-solid fa-trash-can" ></i></button>
+@if(task.files.length > 0)
+{
+  <div class="container">
+    <h3>Task Files</h3>
+  <div class="tbl-header">
+    <table cellpadding="0" cellspacing="0" class="border-0">
+      <thead>
+        <tr>
+          <th>File</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+    </table>
+  </div>
+  <div class="tbl-content">
+    <table cellpadding="0" cellspacing="0" class="border-0">
+      <tbody>
+        @for (file of task.files; track file.id) {
+        <tr (click)="selectTaskFileId(file.id)">
+          <td>  <button class="btn btn-primary" (click)="DownloadFile(file.url)" title="Download">Download</button>
+          </td>
+          <td>
+            <button class="btn btn-danger" (click)="openConfirmModal1()" title="Delete Task Note"><i class="fa-solid fa-trash-can" ></i></button>
 
-        </td>
-      </tr>
-      }
-    </tbody>
-  </table>
-</div>
-</div>
+          </td>
+        </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+  </div>
+}
+
 
 
 <!-- Bootstrap Modal for Confirmation -->

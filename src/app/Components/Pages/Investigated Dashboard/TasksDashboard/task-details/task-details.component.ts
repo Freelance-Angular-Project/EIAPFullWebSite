@@ -4,6 +4,7 @@ import { TaskService } from '../../../../../Services/Task/task.service';
 import { Task } from '../../../../../Models/Tasks/task';
 import { TaskDetails } from '../../../../../Models/Tasks/task-details';
 import { FilesService } from '../../../../../Services/Files/files.service';
+import { HttpClient } from '@angular/common/http';
 declare var bootstrap: any;
 
 @Component({
@@ -21,7 +22,8 @@ export class TaskDetailsComponent {
     private activatedrouter: ActivatedRoute,
     private router: Router,
     private taskservices: TaskService,
-    private fileService: FilesService
+    private fileService: FilesService,
+    private http:HttpClient
   ) {}
   ngOnInit(): void {
     this.currentTaskID = this.activatedrouter.snapshot.paramMap.get('ID') || '';
@@ -100,5 +102,24 @@ export class TaskDetailsComponent {
       }
      });
   }
+  private extractFilename(url: string): string {
+    // Extract filename from URL
+    return url.split('/').pop() ?? 'downloaded_file';
+  }
+  DownloadFile(url:string)
+  {   this.http.get(url, { responseType: 'blob' }).subscribe(blob => {
+    // Create a new blob object with the received data
+    const downloadURL = window.URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = downloadURL;
+    link.download = this.extractFilename(url);
+    link.click();
+
+    // Clean up by revoking the object URL
+    window.URL.revokeObjectURL(downloadURL);
+  }, error => {
+    console.error('Error downloading the file.', error);
+  });
+}
 
 }
