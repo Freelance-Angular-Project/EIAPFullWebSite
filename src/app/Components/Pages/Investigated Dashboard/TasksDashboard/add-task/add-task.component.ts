@@ -92,11 +92,11 @@ export class AddTaskComponent {
     if (this.taskForm.valid) {
 
       this.task={
-        name:this.taskForm.value.name,
-        details:this.taskForm.value.details,
-        endDate:this.taskForm.value.endDate,
-        numberOfFilesToAssignment:this.taskForm.value.numberOfFilesToAssignment,
-        projectId:this.taskForm.value.projectId,
+        Name:this.taskForm.value.name,
+        Details:this.taskForm.value.details,
+        EndDate:this.taskForm.value.endDate,
+        NumberOfFilesToAssignment:this.taskForm.value.numberOfFilesToAssignment,
+        ProjectId:this.taskForm.value.projectId,
 
       };
       this.taskservice.AddTaskToDashboard(this.task).subscribe({

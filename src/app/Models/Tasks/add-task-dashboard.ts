@@ -1,7 +1,7 @@
 export interface AddTaskDashboard {
-  name:string;
-  details:string;
-  endDate:Date;
-  numberOfFilesToAssignment:number;
-  projectId:string;
+  Name:string;
+  Details:string;
+  EndDate:Date;
+  NumberOfFilesToAssignment:number;
+  ProjectId:string;
 }

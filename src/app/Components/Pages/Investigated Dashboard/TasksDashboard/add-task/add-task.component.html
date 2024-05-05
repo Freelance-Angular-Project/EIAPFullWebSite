@@ -40,7 +40,7 @@
     <div class="form-group mb-3 row">
       <label for="endDate" class="col-sm-2">End Date</label>
       <div class="col-sm-10">
-        <input type="text" formControlName="endDate" class="form-control" id="endDate" placeholder="Enter End Date">
+        <input type="date" formControlName="endDate" class="form-control" id="endDate" placeholder="Enter End Date">
         @if(endDate?.touched &&endDate?.errors?.['required'])
         {
         <div class="text-danger">
