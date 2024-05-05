@@ -3,9 +3,9 @@ export interface EditProject {
   Title1: string;
   Description1: string;
   Title2: string;
-  StartDate: Date;
-  EndDate: Date;
-  ResultAnnouncement: Date;
+  StartDate: string;
+  EndDate: string;
+  ResultAnnouncement: string;
   Description2: string;
   Title3: string;
   Description3: string;

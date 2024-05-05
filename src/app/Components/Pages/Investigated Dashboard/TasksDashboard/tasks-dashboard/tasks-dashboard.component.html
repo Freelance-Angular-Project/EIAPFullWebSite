@@ -7,23 +7,27 @@
 <div class="container mb-5">
   <button class="btn btn-outline-primary mb-5" routerLink="/AddTaskInDashboard">Create New Task</button>
   <section>
-    <!-- <form class="mb-5">
-      <div class="form-group container-fluid">
-        <div class="d-flex ">
-          <label for="filter" class="form-label col-lg-3">Filter Projects By Name: </label>
-          <input type="text" name="filter" id="filter" class="col-lg-9 form-control w-75"
-            placeholder="Enter Search Value" [(ngModel)]="filter" (ngModelChange)="onFilterChange()">
+    <form [formGroup]="form">
+      <div class="form-group mb-3 row">
+        <label for="projectId" class="col-sm-2">Select Project</label>
+        <div class="col-sm-10">
+          <select id="projectId" formControlName="projectId" class="form-select">
+            @for(project of projects; track $index)
+            {
+              <option [value]="project.id">{{project.name}}</option>
+            }
+
+          </select>
         </div>
       </div>
-    </form> -->
+    </form>
+
     <div class="tbl-header">
       <table cellpadding="0" cellspacing="0" class="border-0">
         <thead>
           <tr>
             <th>Name</th>
             <!-- <th>Details</th> -->
-            <th>Num Files</th>
-            <th>Project Name</th>
             <th>End Date</th>
             <th>Add Note</th>
             <th>Actions</th>
@@ -37,9 +41,6 @@
           @for (task of tasksInDashboard; track task.id) {
           <tr (click)="selectProject(task.id)">
             <td>{{task.name}}</td>
-            <!-- <td>{{task.details}}</td> -->
-            <td>{{task.numberOfFilesToAssignment}}</td>
-            <td>{{task.projectName}}</td>
             <td>{{task.endDate}}</td>
             <td> <button class="btn btn-primary me-2" [routerLink]="['/AddTaskNoteInDashboard',task.id]"><i
                   class="fa-solid fa-notes-medical"></i></button></td>

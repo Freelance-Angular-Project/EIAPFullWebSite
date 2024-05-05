@@ -34,6 +34,7 @@ export class TaskService {
     });
   }
 
+
   // GET /api/Task/GetAll
   getAllTasks(): Observable<Task[]> {
     return this.http.get<Task[]>(`${this.baseUrl}/GetAll`);
@@ -79,7 +80,26 @@ export class TaskService {
     );
   }
 
-  AddTaskToDashboard(task: AddTaskDashboard): Observable<AddTaskDashboard> {
+
+  AddTaskToDashboard(task: FormData): Observable<AddTaskDashboard> {
     return this.http.post<AddTaskDashboard>(this.baseUrl, task);
   }
+
+
+  // AddTaskToDashboard(task: AddTaskDashboard): Observable<AddTaskDashboard> {
+  //   return this.http.post<AddTaskDashboard>(this.baseUrl, task);
+
+
+  // }
+
+  getTasksByProjectIdDashboard(projectId: string): Observable<TasksToDashboard[]> {
+    const url = `${this.baseUrl}/GetByProjectIdToDashboard?projectId=${projectId}`;
+    return this.http.get<TasksToDashboard[]>(url);
+  }
+
+  deleteTaskNotes(taskId: string): Observable<any> {
+    const url = `${this.baseUrl}/RemoveTaskNotes?id=${taskId}`;
+    return this.http.delete(url,this.httpOptions);
+  }
+
 }

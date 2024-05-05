@@ -7,3 +7,4 @@ export interface PostSchool {
   zone: string;
   userId: string;
 }
+

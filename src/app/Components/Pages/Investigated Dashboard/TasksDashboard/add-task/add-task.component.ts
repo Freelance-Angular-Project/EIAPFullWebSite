@@ -44,7 +44,7 @@ export class AddTaskComponent {
       name: ['', Validators.required],
       details: ['', Validators.required],
       endDate: ['', Validators.required],
-      numberOfFilesToAssignment: ['', Validators.required],
+      numberOfFilesToAssignment: [''],
       projectId: ['', Validators.required],
     });
   }
@@ -99,7 +99,16 @@ export class AddTaskComponent {
         ProjectId:this.taskForm.value.projectId,
 
       };
-      this.taskservice.AddTaskToDashboard(this.task).subscribe({
+      let formData = new FormData();
+      formData.append('Name', this.taskForm.value.name);
+      formData.append('Details', this.taskForm.value.details);
+      formData.append('EndDate', this.taskForm.value.endDate);
+      formData.append('NumberOfFilesToAssignment', '1');
+      formData.append('ProjectId', this.taskForm.value.projectId);
+
+
+
+      this.taskservice.AddTaskToDashboard(formData).subscribe({
         next: (task) => {
           // console.log(school);
           this.router.navigate(['/TasksDashboard']);

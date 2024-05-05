@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { EditProject } from '../../../../Models/Projects/edit-project';
@@ -47,9 +47,9 @@ export class EditProjectComponent implements OnInit {
             Description2: this.CurrentProject.description2,
             Title3: this.CurrentProject.title3,
             Description3: this.CurrentProject.description3,
-            StartDate: new Date(this.CurrentProject.startDate),
-            EndDate: new Date(this.CurrentProject.endDate),
-            ResultAnnouncement: new Date(this.CurrentProject.resultAnnouncement),
+            StartDate: this.convertDateDMYtoYMD( this.CurrentProject.startDate.toString()),
+            EndDate: this.convertDateDMYtoYMD(this.CurrentProject.endDate.toString()),
+            ResultAnnouncement: this.convertDateDMYtoYMD(this.CurrentProject.resultAnnouncement),
           };
           console.log(this.project);
           console.log(this.currentProjectId);
@@ -86,7 +86,20 @@ export class EditProjectComponent implements OnInit {
     }
   }
 
+  convertDateDMYtoYMD(dateStr: string): string {
+    const parts = dateStr.split('/');
+    if (parts.length === 3) {
+      const day = parts[0];
+      const month = parts[1];
+      const year = parts[2];
+      return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
+    }
+    return dateStr;
+  }
+
+  ShowList:boolean = false;
   performFilter(value: string): void {
+    this.ShowList= true;
     this.filteredinvestigator = this.investigatorManager.filter(manager =>
       manager.email.toLowerCase().includes(value.toLowerCase())
     );
@@ -94,6 +107,7 @@ export class EditProjectComponent implements OnInit {
   selectedManagerName:string='';
   selectedManagerId:string='';
   selectManager(manager: Role): void {
+    this.ShowList= true;
     this.selectedManagerName = manager.email;
     this.selectedManagerId = manager.id;
     this.filteredinvestigator = [];

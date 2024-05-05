@@ -19,4 +19,9 @@ export class FilesService {
  uploadFile(formData: FormData): Observable<any> { // Changed type to FormData
    return this.http.post(this.baseUrl, formData, this.httpOptions);
  }
+
+ deleteFile(fileId: string): Observable<any> {
+  const url = `${this.baseUrl}?id=${fileId}`;
+  return this.http.delete(url, this.httpOptions);
+}
 }

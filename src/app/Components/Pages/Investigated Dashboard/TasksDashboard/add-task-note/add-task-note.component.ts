@@ -78,8 +78,6 @@ export class AddTaskNoteComponent {
         .addTaskNoteInDashboard(this.currentTaskID, formattedDetails)
         .subscribe({
           next: (task) => {
-            console.log(task);
-            console.log(formattedDetails);
             this.router.navigate(['/TasksDashboard']);
             this.taskForm.reset();
             this.toastService.show(

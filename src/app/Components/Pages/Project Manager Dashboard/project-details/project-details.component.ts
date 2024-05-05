@@ -3,7 +3,9 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProjectService } from '../../../../Services/Project/project.service';
 import { ProjectDetailsAll, ProjectFileForProjectDetails, SchoolForProjectDetails, TaskForProjectDetails } from '../../../../Models/Projects/project-details-all';
-
+import { FilesService } from '../../../../Services/Files/files.service';
+import { TaskService } from '../../../../Services/Task/task.service';
+declare var bootstrap: any;
 @Component({
   selector: 'app-project-details',
   standalone: true,
@@ -23,7 +25,9 @@ export class ProjectDetailsComponent implements OnInit {
   constructor(
     private activatedrouter: ActivatedRoute,
     private router: Router,
-    private projectservices: ProjectService
+    private projectservices: ProjectService,
+    private filesService:FilesService,
+    private taskService:TaskService
   ) {}
   ngOnInit(): void {
     this.currentProjectID =
@@ -54,5 +58,89 @@ export class ProjectDetailsComponent implements OnInit {
   }
   selectProjectTask(id :string){
     this.selectedProjectTaskId = id;
+  }
+  reloadComponent() {
+    // Navigate away and back to the current route
+    let currentUrl = this.router.url;
+    this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+      this.router.navigate([currentUrl]);
+    });
+  }
+  openConfirmModal(){
+    const confirmModal = new bootstrap.Modal(
+      document.getElementById('confirmDeleteModal'),
+      {
+        keyboard: false,
+      }
+    );
+    confirmModal.show();
+  }
+  openConfirmModal1(){
+    const confirmModal = new bootstrap.Modal(
+      document.getElementById('confirmDeleteModal1'),
+      {
+        keyboard: false,
+      }
+    );
+    confirmModal.show();
+  }
+  openConfirmModal2(){
+    const confirmModal = new bootstrap.Modal(
+      document.getElementById('confirmDeleteModal2'),
+      {
+        keyboard: false,
+      }
+    );
+    confirmModal.show();
+  }
+
+
+  deleteProjectFile(){
+    this.filesService.deleteFile(this.selectedProjectFileId).subscribe({
+      next:()=>{
+        const confirmModal = bootstrap.Modal.getInstance(
+          document.getElementById('confirmDeleteModal')
+        );
+        confirmModal.hide();
+        this.reloadComponent();
+
+      },
+      error: (err) => {console.log(err);
+      }
+     });
+
+  }
+  deleteProjectSchool(){
+    console.log(this.currentProjectID);
+    console.log(this.selectedProjectSchoolId);
+
+
+    this.projectservices.deleteSchoolFromProject(this.currentProjectID, this.selectedProjectSchoolId).subscribe({
+      next:()=>{
+        const confirmModal = bootstrap.Modal.getInstance(
+          document.getElementById('confirmDeleteModal1')
+        );
+        confirmModal.hide();
+        this.reloadComponent();
+
+      },
+      error: (err) => {console.log(err);
+      }
+     });
+  }
+
+  deleteProjectTask(){
+    this.taskService.deleteTask(this.selectedProjectTaskId).subscribe({
+      next:()=>{
+        const confirmModal = bootstrap.Modal.getInstance(
+          document.getElementById('confirmDeleteModal2')
+        );
+        confirmModal.hide();
+        this.reloadComponent();
+
+      },
+      error: (err) => {console.log(err);
+      }
+    })
   }
 }
