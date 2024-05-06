@@ -44,36 +44,36 @@ export class AddSchoolToProjectComponent {
     this.projectservice.GetByIdToDashboard(this.currentProjectId).subscribe({
       next: (currentproject) => {
         this.SchoolsAtCurrentProject = currentproject.schools;
-
-      },
-      error: (err) => {
-        console.log(err);
-      },
-    });
-
-    this.schoolservice.getAllSchoolsToSelect().subscribe({
-      next: (school) => {
-        this.schools = school;
+        this.schoolservice.getAllSchoolsToSelect().subscribe({
+          next: (school) => {
+            this.schools = school;
 
 
-        this.availableSchools = this.schools.filter(outerSchool => {
-          let isPresent = false;
-          for (let i = 0; i < this.SchoolsAtCurrentProject.length; i++) {
-            if (this.SchoolsAtCurrentProject[i].id === outerSchool.id) {
-              isPresent = true;
-              break;  // Break the loop as soon as a match is found
-            }
-          }
-          return !isPresent;  // Include in the result if not present in schoolsAtCurrentProject
+            this.availableSchools = this.schools.filter(outerSchool => {
+              let isPresent = false;
+              for (let i = 0; i < this.SchoolsAtCurrentProject.length; i++) {
+                if (this.SchoolsAtCurrentProject[i].id === outerSchool.id) {
+                  isPresent = true;
+                  break;  // Break the loop as soon as a match is found
+                }
+              }
+              return !isPresent;  // Include in the result if not present in schoolsAtCurrentProject
+            });
+
+
+          },
+          error: (err) => {
+            console.log(err);
+          },
         });
 
-
-
       },
       error: (err) => {
         console.log(err);
       },
     });
+
+
 
   }
 
