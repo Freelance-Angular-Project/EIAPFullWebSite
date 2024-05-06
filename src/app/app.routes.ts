@@ -79,7 +79,7 @@ export const routes: Routes = [
     component: ProjectDashboardComponent,
     title: 'Project Dashboard Page',
     canActivate: [roleGuardGuard],
-    data: { role: ['ProjectManager', 'Admin'] },
+    data: { role: ['ProjectManager', 'Admin','Investigated'] },
   },
   {
     path: 'CreateProject',
