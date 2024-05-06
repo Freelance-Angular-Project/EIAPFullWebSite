@@ -13,8 +13,11 @@
       <div class="rectangle-card p-3">
         @for (year of uniqueYears; track $index) {
 
-        <p class="year-item cursorStyle fw-bold" (click)="FilterByYear(year,year)" [class.selected]="year === selectedItem"
-        >{{year|date:'yyyy'}}</p>
+        @if(year != 'NaN')
+        {
+          <p class="year-item cursorStyle fw-bold" (click)="FilterByYear(year,year)" [class.selected]="year === selectedItem"
+        >{{year}}</p>
+        }
         }
       </div>
     </div>
@@ -26,7 +29,6 @@
           <div class="shadow-card shadow">
             <img [src]="item.imageUrl" class="img-fluid">
             <p>{{item.details}}</p>
-            <!-- <p>{{item.year}}</p> -->
           </div>
         </div>
       }

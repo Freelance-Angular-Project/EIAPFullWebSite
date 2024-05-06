@@ -55,7 +55,6 @@
       <tr>
         <th>Name</th>
         <th>Created Date</th>
-        <th>Description</th>
         <th>End Date</th>
         <th>Is Public</th>
         <th>Image</th>
@@ -70,9 +69,8 @@
       @for (projectFile of ProjectFiles; track projectFile.id) {
       <tr (click)="selectProjectFile(projectFile.id)">
         <td>{{projectFile.name}}</td>
-        <td>{{projectFile.created | date}}</td>
-        <td>{{projectFile.description}}</td>
-        <td>{{projectFile.endDate | date}}</td>
+        <td>{{projectFile.created |slice:0:8}}</td>
+        <td>{{projectFile.endDate |slice:0:8}}</td>
         <td>{{projectFile.isPublic}}</td>
         <td>
           <img [src]="projectFile.url" width="100" class="img-fluid">

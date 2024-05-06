@@ -84,7 +84,6 @@ export class AddSchoolToProjectComponent {
 
       this.projectservice.addSchoolToProject(this.addSchool).subscribe({
         next: (school) => {
-          console.log(school);
           this.schoolProjectForm.reset();
           this.toastService.show(
             'School has been successfully added to ptoject.',

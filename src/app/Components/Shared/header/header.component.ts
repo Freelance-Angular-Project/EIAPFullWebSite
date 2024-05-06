@@ -10,11 +10,12 @@ import { Project } from '../../../Models/Projects/project';
 import { ProjectService } from '../../../Services/Project/project.service';
 import { UserService } from '../../../Services/User/user.service';
 import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [RouterModule, FormsModule],
+  imports: [RouterModule, FormsModule, CommonModule],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
 })

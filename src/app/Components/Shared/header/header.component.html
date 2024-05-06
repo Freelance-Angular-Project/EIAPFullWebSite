@@ -36,7 +36,7 @@
               <option value="" disabled>Projects</option>
               @for (project of projects; track $index) {
 
-              <option [value]="project.id" [class.active]="selectedProject">{{project.name}}
+              <option [value]="project.id" [class.active]="selectedProject">{{project.name|uppercase|slice:0:5}}
               </option>
 
               }

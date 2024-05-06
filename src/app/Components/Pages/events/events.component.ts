@@ -51,12 +51,9 @@ export class EventsComponent implements OnInit {
       })
     );
 
-    //console.log(yearsSet);
-
     this.uniqueYears = Array.from(yearsSet).sort(
       (a, b) => parseInt(b) - parseInt(a)
     );
-    //console.log(this.uniqueYears);
   }
   FilterByYear(year: string, item: string) {
     const selectedYear = new Date(`${year}-01-01`).getFullYear();

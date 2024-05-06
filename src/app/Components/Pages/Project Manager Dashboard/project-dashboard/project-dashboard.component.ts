@@ -4,12 +4,13 @@ import { ProjectDashboard } from '../../../../Models/Projects/project-dashboard'
 import { Router, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { UpdateProjectImage } from '../../../../Models/Projects/update-project-image';
+import { CommonModule } from '@angular/common';
 declare var bootstrap: any;
 
 @Component({
   selector: 'app-project-dashboard',
   standalone: true,
-  imports: [FormsModule, RouterModule],
+  imports: [FormsModule, RouterModule,CommonModule],
   templateUrl: './project-dashboard.component.html',
   styleUrl: './project-dashboard.component.scss'
 })
@@ -34,7 +35,6 @@ constructor(private projectService : ProjectService,private router: Router){}
     this.FilteredProjects = this.AllProjects.filter((project) =>
       project.name.toLowerCase().includes(this.filter.toLowerCase())
     );
-    console.log(this.FilteredProjects);
   }
   selectProject(id :string){
     this.selectedProjectId = id;
@@ -69,6 +69,10 @@ constructor(private projectService : ProjectService,private router: Router){}
           );
           confirmModal.hide();
           this.reloadComponent();
+
+          location.reload();
+
+
         },
         error: (err) => {
           console.log(err);
@@ -89,7 +93,6 @@ constructor(private projectService : ProjectService,private router: Router){}
 
         this.projectService.updateProjectImage(id, file).subscribe({
             next: () => {
-                console.log("Updated News Image");
                 // Optionally refresh the list or image
                 this.projectService.getAllProjectsToDashboard().subscribe(projectsItems => {
                   this.FilteredProjects = projectsItems;
