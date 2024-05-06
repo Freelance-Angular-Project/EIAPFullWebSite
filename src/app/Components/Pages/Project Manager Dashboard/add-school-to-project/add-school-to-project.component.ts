@@ -44,11 +44,10 @@ export class AddSchoolToProjectComponent {
     this.projectservice.GetByIdToDashboard(this.currentProjectId).subscribe({
       next: (currentproject) => {
         this.SchoolsAtCurrentProject = currentproject.schools;
+
         this.schoolservice.getAllSchoolsToSelect().subscribe({
           next: (school) => {
             this.schools = school;
-
-
             this.availableSchools = this.schools.filter(outerSchool => {
               let isPresent = false;
               for (let i = 0; i < this.SchoolsAtCurrentProject.length; i++) {
@@ -59,7 +58,6 @@ export class AddSchoolToProjectComponent {
               }
               return !isPresent;  // Include in the result if not present in schoolsAtCurrentProject
             });
-
 
           },
           error: (err) => {

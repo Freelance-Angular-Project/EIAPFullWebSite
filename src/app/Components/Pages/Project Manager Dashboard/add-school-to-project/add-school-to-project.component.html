@@ -13,7 +13,7 @@
       <select multiple  class="form-control select-multiple" (change)="onSchoolSelectionChange($event)">
         <div formArrayName="schoolsIds">
           @for(school of availableSchools; track $index ) {
-            <option [value]="school .id" >{{ school.name }}</option>
+            <option [value]="school.id" >{{ school.name }}</option>
           }
 
 

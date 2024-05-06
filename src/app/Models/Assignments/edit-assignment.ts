@@ -1,5 +1,7 @@
+import { AssignmentStatus } from "../../Enums/assignment-status";
 
 export interface EditAssignment {
-  status:number,
+  assignmentId:string,
+  status:AssignmentStatus,
   commentToSchool:string
 }

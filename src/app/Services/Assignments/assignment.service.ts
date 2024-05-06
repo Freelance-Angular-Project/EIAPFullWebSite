@@ -12,8 +12,8 @@ export class AssignmentService {
   private baseUrl = `${environment.baseApiURL}/Assignments`; // Replace with the actual base URL
   httpOptions = {
     headers: new HttpHeaders({
-      // 'Content-Type': 'application/json',
-      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'Accept': 'text/plain',
     }),
   };
   constructor(private httpclient: HttpClient) {}
@@ -22,9 +22,9 @@ export class AssignmentService {
       `${this.baseUrl}/GetTaskResultsToTaskDashboard?taskId=${taskid}`
     );
   }
-  editAssignment(assignmentid: string,assignment:EditAssignment): Observable<EditAssignment>{
+  editAssignment(assignment:EditAssignment): Observable<EditAssignment>{
     return this.httpclient.put<EditAssignment>(
-      `${this.baseUrl}?assignmentId=${assignmentid}`,assignment,this.httpOptions
+      `${this.baseUrl}`,assignment,this.httpOptions
     );
   }
 

@@ -4,7 +4,9 @@
       <label for="status" class="form-label col-sm-2">Assignment Status</label>
       <div class="col-sm-10">
         <select class="form-control" id="status" [(ngModel)]="Assignment.status" name="status" required>
-          <option *ngFor="let status of statusOptions" [value]="status.value">{{ status.key }}</option>
+          @for (status of statusOptions; track $index) {
+          <option [ngValue]="status.value">{{ status.key  }}</option>
+          }
         </select>
       </div>
     </div>
@@ -17,4 +19,3 @@
     <button type="submit" class="button-37" [disabled]="newsForm.invalid">Update Project</button>
   </form>
 </div>
-{{ newsForm.value | json }}

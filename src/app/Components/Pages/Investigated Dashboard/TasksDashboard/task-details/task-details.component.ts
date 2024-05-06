@@ -24,7 +24,7 @@ export class TaskDetailsComponent {
     private router: Router,
     private taskservices: TaskService,
     private fileService: FilesService,
-    private http:HttpClient
+    private http: HttpClient
   ) {}
   ngOnInit(): void {
     this.currentTaskID = this.activatedrouter.snapshot.paramMap.get('ID') || '';
@@ -32,8 +32,8 @@ export class TaskDetailsComponent {
     this.taskservices.getTaskById(this.currentTaskID).subscribe({
       next: (currentTask) => {
         this.task = currentTask;
-        this.TaskNotesLength=this.task.taskNotes.length;
-        this.TaskFilesLength=this.task.files.length;
+        this.TaskNotesLength = this.task.taskNotes.length;
+        this.TaskFilesLength = this.task.files.length;
       },
       error: (err) => {
         console.log(err);
@@ -47,15 +47,15 @@ export class TaskDetailsComponent {
   reloadComponent() {
     // Navigate away and back to the current route
     let currentUrl = this.router.url;
-    this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
       this.router.navigate([currentUrl]);
     });
   }
-  selectedTaskNoteId:string ='';
-  selectTaskNoteId(id :string) {
-    this.selectedTaskNoteId=id;
+  selectedTaskNoteId: string = '';
+  selectTaskNoteId(id: string) {
+    this.selectedTaskNoteId = id;
   }
-  openConfirmModal(){
+  openConfirmModal() {
     const confirmModal = new bootstrap.Modal(
       document.getElementById('confirmDeleteModal'),
       {
@@ -64,25 +64,25 @@ export class TaskDetailsComponent {
     );
     confirmModal.show();
   }
-  deleteTaskNote(){
+  deleteTaskNote() {
     this.taskservices.deleteTaskNotes(this.selectedTaskNoteId).subscribe({
-      next:()=>{
+      next: () => {
         const confirmModal = bootstrap.Modal.getInstance(
           document.getElementById('confirmDeleteModal')
         );
         confirmModal.hide();
         this.reloadComponent();
-
       },
-      error: (err) => {console.log(err);
-      }
-    })
+      error: (err) => {
+        console.log(err);
+      },
+    });
   }
-  SelectedTaskFileId:string="";
-  selectTaskFileId(id:string){
-    this.SelectedTaskFileId= id;
+  SelectedTaskFileId: string = '';
+  selectTaskFileId(id: string) {
+    this.SelectedTaskFileId = id;
   }
-  openConfirmModal1(){
+  openConfirmModal1() {
     const confirmModal = new bootstrap.Modal(
       document.getElementById('confirmDeleteModal1'),
       {
@@ -91,40 +91,40 @@ export class TaskDetailsComponent {
     );
     confirmModal.show();
   }
-  deleteTaskFile(){
+  deleteTaskFile() {
     this.fileService.deleteFile(this.SelectedTaskFileId).subscribe({
-      next:()=>{
+      next: () => {
         const confirmModal = bootstrap.Modal.getInstance(
           document.getElementById('confirmDeleteModal1')
         );
         confirmModal.hide();
         this.reloadComponent();
-
       },
-      error: (err) => {console.log(err);
-      }
-     });
+      error: (err) => {
+        console.log(err);
+      },
+    });
   }
   private extractFilename(url: string): string {
     // Extract filename from URL
     return url.split('/').pop() ?? 'downloaded_file';
   }
-  DownloadFile(url:string)
-  {   this.http.get(url, { responseType: 'blob' }).subscribe(blob => {
-    // Create a new blob object with the received data
-    const downloadURL = window.URL.createObjectURL(blob);
-    const link = document.createElement('a');
-    link.href = downloadURL;
-    link.download = this.extractFilename(url);
-    link.click();
+  DownloadFile(url: string) {
+    this.http.get(url, { responseType: 'blob' }).subscribe(
+      (blob) => {
+        // Create a new blob object with the received data
+        const downloadURL = window.URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = downloadURL;
+        link.download = this.extractFilename(url);
+        link.click();
 
-    // Clean up by revoking the object URL
-    window.URL.revokeObjectURL(downloadURL);
-  }, error => {
-    console.error('Error downloading the file.', error);
-  });
-}
-
-
-
+        // Clean up by revoking the object URL
+        window.URL.revokeObjectURL(downloadURL);
+      },
+      (error) => {
+        console.error('Error downloading the file.', error);
+      }
+    );
+  }
 }
