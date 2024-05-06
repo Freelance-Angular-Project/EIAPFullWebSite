@@ -34,6 +34,8 @@ import { AddTaskComponent } from './Components/Pages/Investigated Dashboard/Task
 import { EditTaskComponent } from './Components/Pages/Investigated Dashboard/TasksDashboard/edit-task/edit-task.component';
 import { TaskDetailsComponent } from './Components/Pages/Investigated Dashboard/TasksDashboard/task-details/task-details.component';
 import { AddTaskNoteComponent } from './Components/Pages/Investigated Dashboard/TasksDashboard/add-task-note/add-task-note.component';
+import { EditAssignmentComponent } from './Components/Pages/Investigated Dashboard/Assignments/edit-assignment/edit-assignment.component';
+import { GetAssignmentComponent } from './Components/Pages/Investigated Dashboard/Assignments/get-assignment/get-assignment.component';
 export const routes: Routes = [
   { path: '', redirectTo: '/Home', pathMatch: 'full' },
   { path: 'Home', component: MainHomeComponent, title: 'Home Page' },
@@ -163,6 +165,20 @@ export const routes: Routes = [
     path: 'InvestigatedAnalytics',
     component: InvestigatedAnalyticsComponent,
     title: 'Investigated Analytics Page',
+    canActivate: [roleGuardGuard],
+    data: { role: ['Investigated', 'Admin'] },
+  },
+  {
+    path: 'EditAssignment/:id',
+    component: EditAssignmentComponent,
+    title: 'Edit Assignment Page',
+    canActivate: [roleGuardGuard],
+    data: { role: ['Investigated', 'Admin'] },
+  },
+  {
+    path: 'Getassignment/:ID',
+    component: GetAssignmentComponent,
+    title: 'Get Assignment Page',
     canActivate: [roleGuardGuard],
     data: { role: ['Investigated', 'Admin'] },
   },

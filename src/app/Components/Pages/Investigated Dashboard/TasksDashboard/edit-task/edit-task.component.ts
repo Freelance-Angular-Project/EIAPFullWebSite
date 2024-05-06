@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { FormsModule, NgForm } from '@angular/forms';
+import { FormControl, FormsModule, NgForm } from '@angular/forms';
 import { Role } from '../../../../../Models/Accounts/role';
 import { TaskService } from '../../../../../Services/Task/task.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '../../../../../Services/User/user.service';
-import { TaskDetails } from '../../../../../Models/Tasks/task-details';
+import { TaskDetails, notes } from '../../../../../Models/Tasks/task-details';
 import { EditTask } from '../../../../../Models/Tasks/edit-task';
 
 @Component({
@@ -20,7 +20,7 @@ export class EditTaskComponent {
   currentTaskId: string = '';
   investigatorManager: Role[] = [];
   filteredinvestigator: Role[] = [];
-
+// lengthOfTaskNote:notes[]=[];
   constructor(
     private taskService: TaskService,
     private route: ActivatedRoute,
@@ -37,8 +37,8 @@ export class EditTaskComponent {
           this.task = {
             name: this.CurrentTask.name,
             details: this.CurrentTask.details,
-            numberOfFilesToAssignment: this.CurrentTask.numberOfFilesToAssignment,
-            endDate: this.CurrentTask.endDate
+            numberOfFilesToAssignment: 1,
+            endDate: this.convertDateDMYtoYMD(this.CurrentTask.endDate.toString())
           };
 
 
@@ -59,9 +59,9 @@ export class EditTaskComponent {
     });
   }
 
-  formatDate(date: Date | string): string {
-    return new Date(date).toISOString().split('T')[0];
-  }
+  // formatDate(date: Date | string): string {
+  //   return new Date(date).toISOString().split('T')[0];
+  // }
   onSubmit(form: NgForm): void {
     if (form.valid) {
       this.taskService
@@ -74,5 +74,17 @@ export class EditTaskComponent {
           error: (error) => console.error(error),
         });
     }
+  }
+
+
+  convertDateDMYtoYMD(dateStr: string): string {
+    const parts = dateStr.split('/');
+    if (parts.length === 3) {
+      const day = parts[0];
+      const month = parts[1];
+      const year = parts[2];
+      return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
+    }
+    return dateStr;
   }
 }

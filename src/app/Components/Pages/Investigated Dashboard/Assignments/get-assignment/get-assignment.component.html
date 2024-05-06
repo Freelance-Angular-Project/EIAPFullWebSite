@@ -1,0 +1,37 @@
+<div class="container-fluid background1 mb-5">
+  <div class="d-flex align-items-center h-50 p-5">
+
+    <h5 class="text-light project-header-title">Task Details</h5>
+  </div>
+</div>
+@for(assignment of assignment;track assignment.id){
+<main>
+  <div class="card">
+    <div class="card__title">
+      <h3>Task Details</h3>
+    </div>
+    <div class="card__body">
+      <div class="half">
+        <div class="featured_text mb-3">
+          <h1 class="mb-5">{{assignment.name}}</h1>
+          <p class="price"><span class="text-primary">School Name:</span> {{assignment.schoolName}}</p>
+          <p class="price"><span class="text-primary">Create Date: </span>{{assignment.created|date}}</p>
+          <p class="price"><span class="text-primary">Status: </span>{{assignment.status}}</p>
+          @if(assignment.commentToSchool){
+          <p class="price"><span class="text-primary">Comment: </span>{{assignment.commentToSchool}}</p>
+          }
+          <p class="price"><span class="text-primary">File URL</span> {{assignment.url}}</p>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="card__footer">
+      <div class="action">
+        <button type="button" (click)="EditAssignment(assignment.assignmentId)">Edit</button>
+        <button type="button" (click)="goBack()">Back</button>
+      </div>
+    </div>
+  </div>
+</main>
+}

@@ -36,7 +36,7 @@ export class EditProjectComponent implements OnInit {
       this.projectService.getProjectById(this.currentProjectId).subscribe({
         next: (data) => {
           this.CurrentProject = data;
-          console.log(this.CurrentProject);
+          // console.log(this.CurrentProject);
 
           this.project = {
             Name: this.CurrentProject.name,
@@ -51,8 +51,8 @@ export class EditProjectComponent implements OnInit {
             EndDate: this.convertDateDMYtoYMD(this.CurrentProject.endDate.toString()),
             ResultAnnouncement: this.convertDateDMYtoYMD(this.CurrentProject.resultAnnouncement),
           };
-          console.log(this.project);
-          console.log(this.currentProjectId);
+          // console.log(this.project);
+          // console.log(this.currentProjectId);
 
         },
         error: (err) => console.error(err),
