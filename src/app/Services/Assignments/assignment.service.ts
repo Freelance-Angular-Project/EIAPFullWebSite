@@ -13,7 +13,7 @@ export class AssignmentService {
   httpOptions = {
     headers: new HttpHeaders({
       // 'Content-Type': 'application/json',
-      'Accept': 'text/plain',
+      'Accept': 'application/json',
     }),
   };
   constructor(private httpclient: HttpClient) {}
@@ -27,4 +27,5 @@ export class AssignmentService {
       `${this.baseUrl}?assignmentId=${assignmentid}`,assignment,this.httpOptions
     );
   }
+
 }

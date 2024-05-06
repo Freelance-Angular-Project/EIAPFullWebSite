@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { EditAssignment } from '../../../../../Models/Assignments/edit-assignment';
 import { GetAssignment } from '../../../../../Models/Assignments/get-assignment';
@@ -7,7 +7,6 @@ import { AssignmentService } from '../../../../../Services/Assignments/assignmen
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '../../../../../Services/User/user.service';
 import { CommonModule } from '@angular/common';
-import { AssignmentStatus } from '../../../../../Enums/assignment-status';
 
 @Component({
   selector: 'app-edit-assignment',
@@ -16,76 +15,43 @@ import { AssignmentStatus } from '../../../../../Enums/assignment-status';
   templateUrl: './edit-assignment.component.html',
   styleUrl: './edit-assignment.component.scss',
 })
-export class EditAssignmentComponent {
-  Assignment: EditAssignment = {} as EditAssignment; // Assuming you have a class or interface named School
-  // CurrentAssignment: GetAssignment[]=[]; // Assuming you have a class or interface named School
+
+export class EditAssignmentComponent implements OnInit {
+  Assignment: EditAssignment = { status: 0, commentToSchool: '' };  // Default initialization
   currentAssignmentId: string = '';
   investigatorManager: Role[] = [];
-  filteredinvestigator: Role[] = [];
-  // statusKeys = Object.keys(AssignmentStatus).filter(k => typeof AssignmentStatus[k as any] === "number");
+  filteredInvestigator: Role[] = [];
+  statusOptions = [
+    { key: 'New', value: 0 },
+    { key: 'Review', value: 1 },
+    { key: 'Completed', value: 2 },
+    { key: 'Rejected', value: 3 }
+  ];
+
   constructor(
     private assignmentService: AssignmentService,
     private route: ActivatedRoute,
     private router: Router,
-    private userservice: UserService
-  ) {
-    this.Assignment.status = AssignmentStatus.New; // Set default status
-  }
+    private userService: UserService
+  ) {}
 
   ngOnInit(): void {
     this.currentAssignmentId = this.route.snapshot.paramMap.get('id') || '';
-    // if (this.currentAssignmentId) {
-    //   this.assignmentService.getAssignmentByTaskID(this.currentAssignmentId).subscribe({
-    //     next: (data) => {
-    //       this.CurrentAssignment = data;
-    //       this.Assignment = {
-    //         status: this.CurrentAssignment.,
-    //         commentToSchool: this.CurrentTask.details,
-    //         numberOfFilesToAssignment: 1,
-    //         endDate: this.convertDateDMYtoYMD(this.CurrentTask.endDate.toString())
-    //       };
-
-    //     },
-    //     error: (err) => console.error(err),
-    //   });
-    // }
-
-    this.userservice.getUsersInRole('Investigated').subscribe({
+    this.userService.getUsersInRole('Investigated').subscribe({
       next: (invest) => {
         this.investigatorManager = invest;
-        this.filteredinvestigator = this.investigatorManager;
+        this.filteredInvestigator = this.investigatorManager;
       },
-      error: (err) => {
-        console.log(err);
-      },
+      error: (err) => console.error(err)
     });
   }
-  // getStatusName(status: any): AssignmentStatus {
-  //   return AssignmentStatus[status as keyof typeof AssignmentStatus];
-  // }
-  get statusOptions() {
-    return Object.keys(AssignmentStatus)
-      .filter((key) => isNaN(Number(key))) // Filter out the reverse mappings
-      .map((key) => ({
-        key: key,
-        value: AssignmentStatus[key as keyof typeof AssignmentStatus],
-      }));
-  }
-  onSubmit(form: NgForm): void {
-    // const payload = {
-    //   status: AssignmentStatus[this.Assignment.status] as any as number, // Convert enum string to number
-    //   commentToSchool: '',
-    // };
 
+  onSubmit(form: NgForm): void {
     if (form.valid) {
-      this.assignmentService
-        .editAssignment(this.currentAssignmentId, this.Assignment)
-        .subscribe({
-          next: (data) => {
-            this.router.navigate(['/TasksDashboard']);
-          },
-          error: (error) => console.error(error),
-        });
+      this.assignmentService.editAssignment(this.currentAssignmentId, this.Assignment).subscribe({
+        next: (data) => this.router.navigate(['/TasksDashboard']),
+        error: (error) => console.error('Error updating assignment:', error)
+      });
     }
   }
 }
