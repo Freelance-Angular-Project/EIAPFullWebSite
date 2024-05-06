@@ -12,7 +12,7 @@
     <form [formGroup]="schoolProjectForm" (ngSubmit)="onSubmitSchool()">
       <select multiple  class="form-control select-multiple" (change)="onSchoolSelectionChange($event)">
         <ng-container formArrayName="schoolsIds">
-          @for(school of schools; track $index) {
+          @for(school of availableSchools; track $index) {
             <option [value]="school .id" >{{ school.name }}</option>
           }
         </ng-container>
@@ -25,6 +25,7 @@
     </div>
 
   </div>
+
 
 
 

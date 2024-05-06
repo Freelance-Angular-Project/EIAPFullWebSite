@@ -110,10 +110,6 @@ export class ProjectDetailsComponent implements OnInit {
 
   }
   deleteProjectSchool(){
-    console.log(this.currentProjectID);
-    console.log(this.selectedProjectSchoolId);
-
-
     this.projectservices.deleteSchoolFromProject(this.currentProjectID, this.selectedProjectSchoolId).subscribe({
       next:()=>{
         const confirmModal = bootstrap.Modal.getInstance(
