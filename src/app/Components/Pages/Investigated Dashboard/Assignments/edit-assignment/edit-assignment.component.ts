@@ -18,7 +18,7 @@ import { AssignmentStatus } from '../../../../../Enums/assignment-status';
 })
 export class EditAssignmentComponent {
   Assignment: EditAssignment = {} as EditAssignment; // Assuming you have a class or interface named School
-  // CurrentAssignment: GetAssignment[]=[]; // Assuming you have a class or interface named School
+  CurrentAssignment: GetAssignment[]=[]; // Assuming you have a class or interface named School
   currentAssignmentId: string = '';
   investigatorManager: Role[] = [];
   filteredinvestigator: Role[] = [];
@@ -29,7 +29,7 @@ export class EditAssignmentComponent {
     private router: Router,
     private userservice: UserService
   ) {
-    this.Assignment.status = AssignmentStatus.New; // Set default status
+    // this.Assignment.status = AssignmentStatus.New; // Set default status
   }
 
   ngOnInit(): void {
@@ -39,10 +39,9 @@ export class EditAssignmentComponent {
     //     next: (data) => {
     //       this.CurrentAssignment = data;
     //       this.Assignment = {
-    //         status: this.CurrentAssignment.,
-    //         commentToSchool: this.CurrentTask.details,
-    //         numberOfFilesToAssignment: 1,
-    //         endDate: this.convertDateDMYtoYMD(this.CurrentTask.endDate.toString())
+    //         status: AssignmentStatus.New,
+    //         commentToSchool:this.CurrentAssignment[0].commentToSchool,
+
     //       };
 
     //     },
@@ -72,14 +71,16 @@ export class EditAssignmentComponent {
       }));
   }
   onSubmit(form: NgForm): void {
-    // const payload = {
-    //   status: AssignmentStatus[this.Assignment.status] as any as number, // Convert enum string to number
-    //   commentToSchool: '',
-    // };
+
+    this.Assignment={
+      assignmentId:this.currentAssignmentId,
+      status:this.Assignment.status,
+      commentToSchool:this.Assignment.commentToSchool
+    };
 
     if (form.valid) {
       this.assignmentService
-        .editAssignment(this.currentAssignmentId, this.Assignment)
+        .editAssignment(this.Assignment)
         .subscribe({
           next: (data) => {
             this.router.navigate(['/TasksDashboard']);

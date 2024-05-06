@@ -5,7 +5,7 @@ export interface GetAssignment {
   schoolName: string;
   name: string;
   status: string;
-  commentToSchool: string | null;
+  commentToSchool: string;
   created: string;
   url: string;
 }

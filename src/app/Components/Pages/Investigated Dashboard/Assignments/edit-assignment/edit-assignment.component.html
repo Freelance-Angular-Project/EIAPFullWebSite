@@ -6,7 +6,7 @@
         <!-- <input type="text" class="form-control" id="status" [(ngModel)]="Assignment.status" name="status" required> -->
         <select class="form-control" id="status" [(ngModel)]="Assignment.status" name="status" required>
           @for (status of statusOptions; track $index) {
-          <option [value]="status.value">{{ status.key  }}</option>
+          <option [ngValue]="status.value">{{ status.key  }}</option>
           }
         </select>
       </div>
@@ -24,4 +24,3 @@
     <button type="submit" class="button-37" [disabled]="newsForm.invalid">Update Project</button>
   </form>
 </div>
-{{newsForm.value|json}}

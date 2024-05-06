@@ -1,7 +1,7 @@
 import { AssignmentStatus } from "../../Enums/assignment-status";
 
 export interface EditAssignment {
-  // status:AssignmentStatus,
+  assignmentId:string,
   status:AssignmentStatus,
   commentToSchool:string
 }

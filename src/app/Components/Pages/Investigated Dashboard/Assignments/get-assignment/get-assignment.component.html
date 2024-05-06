@@ -20,7 +20,8 @@
           @if(assignment.commentToSchool){
           <p class="price"><span class="text-primary">Comment: </span>{{assignment.commentToSchool}}</p>
           }
-          <p class="price"><span class="text-primary">File URL</span> {{assignment.url}}</p>
+          <!-- <p class="price"><span class="text-primary">File URL:  </span> <button class="btn btn-success" (click)="DownloadFile(assignment.url)" title="Download">Download</button></p> -->
+          <p class="price"><span class="text-primary">File URL:  </span> {{assignment.url}}</p>
 
         </div>
       </div>
@@ -28,7 +29,7 @@
 
     <div class="card__footer">
       <div class="action">
-        <button type="button" (click)="EditAssignment(assignment.assignmentId)">Edit</button>
+        <button type="button" (click)="EditAssignment(assignment.assignmentId)" class="me-2">Edit</button>
         <button type="button" (click)="goBack()">Back</button>
       </div>
     </div>

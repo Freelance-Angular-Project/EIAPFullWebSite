@@ -1,6 +1,6 @@
 export enum AssignmentStatus {
-  New,
-  Review,
-  Completed,
-  Rejected
+  New = 0,
+  Review = 1,
+  Completed = 2,
+  Rejected = 3
 }
