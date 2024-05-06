@@ -37,6 +37,7 @@ export class AddSchoolToProjectComponent {
       schoolsIds: this.fb.array([], [Validators.required]),
     });
 
+
   }
   ngOnInit(): void {
     this.currentProjectId = this.route.snapshot.paramMap.get('id') || '';
@@ -45,9 +46,13 @@ export class AddSchoolToProjectComponent {
       next: (currentproject) => {
         this.SchoolsAtCurrentProject = currentproject.schools;
 
+        // console.log(this.SchoolsAtCurrentProject);
+
         this.schoolservice.getAllSchoolsToSelect().subscribe({
           next: (school) => {
             this.schools = school;
+            console.log(this.schools);
+
             this.availableSchools = this.schools.filter(outerSchool => {
               let isPresent = false;
               for (let i = 0; i < this.SchoolsAtCurrentProject.length; i++) {
@@ -58,18 +63,20 @@ export class AddSchoolToProjectComponent {
               }
               return !isPresent;  // Include in the result if not present in schoolsAtCurrentProject
             });
+            console.log(this.availableSchools);
+
 
           },
           error: (err) => {
             console.log(err);
           },
         });
-
       },
       error: (err) => {
         console.log(err);
       },
     });
+
 
 
 

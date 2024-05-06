@@ -7,28 +7,40 @@
   </div>
   }
 
-
+<!--
+  @for(school of SchoolsAtCurrentProject; track $index ) {
+    <h3>{{school.name}}</h3>
+  } -->
   <div class="container card shadow p-5">
     <form [formGroup]="schoolProjectForm" (ngSubmit)="onSubmitSchool()">
-      <select multiple  class="form-control select-multiple" (change)="onSchoolSelectionChange($event)">
+      <!-- <select  multiple class="form-control select-multiple" (change)="onSchoolSelectionChange($event)">
         <div formArrayName="schoolsIds">
-          @for(school of availableSchools; track $index ) {
+
+          @for(school of SchoolsAtCurrentProject; track $index ) {
             <option [value]="school.id" >{{ school.name }}</option>
           }
-
-
         </div>
+      </select> -->
+      <select multiple class="form-control select-multiple" (change)="onSchoolSelectionChange($event)"
+      formArrayName="schoolsIds"
+      >
+          @for(school of availableSchools;track $index){
+            <option [value]="school.id">{{school.name}}</option>
+          }
 
-      </select>
+          @empty {
+      <option disabled>not found schools to added for this project</option>
 
-      <div>
-        @if(availableSchools.length ==0)
-      {
-        not found school for this project
-      }
-      </div>
+          }
 
-      <button type="submit" class="btn btn-primary mt-3" [disabled]="!schoolProjectForm.valid">Submit</button>
+    </select>
+    <!-- @if(availableSchools.length <= 0)
+    {
+      <h3>not found schools to added for this project</h3>
+    } -->
+
+
+      <button type="submit" class="btn btn-primary mt-3" [disabled]="!schoolProjectForm.valid || availableSchools.length<=0">Submit</button>
     </form>
 
     <div>
