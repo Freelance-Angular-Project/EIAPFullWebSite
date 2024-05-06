@@ -1,6 +1,14 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormArray,
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { SchoolService } from '../../../../Services/School/school.service';
 import { AddSchoolToProject } from '../../../../Models/Projects/add-school-to-project';
 import { ToastService } from '../../../../Services/Toast/toast.service';
@@ -8,23 +16,25 @@ import { ProjectService } from '../../../../Services/Project/project.service';
 import { SchoolToProject } from '../../../../Models/Schools/school-to-project';
 import { Schooltoselect } from '../../../../Models/Schools/schooltoselect';
 import { ActivatedRoute, Router } from '@angular/router';
+import { catchError, finalize, of, switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-add-school-to-project',
   standalone: true,
-  imports: [ReactiveFormsModule,FormsModule,CommonModule],
+  imports: [ReactiveFormsModule, FormsModule, CommonModule],
   templateUrl: './add-school-to-project.component.html',
-  styleUrl: './add-school-to-project.component.scss'
+  styleUrl: './add-school-to-project.component.scss',
 })
 export class AddSchoolToProjectComponent {
   schoolProjectForm: FormGroup;
   addSchool: AddSchoolToProject = {} as AddSchoolToProject;
-  schools:Schooltoselect[]=[];
-  SchoolsAtCurrentProject:Schooltoselect[] = [];
-  availableSchools:Schooltoselect[] = [];
-  currentProjectId : string ="";
+  schools: Schooltoselect[] = [];
+  SchoolsAtCurrentProject: Schooltoselect[] = [];
+  availableSchools: Schooltoselect[] = [];
+  currentProjectId: string = '';
+  isLoading: boolean = false;
 
-  selectedSchoolIds:Schooltoselect[]=[];
+  selectedSchoolIds: Schooltoselect[] = [];
   constructor(
     private fb: FormBuilder,
     private schoolservice: SchoolService,
@@ -36,50 +46,32 @@ export class AddSchoolToProjectComponent {
     this.schoolProjectForm = this.fb.group({
       schoolsIds: this.fb.array([], [Validators.required]),
     });
-
-
   }
   ngOnInit(): void {
     this.currentProjectId = this.route.snapshot.paramMap.get('id') || '';
+    this.isLoading = true; // Set loading to true when the component initializes
 
-    this.projectservice.GetByIdToDashboard(this.currentProjectId).subscribe({
-      next: (currentproject) => {
+    this.projectservice.GetByIdToDashboard(this.currentProjectId).pipe(
+      switchMap(currentproject => {
         this.SchoolsAtCurrentProject = currentproject.schools;
-
-        // console.log(this.SchoolsAtCurrentProject);
-
-        this.schoolservice.getAllSchoolsToSelect().subscribe({
-          next: (school) => {
-            this.schools = school;
-            console.log(this.schools);
-
-            this.availableSchools = this.schools.filter(outerSchool => {
-              let isPresent = false;
-              for (let i = 0; i < this.SchoolsAtCurrentProject.length; i++) {
-                if (this.SchoolsAtCurrentProject[i].id === outerSchool.id) {
-                  isPresent = true;
-                  break;  // Break the loop as soon as a match is found
-                }
-              }
-              return !isPresent;  // Include in the result if not present in schoolsAtCurrentProject
-            });
-            console.log(this.availableSchools);
-
-
-          },
-          error: (err) => {
-            console.log(err);
-          },
-        });
+        return this.schoolservice.getAllSchoolsToSelect();
+      }),
+      catchError(err => {
+        console.log('Error fetching project:', err);
+        return of([]); // Return an empty observable array on error to continue the stream
+      }),
+      finalize(() => this.isLoading = false) // Set loading to false when the stream completes or errors out
+    ).subscribe({
+      next: (schools) => {
+        this.schools = schools;
+        this.availableSchools = this.schools.filter(outerSchool =>
+          !this.SchoolsAtCurrentProject.some(innerSchool => innerSchool.id === outerSchool.id)
+        );
       },
-      error: (err) => {
-        console.log(err);
-      },
+      error: err => {
+        console.log('Error fetching schools:', err);
+      }
     });
-
-
-
-
   }
 
   // Define getters for form controls
@@ -91,19 +83,19 @@ export class AddSchoolToProjectComponent {
     return this.schoolProjectForm.get('schoolsIds') as FormArray;
   }
 
-
   onSchoolSelectionChange(event: Event): void {
     const element = event.target as HTMLSelectElement;
-    const selectedIds = Array.from(element.selectedOptions, (option) => option.value);
+    const selectedIds = Array.from(
+      element.selectedOptions,
+      (option) => option.value
+    );
     this.updateSchoolsIds(selectedIds);
   }
 
   updateSchoolsIds(selectedIds: string[]): void {
     this.schoolsIds.clear();
-    selectedIds.forEach(id => this.schoolsIds.push(new FormControl(id)));
+    selectedIds.forEach((id) => this.schoolsIds.push(new FormControl(id)));
   }
-
-
 
   onSubmitSchool() {
     if (this.schoolProjectForm.valid) {
@@ -112,16 +104,14 @@ export class AddSchoolToProjectComponent {
         schoolsIds: this.schoolProjectForm.value.schoolsIds,
       };
 
-
       this.projectservice.addSchoolToProject(this.addSchool).subscribe({
         next: (school) => {
-
           this.schoolProjectForm.reset();
           this.toastService.show(
             'School has been successfully added to ptoject.',
             false
           );
-          this.router.navigate(['/ProjectDashboard'])
+          this.router.navigate(['/ProjectDashboard']);
         },
         error: (err) => {
           // console.log(err);
@@ -133,9 +123,7 @@ export class AddSchoolToProjectComponent {
       });
     }
   }
-  backToDashboard()
-  {
-    this.router.navigate(['/ProjectDashboard'])
+  backToDashboard() {
+    this.router.navigate(['/ProjectDashboard']);
   }
-
 }

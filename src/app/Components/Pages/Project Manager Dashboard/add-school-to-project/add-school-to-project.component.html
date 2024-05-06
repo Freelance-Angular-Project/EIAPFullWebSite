@@ -1,54 +1,42 @@
 @if(toastService.showToast | async){
-  <div class="alert w-50 mx-auto alert-dismissible" [class.alert-success]="!(toastService.isError | async)"
-    [class.alert-danger]="(toastService.isError | async)">
+<div class="alert w-50 mx-auto alert-dismissible" [class.alert-success]="!(toastService.isError | async)"
+  [class.alert-danger]="(toastService.isError | async)">
 
-    {{ toastService.message | async }}
-    <button type="button" class="btn-close" (click)="toastService.showToast.next(false)"></button>
-  </div>
-  }
+  {{ toastService.message | async }}
+  <button type="button" class="btn-close" (click)="toastService.showToast.next(false)"></button>
+</div>
+}
 
-<!--
-  @for(school of SchoolsAtCurrentProject; track $index ) {
-    <h3>{{school.name}}</h3>
-  } -->
-  <div class="container card shadow p-5">
-    <form [formGroup]="schoolProjectForm" (ngSubmit)="onSubmitSchool()">
-      <!-- <select  multiple class="form-control select-multiple" (change)="onSchoolSelectionChange($event)">
-        <div formArrayName="schoolsIds">
 
-          @for(school of SchoolsAtCurrentProject; track $index ) {
-            <option [value]="school.id" >{{ school.name }}</option>
-          }
-        </div>
-      </select> -->
-      <select multiple class="form-control select-multiple" (change)="onSchoolSelectionChange($event)"
-      formArrayName="schoolsIds"
-      >
-          @for(school of availableSchools;track $index){
-            <option [value]="school.id">{{school.name}}</option>
-          }
+<div class="container card shadow p-5">
+  <form [formGroup]="schoolProjectForm" (ngSubmit)="onSubmitSchool()">
 
-          @empty {
-      <option disabled>not found schools to added for this project</option>
-
-          }
-
-    </select>
-    <!-- @if(availableSchools.length <= 0)
+    @if(isLoading)
     {
-      <h3>not found schools to added for this project</h3>
-    } -->
+      <div>
+        <p>Loading...</p> <!-- Simple text or better use a spinner or loader GIF -->
+      </div>
+    }
 
+    @if(!isLoading)
+    {
+      <select multiple class="form-control select-multiple" (change)="onSchoolSelectionChange($event)"
+      formArrayName="schoolsIds">
+      @for(school of availableSchools;track $index){
+      <option [value]="school.id">{{school.name}}</option>
+      }
 
-      <button type="submit" class="btn btn-primary mt-3" [disabled]="!schoolProjectForm.valid || availableSchools.length<=0">Submit</button>
-    </form>
+      @empty {
+      <option disabled>not found schools to added for this project</option>
+      }
+    </select>
+    }
+    <button type="submit" class="btn btn-primary mt-3"
+      [disabled]="!schoolProjectForm.valid || availableSchools.length<=0">Submit</button>
+  </form>
 
-    <div>
-      <button class="btn btn-primary mt-3" (click)="backToDashboard()">Back</button>
-    </div>
-
+  <div>
+    <button class="btn btn-primary mt-3" (click)="backToDashboard()">Back</button>
   </div>
 
-
-
-
+</div>
