@@ -36,7 +36,7 @@
         <tbody>
           @for (project of FilteredProjects; track project.id) {
           <tr (click)="selectProject(project.id)">
-            <td>{{project.name}}</td>
+            <td>{{project.name|uppercase}}</td>
             <td>{{project.startDate}}</td>
             <td>{{project.endDate}}</td>
             <td>

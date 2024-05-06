@@ -80,7 +80,8 @@
           <div class="col-sm-10 position-relative">
             <!-- Ensure each input using ngModel has a name attribute -->
             <input class="form-control" id="userId" placeholder="Choose Manager"
-              [(ngModel)]="selectedManagerName" (ngModelChange)="performFilter($event)" name="managerEmail" />
+              [(ngModel)]="selectedManagerName" (ngModelChange)="performFilter($event)" name="managerEmail"
+              />
 
             <!-- Hidden input for the manager ID, also with a name attribute -->
             <input type="hidden" [(ngModel)]="selectedManagerId" name="managerId" />

@@ -20,6 +20,8 @@ export class AddSchoolToProjectComponent {
   schoolProjectForm: FormGroup;
   addSchool: AddSchoolToProject = {} as AddSchoolToProject;
   schools:Schooltoselect[]=[];
+  SchoolsAtCurrentProject:Schooltoselect[] = [];
+  availableSchools:Schooltoselect[] = [];
   currentProjectId : string ="";
 
   selectedSchoolIds:Schooltoselect[]=[];
@@ -39,15 +41,39 @@ export class AddSchoolToProjectComponent {
   ngOnInit(): void {
     this.currentProjectId = this.route.snapshot.paramMap.get('id') || '';
 
-    this.schoolservice.getAllSchoolsToSelect().subscribe({
-      next: (school) => {
-        //console.log(school);
-        this.schools = school;
+    this.projectservice.GetByIdToDashboard(this.currentProjectId).subscribe({
+      next: (currentproject) => {
+        this.SchoolsAtCurrentProject = currentproject.schools;
+        this.schoolservice.getAllSchoolsToSelect().subscribe({
+          next: (school) => {
+            this.schools = school;
+
+
+            this.availableSchools = this.schools.filter(outerSchool => {
+              let isPresent = false;
+              for (let i = 0; i < this.SchoolsAtCurrentProject.length; i++) {
+                if (this.SchoolsAtCurrentProject[i].id === outerSchool.id) {
+                  isPresent = true;
+                  break;  // Break the loop as soon as a match is found
+                }
+              }
+              return !isPresent;  // Include in the result if not present in schoolsAtCurrentProject
+            });
+
+
+          },
+          error: (err) => {
+            console.log(err);
+          },
+        });
+
       },
       error: (err) => {
         console.log(err);
       },
     });
+
+
 
   }
 
@@ -80,11 +106,11 @@ export class AddSchoolToProjectComponent {
         projectId: this.currentProjectId,
         schoolsIds: this.schoolProjectForm.value.schoolsIds,
       };
-      // console.log(this.addSchool);
+
 
       this.projectservice.addSchoolToProject(this.addSchool).subscribe({
         next: (school) => {
-          console.log(school);
+
           this.schoolProjectForm.reset();
           this.toastService.show(
             'School has been successfully added to ptoject.',
@@ -95,7 +121,7 @@ export class AddSchoolToProjectComponent {
         error: (err) => {
           // console.log(err);
           this.toastService.show(
-            'School has been error in create ',
+            'School has been added for this project before ',
             true
           );
         },

@@ -17,7 +17,8 @@ declare var bootstrap: any;
 export class TaskDetailsComponent {
   task: TaskDetails = {} as TaskDetails;
   currentTaskID: string = '';
-
+  TaskNotesLength: number = 0;
+  TaskFilesLength: number = 0;
   constructor(
     private activatedrouter: ActivatedRoute,
     private router: Router,
@@ -31,6 +32,8 @@ export class TaskDetailsComponent {
     this.taskservices.getTaskById(this.currentTaskID).subscribe({
       next: (currentTask) => {
         this.task = currentTask;
+        this.TaskNotesLength=this.task.taskNotes.length;
+        this.TaskFilesLength=this.task.files.length;
       },
       error: (err) => {
         console.log(err);
@@ -121,5 +124,7 @@ export class TaskDetailsComponent {
     console.error('Error downloading the file.', error);
   });
 }
+
+
 
 }

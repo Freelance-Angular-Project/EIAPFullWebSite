@@ -3,9 +3,9 @@
   <div class="container-fluid background1">
     <div class="d-flex flex-lg-row flex-column justify-content-md-between mx-auto align-items-center h-50 p-5">
 
-      <h4 class="text-light project-header-title">{{projectObj.name}}</h4>
+      <h4 class="text-light project-header-title">{{projectObj.name|uppercase}}</h4>
 
-      <img [src]="projectObj.imageUrl" class="img-fluid">
+      <img [src]="projectObj.imageUrl" class="img-fluid" width="125">
     </div>
   </div>
   <!-- } -->

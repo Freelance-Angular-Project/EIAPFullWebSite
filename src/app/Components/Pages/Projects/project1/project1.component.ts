@@ -26,7 +26,6 @@ export class Project1Component implements OnInit {
       this.projectService.getProjectById(this.currentID).subscribe({
         next: (project1) => {
           this.projectObj=project1;
-          console.log(this.projectObj);
 
         },
         error: (err) => {

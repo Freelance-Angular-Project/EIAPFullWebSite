@@ -83,7 +83,6 @@ export class MainHomeComponent implements OnInit {
     this.userService.getUserLoggedStatus().subscribe({
       next: (userStatus) => {
         this.userLog = userStatus;
-        console.log(this.userLog);
       },
       error: (err) => {
         console.log(err);
@@ -100,7 +99,6 @@ export class MainHomeComponent implements OnInit {
     return this.loginForm.get('password');
   }
   onLogin() {
-    // console.log("hhhhhhhhhhhhhhhhhh");
 
     if (this.loginForm.invalid) {
       return;

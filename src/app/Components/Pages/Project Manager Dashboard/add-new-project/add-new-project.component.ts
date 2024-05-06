@@ -129,14 +129,15 @@ export class AddNewProjectComponent {
         formData.append('Image', this.selectedFile, this.selectedFile.name);
       }
       this.projectservice.createProject(formData).subscribe({
-        next: (school) => {
-          // console.log(school);
-          this.router.navigate(['/ProjectDashboard']);
-          this.projectForm.reset();
-          this.toastService.show(
-            'Project has been successfully created.',
-            false
-          );
+        next: () => {
+
+          this.router.navigate(['/ProjectDashboard']).then(success => {
+            if (success) {
+              window.location.reload();
+            } else {
+              console.error('Navigation Failed');
+            }
+          });
         },
         error: (err) => {
           console.log(err);
@@ -153,7 +154,6 @@ export class AddNewProjectComponent {
     const filterByRole = (event.target as HTMLInputElement).value;
 
     if (filterByRole) {
-      console.log(filterByRole);
 
       this.filteredinvestigator = this.investigator.filter(
         (manager: Role) =>

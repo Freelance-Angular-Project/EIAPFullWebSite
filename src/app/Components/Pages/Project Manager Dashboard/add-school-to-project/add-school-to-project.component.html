@@ -11,12 +11,23 @@
   <div class="container card shadow p-5">
     <form [formGroup]="schoolProjectForm" (ngSubmit)="onSubmitSchool()">
       <select multiple  class="form-control select-multiple" (change)="onSchoolSelectionChange($event)">
-        <ng-container formArrayName="schoolsIds">
-          @for(school of schools; track $index) {
+        <div formArrayName="schoolsIds">
+          @for(school of availableSchools; track $index ) {
             <option [value]="school .id" >{{ school.name }}</option>
           }
-        </ng-container>
+
+
+        </div>
+
       </select>
+
+      <div>
+        @if(availableSchools.length ==0)
+      {
+        not found school for this project
+      }
+      </div>
+
       <button type="submit" class="btn btn-primary mt-3" [disabled]="!schoolProjectForm.valid">Submit</button>
     </form>
 
@@ -25,6 +36,7 @@
     </div>
 
   </div>
+
 
 
 
