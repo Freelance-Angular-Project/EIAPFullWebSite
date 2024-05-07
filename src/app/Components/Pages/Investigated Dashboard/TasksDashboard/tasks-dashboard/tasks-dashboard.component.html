@@ -29,7 +29,7 @@
             <th>Name</th>
             <!-- <th>Details</th> -->
             <th>End Date</th>
-            <th>Add Note</th>
+            <!-- <th>Add Note</th> -->
             <th>Actions</th>
             <th>Assignment</th>
           </tr>
@@ -43,8 +43,8 @@
           <tr (click)="selectProject(task.id)">
             <td>{{task.name}}</td>
             <td>{{task.endDate}}</td>
-            <td> <button class="btn btn-primary me-2" [routerLink]="['/AddTaskNoteInDashboard',task.id]"><i
-                  class="fa-solid fa-notes-medical"></i></button></td>
+            <!-- <td> <button class="btn btn-primary me-2" [routerLink]="['/AddTaskNoteInDashboard',task.id]"><i
+                  class="fa-solid fa-notes-medical"></i></button></td> -->
             <td>
               <button class="btn btn-primary me-2" (click)="goTaskDetails(task.id)"><i
                   class="fa-solid fa-eye"></i></button>

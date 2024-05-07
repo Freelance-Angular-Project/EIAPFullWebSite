@@ -48,23 +48,21 @@ export class GetAssignmentComponent {
     // Extract filename from URL
     return url.split('/').pop() ?? 'downloaded_file';
   }
-
   DownloadFile(url: string): void {
     this.http.get(url, { responseType: 'blob' }).subscribe(
       blob => {
-        // Create a new blob object with the received data
         const downloadURL = window.URL.createObjectURL(blob);
         const link = document.createElement('a');
         link.href = downloadURL;
         link.download = this.extractFilename(url);
         link.click();
-
-        // Clean up by revoking the object URL
         window.URL.revokeObjectURL(downloadURL);
       },
       error => {
         console.error('Error downloading the file:', error);
+        // alert(`Failed to download the file. Server responded with status: ${error.status}`);
       }
     );
   }
+
 }

@@ -146,10 +146,11 @@
 
 
   <div class="modal-content1">
-
-    <div class="alert alert-danger mx-auto" [hidden]="currentTask.commentToSchool==null">
+    @if (currentTask.commentToSchool) {
+    <div class="alert alert-danger mx-auto">
       Comment : {{currentTask.commentToSchool}}
     </div>
+    }
     <div class="container margintop">
       <div class="row justify-content-between margintop mb-5">
 

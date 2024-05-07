@@ -47,8 +47,7 @@ export class AddSchoolToProjectComponent {
         this.schoolservice.getAllSchoolsToSelect().subscribe({
           next: (school) => {
             this.schools = school;
-
-
+// console.log(school);
             this.availableSchools = this.schools.filter(outerSchool => {
               let isPresent = false;
               for (let i = 0; i < this.SchoolsAtCurrentProject.length; i++) {
