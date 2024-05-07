@@ -12,9 +12,9 @@
         <label for="projectId" class="col-sm-2">Select Project</label>
         <div class="col-sm-10">
           <select id="projectId" formControlName="projectId" class="form-select">
-            @for(project of projects; track $index)
+            @for(project of projects; track $index )
             {
-            <option [value]="project.id">{{project.name}}</option>
+            <option [value]="project.id" (click)="selectProjectId(project.id)">{{project.name}}</option>
             }
 
           </select>
@@ -41,7 +41,7 @@
       <table cellpadding="0" cellspacing="0" class="border-0">
         <tbody>
           @for (task of tasksInDashboard; track task.id) {
-          <tr (click)="selectProject(task.id)">
+          <tr (click)="selectTask(task)">
             <td>{{task.name}}</td>
             <td>{{task.endDate}}</td>
             <!-- <td> <button class="btn btn-primary me-2" [routerLink]="['/AddTaskNoteInDashboard',task.id]"><i
@@ -58,15 +58,27 @@
                   class="fa-solid fa-layer-group"></i></button>
             </td>
             <td>
-              @if(numberOfFileSelected == 0 )
-              {
-                <input type="file" id="fileInput" hidden (change)="onFileSelected($event)" name="file">
-              <label for="fileInput" class="btn btn-primary me-2"><i class="fa-solid fa-file-arrow-up"></i> </label>
-              }
-              @else {
-                <input disabled type="file" id="fileInput" hidden (change)="onFileSelected($event)" name="file">
-              <label for="fileInput" class="btn btn-disabled me-2"><i class="fa-solid fa-file-arrow-up"></i> </label>
-              }
+
+              <!-- <input type="file" [id]="'fileInput' + task.id" hidden (change)="onFileSelected(task.id, $event)"
+                [disabled]="uploadedFiles[task.id]">
+              <label [for]="'fileInput' + task.id" class="btn btn-primary" [class.disabled]="uploadedFiles[task.id]">
+                <i class="fa-solid fa-file-arrow-up"></i>
+              </label> -->
+
+              <input type="file" [id]="'fileInput' + task.id" (change)="onFileSelected(task.id, $event)" hidden
+                [disabled]="task.numberOfFilesToAssignment == 2">
+              <label [for]="'fileInput' + task.id" class="btn"
+                [ngClass]="{'btn-disabled': task.numberOfFilesToAssignment == 2, 'btn-primary': task.numberOfFilesToAssignment == 1}">
+                <i class="fa-solid fa-file-arrow-up"></i>
+              </label>
+
+
+
+
+
+
+
+
 
             </td>
           </tr>

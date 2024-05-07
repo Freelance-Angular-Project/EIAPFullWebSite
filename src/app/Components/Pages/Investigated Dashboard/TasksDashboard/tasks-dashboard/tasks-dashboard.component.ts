@@ -12,12 +12,14 @@ import {
 } from '@angular/forms';
 import { FilesService } from '../../../../../Services/Files/files.service';
 import { AddAssignment } from '../../../../../Models/Assignments/add-assignment';
+import { EditTask } from '../../../../../Models/Tasks/edit-task';
+import { CommonModule } from '@angular/common';
 declare var bootstrap: any;
 
 @Component({
   selector: 'app-tasks-dashboard',
   standalone: true,
-  imports: [RouterLink, ReactiveFormsModule],
+  imports: [RouterLink, ReactiveFormsModule, CommonModule],
   templateUrl: './tasks-dashboard.component.html',
   styleUrl: './tasks-dashboard.component.scss',
 })
@@ -26,7 +28,7 @@ export class TasksDashboardComponent implements OnInit {
   projects: ProjectDashboard[] = [];
   form!: FormGroup;
 
-  selectedTaskId: string | null = null;
+  selectedTaskId: string ='';
   SelectedProjectId: string = '';
   // form file input check
   fileTouched = false;
@@ -35,6 +37,8 @@ export class TasksDashboardComponent implements OnInit {
   fileUploaded: boolean = false;
 
   numberOfFileSelected:number=0;
+  uploadedFiles: { [taskId: string]: boolean } = {};  // Dictionary to track upload status per task
+  CurrentTask : EditTask = {} as EditTask;
 
   model: AddAssignment = {} as AddAssignment;
 
@@ -58,6 +62,7 @@ export class TasksDashboardComponent implements OnInit {
       next: (allprojects) => {
         this.projects = allprojects;
         this.selectProjectId(this.SelectedProjectId);
+
       },
       error: (err) => {
         console.log(err);
@@ -85,8 +90,23 @@ export class TasksDashboardComponent implements OnInit {
     this.SelectedProjectId = id;
   }
 
-  selectProject(id: string) {
-    this.selectedTaskId = id;
+  selectTask(task: TasksToDashboard) {
+    this.CurrentTask = {
+      name:task.name,
+  details:task.details,
+  numberOfFilesToAssignment:task.numberOfFilesToAssignment,
+  endDate:this.convertDateDMYtoYMD(task.endDate.toString()),
+    };
+  }
+  convertDateDMYtoYMD(dateStr: string): string {
+    const parts = dateStr.split('/');
+    if (parts.length === 3) {
+      const day = parts[0];
+      const month = parts[1];
+      const year = parts[2];
+      return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
+    }
+    return dateStr;
   }
   openConfirmModal() {
     const confirmModal = new bootstrap.Modal(
@@ -128,71 +148,45 @@ export class TasksDashboardComponent implements OnInit {
   goTaskDetails(id: string) {
     this.router.navigate(['/TaskDetailsInDashboard', id]);
   }
-  onFileSelected(event: Event): void {
+  onFileSelected(taskId: string, event: Event): void {
     const element = event.target as HTMLInputElement;
-    if (element.files && element.files.length > 0) {
-      this.model.File = element.files[0];
-      this.fileTouched = true;  // Flag to indicate the file input was touched
-      this.fileInvalid = false; // Reset any previous invalid file flag
-    } else {
-      this.fileInvalid = true;  // Set invalid file flag if no file is selected
+    if (element.files && element.files.length > 0 && !this.uploadedFiles[taskId]) {
+      this.uploadFile(taskId, element.files[0]);
     }
-
-
-
-    this.UploadFile();
   }
 
+  uploadFile(taskId: string, file: File): void {
+    const formData = new FormData();
+    formData.append('file', file);
 
-  UploadFile(): void {
-    this.numberOfFileSelected = 0;
-    // Only proceed if a file has been selected and the upload hasn't been triggered yet
-    if (this.fileTouched && !this.isUploading) {
-      const formData = new FormData();
-      this.isUploading = true; // Set uploading flag
+    this.fileService.uploadFile(formData).subscribe({
+      next: (response) => {
+        console.log('Upload successful for task', taskId, response);
+        this.uploadedFiles[taskId] = true;  // Set the upload flag to true for this task
+        this.CurrentTask.numberOfFilesToAssignment = 2;
 
-      if (this.selectedTaskId) {
-        formData.append('TaskId', this.selectedTaskId);
-      }
-      formData.append('Name', 'test');
-
-      // Append model data to formData
-      Object.keys(this.model).forEach(key => {
-        const value = this.model[key];
-        if (value !== undefined && value !== null) { // Check for both undefined and null
-          if (value instanceof File) {
-            formData.append(key, value, value.name);
-          } else {
-            formData.append(key, String(value));
-          }
-        }
-      });
-
-
-      // Perform the file upload
-      this.fileService.uploadFile(formData).subscribe({
-        next: (response) => {
-          console.log('Upload successful', response);
-          this.isUploading = true; // Reset uploading flag after successful upload
-          this.fileTouched = false; // Reset file touched flag after successful upload
-          this.numberOfFileSelected = 1;
-        },
-        error: (error) => {
-          console.error('Error uploading file', error);
-          this.isUploading = false; // Reset uploading flag if error occurs
-        }
-      });
-    } else {
-      if (!this.fileTouched) {
-        console.log('No file change detected, not uploading.');
-      }
-      if (this.isUploading) {
-        console.log('Upload already in progress.');
-      }
-    }
-
-
+        // Use switchMap to chain the updateTask call
+        this.taskdashboardService.updateTask(taskId, this.CurrentTask).subscribe({
+          next: () => {
+            console.log('Task updated:', this.CurrentTask);
+            location.reload();
+          },
+          error: (error) => console.error('Error updating task:', error)
+        });
+      },
+      error: (error) => console.error('Error uploading file for task', taskId, error)
+    });
   }
+
+  loadTasks(): void {
+    // Simulate fetching tasks
+    this.tasksInDashboard.forEach(task => {
+      if (!this.uploadedFiles.hasOwnProperty(task.id)) {
+        this.uploadedFiles[task.id] = false;  // Initialize upload status for new tasks
+      }
+    });
+  }
+
 
   // deleteFile(fileId: string): void {
   //   // You'd typically pass a fileId or some identifier to download specific file
