@@ -175,17 +175,12 @@ export class SchooldashboardtasksComponent implements OnInit, AfterViewInit {
     Object.keys(this.model).forEach((key) => {
       const value = this.model[key];
       if (value === undefined) {
-        // If your backend can handle empty strings for missing values,
-        // you can uncomment the next line; otherwise, just skip appending.
-        // formData.append(key, '');
         return; // Skip appending undefined values
       }
 
       if (value instanceof File) {
         formData.append(key, value, value.name);
       } else {
-        // This case handles numbers and other serializable types.
-        // Convert them to string to ensure type safety.
         formData.append(key, String(value));
       }
     });

@@ -5,6 +5,7 @@ import { Router, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { UpdateProjectImage } from '../../../../Models/Projects/update-project-image';
 import { CommonModule } from '@angular/common';
+import { UserService } from '../../../../Services/User/user.service';
 declare var bootstrap: any;
 
 @Component({
@@ -18,7 +19,12 @@ export class ProjectDashboardComponent implements OnInit  {
   AllProjects : ProjectDashboard[] = [];
   FilteredProjects : ProjectDashboard[] = [];
   selectedProjectId : string | null = null;
-constructor(private projectService : ProjectService,private router: Router){}
+  userLogg: boolean;
+
+constructor(private projectService : ProjectService,private router: Router,public userService: UserService,){
+  this.userLogg = this.userService.isUserLogged;
+
+}
   ngOnInit(): void {
     this.projectService.getAllProjectsToDashboard().subscribe({
       next: (projects) => {
@@ -28,6 +34,14 @@ constructor(private projectService : ProjectService,private router: Router){}
       },
       error: (err)=> {console.log(err);
       }
+    });
+    this.userService.getUserLoggedStatus().subscribe({
+      next: (userStatus) => {
+        this.userLogg = userStatus;
+      },
+      error: (err) => {
+        console.log(err);
+      },
     });
   }
   filter:string="";

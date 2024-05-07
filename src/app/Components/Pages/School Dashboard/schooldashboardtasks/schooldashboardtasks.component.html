@@ -144,13 +144,15 @@
   </div>
 
 
-
+  @for (note of currentTask.assignments; track $index) {
+    @if (note.commentToSchool) {
+      <div class="alert alert-danger mx-auto mt-2 w-75">
+        Comment : {{note.commentToSchool}}
+      </div>
+      }
+  }
   <div class="modal-content1">
-    @if (currentTask.commentToSchool) {
-    <div class="alert alert-danger mx-auto">
-      Comment : {{currentTask.commentToSchool}}
-    </div>
-    }
+
     <div class="container margintop">
       <div class="row justify-content-between margintop mb-5">
 
@@ -159,8 +161,10 @@
           <p class="color1">{{currentTask.details}}</p>
           @for (note of currentTask.assignments; track $index) {
           <p class="color1">Assignment Name{{$index+1}}: {{note.name}}</p>
-          <button class="download-upload-button" (click)="downloadFile(note.url)">download assignment
+          <button class="download-upload-button mb-2" (click)="downloadFile(note.url)">download assignment
           </button>
+
+
           <hr>
           }
           <div class="margintop">
