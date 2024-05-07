@@ -58,8 +58,16 @@
                   class="fa-solid fa-layer-group"></i></button>
             </td>
             <td>
-              <input type="file" id="fileInput" hidden (change)="onFileSelected($event)" name="file">
+              @if(numberOfFileSelected == 0 )
+              {
+                <input type="file" id="fileInput" hidden (change)="onFileSelected($event)" name="file">
               <label for="fileInput" class="btn btn-primary me-2"><i class="fa-solid fa-file-arrow-up"></i> </label>
+              }
+              @else {
+                <input disabled type="file" id="fileInput" hidden (change)="onFileSelected($event)" name="file">
+              <label for="fileInput" class="btn btn-disabled me-2"><i class="fa-solid fa-file-arrow-up"></i> </label>
+              }
+
             </td>
           </tr>
 

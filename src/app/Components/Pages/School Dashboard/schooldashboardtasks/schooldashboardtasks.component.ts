@@ -194,6 +194,7 @@ export class SchooldashboardtasksComponent implements OnInit, AfterViewInit {
         this.showModel = false;
         // this.location.back();
         this.isUploading = false;
+        location.reload();
       },
       error: (error) => {
         console.error('Error uploading file', error);

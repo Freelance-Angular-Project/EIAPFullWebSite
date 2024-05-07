@@ -34,6 +34,8 @@ export class TasksDashboardComponent implements OnInit {
   isUploading: boolean = false;
   fileUploaded: boolean = false;
 
+  numberOfFileSelected:number=0;
+
   model: AddAssignment = {} as AddAssignment;
 
   constructor(
@@ -143,6 +145,7 @@ export class TasksDashboardComponent implements OnInit {
 
 
   UploadFile(): void {
+    this.numberOfFileSelected = 0;
     // Only proceed if a file has been selected and the upload hasn't been triggered yet
     if (this.fileTouched && !this.isUploading) {
       const formData = new FormData();
@@ -172,6 +175,7 @@ export class TasksDashboardComponent implements OnInit {
           console.log('Upload successful', response);
           this.isUploading = true; // Reset uploading flag after successful upload
           this.fileTouched = false; // Reset file touched flag after successful upload
+          this.numberOfFileSelected = 1;
         },
         error: (error) => {
           console.error('Error uploading file', error);
