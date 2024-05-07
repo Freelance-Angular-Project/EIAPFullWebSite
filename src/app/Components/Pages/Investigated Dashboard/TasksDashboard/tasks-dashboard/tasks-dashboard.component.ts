@@ -5,6 +5,7 @@ import { Router, RouterLink } from '@angular/router';
 import { ProjectService } from '../../../../../Services/Project/project.service';
 import { ProjectDashboard } from '../../../../../Models/Projects/project-dashboard';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FilesService } from '../../../../../Services/Files/files.service';
 declare var bootstrap: any;
 
 @Component({
@@ -24,7 +25,8 @@ export class TasksDashboardComponent implements OnInit {
 constructor(private taskdashboardService: TaskService,
   private router: Router,
   private projectService:ProjectService,
-  private fb: FormBuilder
+  private fb: FormBuilder,
+  private fileService: FilesService
 ){
   this.form = this.fb.group({
     projectId: ['', Validators.required] // Initialize the form control
@@ -110,5 +112,41 @@ constructor(private taskdashboardService: TaskService,
   goTaskDetails(id:string){
 
      this.router.navigate(['/TaskDetailsInDashboard',id])
+  }
+  UploadFile(): void {
+    const fileInput = document.querySelector('input[type="file"]');
+    if (fileInput instanceof HTMLInputElement && fileInput.files && fileInput.files.length > 0) {
+      const formData = new FormData();
+      if(this.selectedTaskId){
+      formData.append('TaskId', this.selectedTaskId);}
+
+      formData.append('ProjectId', this.SelectedProjectId);
+      // formData.append('SchoolId', );
+      // formData.append('Name', );
+      // formData.append('Description', );
+      // formData.append('EndDate', );
+      // formData.append('IsPublic', );
+
+
+      this.fileService.uploadFile(formData).subscribe({
+        next: (response) => {
+          console.log('Upload successful', response);
+
+        },
+        error: (error) => console.error('Error uploading file', error)
+      });
+    } else {
+      console.error('No file selected or file input not found');
+    }
+  }
+
+
+  // Method to trigger file download - here you might need more details depending on how you handle it
+  DownloadFile(fileId: string): void {
+    // You'd typically pass a fileId or some identifier to download specific file
+    this.fileService.deleteFile(fileId).subscribe({
+      next: (response) => console.log('File successfully deleted', response),
+      error: (error) => console.error('Error deleting file', error)
+    });
   }
 }
