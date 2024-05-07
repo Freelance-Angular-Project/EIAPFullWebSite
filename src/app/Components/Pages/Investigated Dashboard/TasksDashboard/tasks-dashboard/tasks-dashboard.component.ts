@@ -56,6 +56,7 @@ export class TasksDashboardComponent implements OnInit {
   ngOnInit(): void {
     this.loadProjects();
     this.onChangeProject();
+    //this.loadUploadStatus();
   }
   loadProjects(): void {
     this.projectService.getAllProjectsToDashboard().subscribe({
