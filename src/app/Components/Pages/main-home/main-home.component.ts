@@ -104,7 +104,6 @@ export class MainHomeComponent implements OnInit {
       return;
     }
     const { email, password } = this.loginForm.value;
-    console.log(email, password);
 
     this.userService.login(email, password).subscribe({
       next: (response) => {
