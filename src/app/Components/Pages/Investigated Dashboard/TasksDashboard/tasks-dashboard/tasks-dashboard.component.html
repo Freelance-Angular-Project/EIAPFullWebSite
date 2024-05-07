@@ -58,15 +58,14 @@
                   class="fa-solid fa-layer-group"></i></button>
             </td>
             <td>
-              @if(numberOfFileSelected == 0 )
-              {
-                <input type="file" id="fileInput" hidden (change)="onFileSelected($event)" name="file">
-              <label for="fileInput" class="btn btn-primary me-2"><i class="fa-solid fa-file-arrow-up"></i> </label>
-              }
-              @else {
-                <input disabled type="file" id="fileInput" hidden (change)="onFileSelected($event)" name="file">
-              <label for="fileInput" class="btn btn-disabled me-2"><i class="fa-solid fa-file-arrow-up"></i> </label>
-              }
+
+              <!-- <input type="file" id="fileInput" hidden (change)="onFileSelected($event)" name="file" [disabled]="numberOfFileSelected > 0">
+              <label for="fileInput" class="btn btn-primary me-2"><i class="fa-solid fa-file-arrow-up" [class.disabled]="numberOfFileSelected > 0"></i> </label> -->
+              <!-- Assuming you can obtain taskId dynamically from a component property or method -->
+              <input type="file" id="fileInput-{{task.id}}" [disabled]="uploadStatus[task.id]" hidden
+                (change)="onFileSelected($event, task.id)" name="file">
+              <label for="fileInput-{{task.id}}" class="btn btn-primary me-2"
+                [class.disabled]="uploadStatus[task.id]"><i class="fa-solid fa-file-arrow-up"></i></label>
 
             </td>
           </tr>

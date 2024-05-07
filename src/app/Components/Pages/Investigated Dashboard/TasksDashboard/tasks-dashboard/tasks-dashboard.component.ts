@@ -34,7 +34,7 @@ export class TasksDashboardComponent implements OnInit {
   isUploading: boolean = false;
   fileUploaded: boolean = false;
 
-  numberOfFileSelected:number=0;
+  numberOfFileSelected: number = 0;
 
   model: AddAssignment = {} as AddAssignment;
 
@@ -52,6 +52,7 @@ export class TasksDashboardComponent implements OnInit {
   ngOnInit(): void {
     this.loadProjects();
     this.onChangeProject();
+    this.loadUploadStatus();
   }
   loadProjects(): void {
     this.projectService.getAllProjectsToDashboard().subscribe({
@@ -128,71 +129,116 @@ export class TasksDashboardComponent implements OnInit {
   goTaskDetails(id: string) {
     this.router.navigate(['/TaskDetailsInDashboard', id]);
   }
-  onFileSelected(event: Event): void {
+
+  uploadStatus: { [taskId: string]: boolean } = {};
+  loadUploadStatus(): void {
+    const storedStatus = localStorage.getItem('uploadStatus');
+    if (storedStatus) {
+      this.uploadStatus = JSON.parse(storedStatus);
+    }
+  }
+
+  onFileSelected(event: Event, taskId: string): void {
     const element = event.target as HTMLInputElement;
     if (element.files && element.files.length > 0) {
       this.model.File = element.files[0];
-      this.fileTouched = true;  // Flag to indicate the file input was touched
-      this.fileInvalid = false; // Reset any previous invalid file flag
+      this.fileTouched = true;
+      this.fileInvalid = false;
+      this.UploadFile(taskId);
     } else {
-      this.fileInvalid = true;  // Set invalid file flag if no file is selected
+      this.fileInvalid = true;
     }
-
-
-
-    this.UploadFile();
   }
 
-
-  UploadFile(): void {
-    this.numberOfFileSelected = 0;
-    // Only proceed if a file has been selected and the upload hasn't been triggered yet
+  UploadFile(taskId: string): void {
     if (this.fileTouched && !this.isUploading) {
+      this.isUploading = true;
       const formData = new FormData();
-      this.isUploading = true; // Set uploading flag
-
-      if (this.selectedTaskId) {
-        formData.append('TaskId', this.selectedTaskId);
-      }
+      formData.append('TaskId', taskId);
       formData.append('Name', 'test');
+      formData.append('File', this.model.File, this.model.File.name);
 
-      // Append model data to formData
-      Object.keys(this.model).forEach(key => {
-        const value = this.model[key];
-        if (value !== undefined && value !== null) { // Check for both undefined and null
-          if (value instanceof File) {
-            formData.append(key, value, value.name);
-          } else {
-            formData.append(key, String(value));
-          }
-        }
-      });
-
-
-      // Perform the file upload
       this.fileService.uploadFile(formData).subscribe({
         next: (response) => {
           console.log('Upload successful', response);
-          this.isUploading = true; // Reset uploading flag after successful upload
-          this.fileTouched = false; // Reset file touched flag after successful upload
-          this.numberOfFileSelected = 1;
+          this.isUploading = false;
+          this.fileTouched = false;
+          this.uploadStatus[taskId] = true;
+          this.saveUploadStatus();  // Save the updated status to local storage
         },
         error: (error) => {
           console.error('Error uploading file', error);
-          this.isUploading = false; // Reset uploading flag if error occurs
+          this.isUploading = false;
         }
       });
     } else {
-      if (!this.fileTouched) {
-        console.log('No file change detected, not uploading.');
-      }
-      if (this.isUploading) {
-        console.log('Upload already in progress.');
-      }
+      console.log(this.isUploading ? 'Upload already in progress.' : 'No file change detected, not uploading.');
     }
-
-
   }
+
+  saveUploadStatus(): void {
+    localStorage.setItem('uploadStatus', JSON.stringify(this.uploadStatus));
+  }
+  // onFileSelected(event: Event): void {
+  //   const element = event.target as HTMLInputElement;
+  //   if (element.files && element.files.length > 0) {
+  //     this.model.File = element.files[0];
+  //     this.fileTouched = true; // Flag to indicate the file input was touched
+  //     this.fileInvalid = false; // Reset any previous invalid file flag
+  //   } else {
+  //     this.fileInvalid = true; // Set invalid file flag if no file is selected
+  //   }
+
+  //   this.UploadFile();
+  // }
+
+  // UploadFile(): void {
+  //   this.numberOfFileSelected = 0;
+  //   // Only proceed if a file has been selected and the upload hasn't been triggered yet
+  //   if (this.fileTouched && !this.isUploading) {
+  //     const formData = new FormData();
+  //     this.isUploading = true; // Set uploading flag
+
+  //     if (this.selectedTaskId) {
+  //       formData.append('TaskId', this.selectedTaskId);
+  //     }
+  //     formData.append('Name', 'test');
+
+  //     // Append model data to formData
+  //     Object.keys(this.model).forEach((key) => {
+  //       const value = this.model[key];
+  //       if (value !== undefined && value !== null) {
+  //         // Check for both undefined and null
+  //         if (value instanceof File) {
+  //           formData.append(key, value, value.name);
+  //         } else {
+  //           formData.append(key, String(value));
+  //         }
+  //       }
+  //     });
+
+  //     // Perform the file upload
+  //     this.fileService.uploadFile(formData).subscribe({
+  //       next: (response) => {
+  //         console.log('Upload successful', response);
+  //         this.isUploading = true; // Reset uploading flag after successful upload
+  //         this.fileTouched = false; // Reset file touched flag after successful upload
+  //         this.numberOfFileSelected = 1;
+  //       },
+  //       error: (error) => {
+  //         console.error('Error uploading file', error);
+  //         this.isUploading = false; // Reset uploading flag if error occurs
+  //       },
+  //     });
+  //   } else {
+  //     if (!this.fileTouched) {
+  //       console.log('No file change detected, not uploading.');
+  //     }
+  //     if (this.isUploading) {
+  //       console.log('Upload already in progress.');
+  //     }
+  //   }
+  // }
 
   // deleteFile(fileId: string): void {
   //   // You'd typically pass a fileId or some identifier to download specific file
