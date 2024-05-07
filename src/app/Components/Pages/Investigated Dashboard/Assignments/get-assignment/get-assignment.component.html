@@ -46,6 +46,20 @@
 </div>
 <div class="container mb-5">
   <section>
+    <div class="row mb-5">
+      <div class="col">
+        <input type="date" class="form-control" [(ngModel)]="filterDate" (ngModelChange)="applyFilters()" placeholder="Filter by date (dd/mm/yyyy)">
+      </div>
+      <div class="col">
+        <select class="form-control" [(ngModel)]="filterStatus" (ngModelChange)="applyFilters()">
+          <option value="" disabled>Select Status</option>
+          <option value="New">New</option>
+          <option value="In Progress">Review</option>
+          <option value="Completed">Completed</option>
+          <option value="Rejected">Rejected</option>
+        </select>
+      </div>
+    </div>
     <div class="tbl-header">
       <table cellpadding="0" cellspacing="0" class="border-0">
         <thead>
@@ -64,11 +78,11 @@
     <div class="tbl-content">
       <table cellpadding="0" cellspacing="0" class="border-0">
         <tbody>
-          @for (assignment of assignment;track assignment.id) {
+          @for (assignment of filteredAssignments;track assignment.id) {
           <tr>
             <td>{{assignment.name}}</td>
             <td>{{assignment.schoolName}}</td>
-            <td>{{assignment.created|date:'shortDate'}}</td>
+            <td>{{assignment.created|date:'dd/MM/yyyy'}}</td>
             <td>{{assignment.status}}</td>
             <td>{{assignment.commentToSchool}}</td>
             <td>
