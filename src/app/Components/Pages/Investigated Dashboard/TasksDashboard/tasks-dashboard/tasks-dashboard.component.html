@@ -12,6 +12,7 @@
         <label for="projectId" class="col-sm-2">Select Project</label>
         <div class="col-sm-10">
           <select id="projectId" formControlName="projectId" class="form-select">
+            <option value="defualt"   disabled>Please Select Project</option>
             @for(project of projects; track $index )
             {
             <option [value]="project.id" (click)="selectProjectId(project.id)">{{project.name}}</option>

@@ -162,15 +162,13 @@ export class TasksDashboardComponent implements OnInit {
 
     this.fileService.uploadFile(formData).subscribe({
       next: (response) => {
-        console.log('Upload successful for task', taskId, response);
         this.uploadedFiles[taskId] = true;  // Set the upload flag to true for this task
         this.CurrentTask.numberOfFilesToAssignment = 2;
 
         // Use switchMap to chain the updateTask call
         this.taskdashboardService.updateTask(taskId, this.CurrentTask).subscribe({
           next: () => {
-            console.log('Task updated:', this.CurrentTask);
-            location.reload();
+            this.router.navigate(['/TaskDetailsInDashboard', taskId]);
           },
           error: (error) => console.error('Error updating task:', error)
         });
