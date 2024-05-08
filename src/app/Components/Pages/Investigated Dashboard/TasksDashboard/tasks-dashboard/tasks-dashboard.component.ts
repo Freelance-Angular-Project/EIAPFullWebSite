@@ -168,7 +168,7 @@ export class TasksDashboardComponent implements OnInit {
         // Use switchMap to chain the updateTask call
         this.taskdashboardService.updateTask(taskId, this.CurrentTask).subscribe({
           next: () => {
-            this.router.navigate(['/TaskDetailsInDashboard', taskId]);
+            location.reload();
           },
           error: (error) => console.error('Error updating task:', error)
         });
