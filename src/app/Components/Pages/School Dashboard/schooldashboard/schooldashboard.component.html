@@ -162,42 +162,39 @@
   <div class="row row-bg gx-5 gy-3 mt-5 w-90 mx-auto">
     <h2 class="fw-bolder">Participated Assessments</h2>
     <div class="container">
-      <div class="row gy-3 mb-5">
 
-        <div class="col-lg-1 col-2 align-self-center ">
+      <div class="row gy-3 mb-5">
+        <div class="col-lg-1 col-2 align-self-center">
           <button class="btn btn-primary rounded-circle" (click)="previous()" [disabled]="currentIndex === 0">
             <i class="fa fa-arrow-left"></i>
           </button>
         </div>
 
-        @for (projectt of displayedProjectInSchool; track projectt.id) {
+        <!-- Using *ngFor to iterate over projects -->
+        @for(projectt of displayedProjectInSchool;track projectt.id){
         <div class="col-lg-3 col-8">
           <div class="card">
             <div class="header">
-              <h2>{{projectt.name}}</h2>
-              <p>Completion percentage:{{projectt.taskCompletePercentage}}</p>
-              <!-- <p class="percentage">50%</p> -->
+              <h2>{{ projectt.name }}</h2>
+              <p>Completion percentage: {{ projectt.taskCompletePercentage }}</p>
             </div>
             <div class="chart">
-
               <div style="display: block">
                 <canvas baseChart [data]="pieChartData" [type]="pieChartType">
                 </canvas>
               </div>
             </div>
-            <button class="submit-button align-self-end"
-              [routerLink]="['/SchoolDashboardTask',projectt.id]">Tasks</button>
+            <button class="submit-button align-self-end" [routerLink]="['/SchoolDashboardTask', projectt.id]">Tasks</button>
           </div>
         </div>
-        }
-
-        <div class="col-lg-1 col-2 align-self-center ">
-          <button class="btn btn-primary rounded-circle" (click)="next()"
-            [disabled]="currentIndex >= lastIndexProjectInSchool - 3">
+      }
+        <div class="col-lg-1 col-2 align-self-center">
+          <button class="btn btn-primary rounded-circle" (click)="next()" [disabled]="currentIndex >= lastIndexProjectInSchool - itemsPerPage">
             <i class="fas fa-arrow-right"></i>
           </button>
         </div>
       </div>
+
     </div>
   </div>
 

@@ -136,7 +136,7 @@ export class SchooldashboardComponent {
   }
 
   private adjustItemsPerScreen(): void {
-    this.itemsPerPage = window.innerWidth <= 786 ? 1 : 3; // 768px is a common breakpoint for tablets
+    this.itemsPerPage = window.innerWidth <= 786 ? 1 : 3;  // Adjust if necessary
     this.updateDisplayedNews();
   }
 
@@ -155,13 +155,9 @@ export class SchooldashboardComponent {
   }
 
   private updateDisplayedNews(): void {
-    if (this.displayedProjectInSchool && Array.isArray(this.displayedProjectInSchool)) {
-    this.displayedProjectInSchool = this.school.projects.slice(
-      this.currentIndex,
-      this.currentIndex + this.itemsPerPage
-    );
-    }
+    this.displayedProjectInSchool = this.school.projects.slice(this.currentIndex, this.currentIndex + this.itemsPerPage);
   }
+
 
   //update Data School
   editMode = false;
