@@ -43,9 +43,9 @@ export class MainHomeComponent implements OnInit {
   //Handle Next and Previous
   currentIndex: number = 0;
   displayedNews: Project[] | null = null;
-  lastIndexOfdisplayedNews: number = 0;
-  itemsPerPage = 2; // Default value for large screens
-
+  // lastIndexOfdisplayedNews: number = 0;
+  // itemsPerPage = 2; // Default value for large screens
+  itemsPerPage: number = 3;
   // handle login
   loginForm: FormGroup;
   userLog: boolean = true;
@@ -53,7 +53,6 @@ export class MainHomeComponent implements OnInit {
     private projectService: ProjectService,
     private formBuilder: FormBuilder,
     private userService: UserService,
-    private loadingService: LoadingService
   ) {
     this.loginForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
@@ -62,21 +61,26 @@ export class MainHomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-      this.loadingService.startLoading();
-      // Assume some data loading logic here
     // get all projects
+    // this.projectService.getAllProjects().subscribe({
+    //   next: (data) => {
+    //     this.projects = data;
+
+    //     // related with next , previous
+    //     this.displayedNews = this.projects;
+    //     this.lastIndexOfdisplayedNews = this.projects.length;
+    //     this.updateDisplayedNews();
+    //   },
+    //   error: (err) => {
+    //     console.log(err);
+    //   },
+    // });
     this.projectService.getAllProjects().subscribe({
       next: (data) => {
         this.projects = data;
-
-        // related with next , previous
-        this.displayedNews = this.projects;
-        this.lastIndexOfdisplayedNews = this.projects.length;
         this.updateDisplayedNews();
       },
-      error: (err) => {
-        console.log(err);
-      },
+      error: (err) => console.error(err)
     });
 
     // this.userLog = this.userService.isUserLogged;
@@ -123,12 +127,12 @@ export class MainHomeComponent implements OnInit {
   }
   //Handle Next and Previous
   @HostListener('window:resize', ['$event'])
-  onResize(event:any) {
+  onResize(event: Event) {
     this.adjustItemsPerScreen();
   }
 
-  private adjustItemsPerScreen(): void {
-    this.itemsPerPage = window.innerWidth <= 768 ? 1 : 3; // 768px is a common breakpoint for tablets
+  adjustItemsPerScreen(): void {
+    this.itemsPerPage = window.innerWidth <= 768 ? 1 : 3; // Adjust this breakpoint as needed
     this.updateDisplayedNews();
   }
 
@@ -146,7 +150,7 @@ export class MainHomeComponent implements OnInit {
     }
   }
 
-  private updateDisplayedNews(): void {
+  updateDisplayedNews(): void {
     this.displayedNews = this.projects.slice(this.currentIndex, this.currentIndex + this.itemsPerPage);
   }
 

@@ -28,12 +28,12 @@ export class LastNewsComponent implements OnInit {
   }
 
   @HostListener('window:resize', ['$event'])
-  onResize(event:any) {
+  onResize(event: any) {
     this.adjustItemsPerScreen();
   }
 
-  private adjustItemsPerScreen(): void {
-    this.itemsPerPage = window.innerWidth <= 786 ? 1 : 2; // 768px is a common breakpoint for tablets
+  adjustItemsPerScreen(): void {
+    this.itemsPerPage = window.innerWidth <= 786 ? 1 : 2; // Adjust if necessary
     this.updateDisplayedNews();
   }
 
@@ -54,5 +54,6 @@ export class LastNewsComponent implements OnInit {
   private updateDisplayedNews(): void {
     this.displayedNews = this.news.slice(this.currentIndex, this.currentIndex + this.itemsPerPage);
   }
+
 
 }
