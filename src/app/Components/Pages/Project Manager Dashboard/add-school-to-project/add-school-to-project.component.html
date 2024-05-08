@@ -1,3 +1,4 @@
+
 @if(toastService.showToast | async){
 <div class="alert w-50 mx-auto alert-dismissible" [class.alert-success]="!(toastService.isError | async)"
   [class.alert-danger]="(toastService.isError | async)">
@@ -13,14 +14,14 @@
 
     @if(isLoading)
     {
-      <div>
-        <p>Loading...</p> <!-- Simple text or better use a spinner or loader GIF -->
-      </div>
+    <div>
+      <p>Loading...</p> <!-- Simple text or better use a spinner or loader GIF -->
+    </div>
     }
 
     @if(!isLoading)
     {
-      <select multiple class="form-control select-multiple" (change)="onSchoolSelectionChange($event)"
+    <select multiple class="form-control select-multiple" (change)="onSchoolSelectionChange($event)"
       formArrayName="schoolsIds">
       @for(school of availableSchools;track $index){
       <option [value]="school.id">{{school.name}}</option>

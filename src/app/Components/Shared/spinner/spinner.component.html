@@ -1,4 +1,6 @@
-@if (isLoading | async) {
+<!-- @if (isLoading | async) { -->
+ @if(loaderService.loading$ | async){
+
 <div class="loader-overlay">
   <span class="loader"></span>
 </div>

@@ -17,11 +17,13 @@ import { SchoolToProject } from '../../../../Models/Schools/school-to-project';
 import { Schooltoselect } from '../../../../Models/Schools/schooltoselect';
 import { ActivatedRoute, Router } from '@angular/router';
 import { catchError, finalize, of, switchMap } from 'rxjs';
+import { LoaderProjectService } from '../../../../Services/Loading/loader-project.service';
+import { SpinnerComponent } from '../../../Shared/spinner/spinner.component';
 
 @Component({
   selector: 'app-add-school-to-project',
   standalone: true,
-  imports: [ReactiveFormsModule, FormsModule, CommonModule],
+  imports: [ReactiveFormsModule, FormsModule, CommonModule,SpinnerComponent],
   templateUrl: './add-school-to-project.component.html',
   styleUrl: './add-school-to-project.component.scss',
 })
@@ -41,7 +43,8 @@ export class AddSchoolToProjectComponent {
     private projectservice: ProjectService,
     public toastService: ToastService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    public loaderService:LoaderProjectService
   ) {
     this.schoolProjectForm = this.fb.group({
       schoolsIds: this.fb.array([], [Validators.required]),
