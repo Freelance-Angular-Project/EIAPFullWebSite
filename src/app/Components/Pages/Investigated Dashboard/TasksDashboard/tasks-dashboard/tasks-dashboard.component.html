@@ -66,6 +66,11 @@
                 (change)="onFileSelected($event, task.id)" name="file">
               <label for="fileInput-{{task.id}}" class="btn btn-primary me-2"
                 [class.disabled]="uploadStatus[task.id]"><i class="fa-solid fa-file-arrow-up"></i></label>
+              <!-- <input type="file" id="fileInput-{{task.id}}" [disabled]="uploadDisabled" hidden
+                (change)="onFileSelected($event)" name="file">
+              <label for="fileInput-{{task.id}}" class="btn btn-primary me-2" [class.disabled]="uploadDisabled">
+                <i class="fa-solid fa-file-arrow-up"></i> Upload File
+              </label> -->
 
             </td>
           </tr>

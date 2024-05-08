@@ -37,6 +37,8 @@ export class TasksDashboardComponent implements OnInit {
   numberOfFileSelected: number = 0;
 
   model: AddAssignment = {} as AddAssignment;
+  uploadDisabled: boolean = false;
+  uploadStatus: { [taskId: string]: boolean } = {};
 
   constructor(
     private taskdashboardService: TaskService,
@@ -48,11 +50,19 @@ export class TasksDashboardComponent implements OnInit {
     this.form = this.fb.group({
       projectId: ['', Validators.required], // Initialize the form control
     });
-  }
+
+  //   if (this.selectedTaskId) {
+  //     this.fileService.isUploadDisabled(this.selectedTaskId).subscribe(disabled => {
+  //       this.uploadDisabled = disabled;
+  //       console.log(this.uploadDisabled);
+
+  //     });
+  // }
+}
   ngOnInit(): void {
     this.loadProjects();
     this.onChangeProject();
-    this.loadUploadStatus();
+    // this.loadUploadStatus();
   }
   loadProjects(): void {
     this.projectService.getAllProjectsToDashboard().subscribe({
@@ -129,56 +139,81 @@ export class TasksDashboardComponent implements OnInit {
   goTaskDetails(id: string) {
     this.router.navigate(['/TaskDetailsInDashboard', id]);
   }
+  onFileSelected(event: Event,taskID:string): void {
+    // if (this.selectedTaskId) {
+      this.fileService.isUploadDisabled(taskID).subscribe(disabled => {
+        this.uploadDisabled = disabled;
+        console.log(this.uploadDisabled);
 
-  uploadStatus: { [taskId: string]: boolean } = {};
-  loadUploadStatus(): void {
-    const storedStatus = localStorage.getItem('uploadStatus');
-    if (storedStatus) {
-      this.uploadStatus = JSON.parse(storedStatus);
-    }
-  }
-
-  onFileSelected(event: Event, taskId: string): void {
+      });
+  // }
     const element = event.target as HTMLInputElement;
     if (element.files && element.files.length > 0) {
-      this.model.File = element.files[0];
-      this.fileTouched = true;
-      this.fileInvalid = false;
-      this.UploadFile(taskId);
-    } else {
-      this.fileInvalid = true;
-    }
-  }
-
-  UploadFile(taskId: string): void {
-    if (this.fileTouched && !this.isUploading) {
-      this.isUploading = true;
       const formData = new FormData();
-      formData.append('TaskId', taskId);
-      formData.append('Name', 'test');
-      formData.append('File', this.model.File, this.model.File.name);
+      formData.append('TaskId', taskID);
+      formData.append('File', element.files[0], element.files[0].name);
 
-      this.fileService.uploadFile(formData).subscribe({
+      this.fileService.uploadFile(formData, taskID).subscribe({
         next: (response) => {
-          console.log('Upload successful', response);
-          this.isUploading = false;
-          this.fileTouched = false;
-          this.uploadStatus[taskId] = true;
-          this.saveUploadStatus();  // Save the updated status to local storage
-        },
-        error: (error) => {
-          console.error('Error uploading file', error);
-          this.isUploading = false;
-        }
+          this.uploadStatus[taskID] = true;
+
+          console.log('File upload successful:', response)},
+        error: (error) => console.error('File upload failed:', error)
       });
-    } else {
-      console.log(this.isUploading ? 'Upload already in progress.' : 'No file change detected, not uploading.');
     }
   }
+  // loadUploadStatus(): void {
+  //   const storedStatus = localStorage.getItem('uploadStatus');
+  //   if (storedStatus) {
+  //     this.uploadStatus = JSON.parse(storedStatus);
+  //   }
+  // }
 
-  saveUploadStatus(): void {
-    localStorage.setItem('uploadStatus', JSON.stringify(this.uploadStatus));
-  }
+  // onFileSelected(event: Event, taskId: string): void {
+  //   const element = event.target as HTMLInputElement;
+  //   if (element.files && element.files.length > 0) {
+  //     this.model.File = element.files[0];
+  //     this.fileTouched = true;
+  //     this.fileInvalid = false;
+  //     this.UploadFile(taskId);
+  //   } else {
+  //     this.fileInvalid = true;
+  //   }
+  // }
+
+  // UploadFile(taskId: string): void {
+  //   if (this.fileTouched && !this.isUploading) {
+  //     this.isUploading = true;
+  //     const formData = new FormData();
+  //     formData.append('TaskId', taskId);
+  //     formData.append('Name', 'test');
+  //     formData.append('File', this.model.File, this.model.File.name);
+
+  //     this.fileService.uploadFile(formData).subscribe({
+  //       next: (response) => {
+  //         console.log('Upload successful', response);
+  //         this.isUploading = false;
+  //         this.fileTouched = false;
+  //         this.uploadStatus[taskId] = true;
+  //         this.saveUploadStatus(); // Save the updated status to local storage
+  //       },
+  //       error: (error) => {
+  //         console.error('Error uploading file', error);
+  //         this.isUploading = false;
+  //       },
+  //     });
+  //   } else {
+  //     console.log(
+  //       this.isUploading
+  //         ? 'Upload already in progress.'
+  //         : 'No file change detected, not uploading.'
+  //     );
+  //   }
+  // }
+
+  // saveUploadStatus(): void {
+  //   localStorage.setItem('uploadStatus', JSON.stringify(this.uploadStatus));
+  // }
   // onFileSelected(event: Event): void {
   //   const element = event.target as HTMLInputElement;
   //   if (element.files && element.files.length > 0) {
