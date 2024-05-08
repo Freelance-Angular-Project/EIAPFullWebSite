@@ -92,6 +92,7 @@ export class TasksDashboardComponent implements OnInit {
   }
 
   selectTask(task: TasksToDashboard) {
+    this.selectedTaskId = task.id;
     this.CurrentTask = {
       name:task.name,
   details:task.details,
