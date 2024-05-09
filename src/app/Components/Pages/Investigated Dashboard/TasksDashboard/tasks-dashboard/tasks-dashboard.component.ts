@@ -165,11 +165,12 @@ export class TasksDashboardComponent implements OnInit {
 
     const formData = new FormData();
     formData.append('file', file);
+    formData.append('TaskId', taskId);
 
     this.fileService.uploadFile(formData).subscribe({
       next: (response) => {
         this.uploadedFiles[taskId] = true; // Set the upload flag to true for this task
-        this.CurrentTask.numberOfFilesToAssignment = 2;
+        // this.CurrentTask.numberOfFilesToAssignment = 2;
 
         // Use switchMap to chain the updateTask call
         this.taskdashboardService
@@ -190,12 +191,12 @@ export class TasksDashboardComponent implements OnInit {
     });
   }
 
-  loadTasks(): void {
-    // Simulate fetching tasks
-    this.tasksInDashboard.forEach((task) => {
-      if (!this.uploadedFiles.hasOwnProperty(task.id)) {
-        this.uploadedFiles[task.id] = false; // Initialize upload status for new tasks
-      }
-    });
-  }
+  // loadTasks(): void {
+  //   // Simulate fetching tasks
+  //   this.tasksInDashboard.forEach((task) => {
+  //     if (!this.uploadedFiles.hasOwnProperty(task.id)) {
+  //       this.uploadedFiles[task.id] = false; // Initialize upload status for new tasks
+  //     }
+  //   });
+  // }
 }

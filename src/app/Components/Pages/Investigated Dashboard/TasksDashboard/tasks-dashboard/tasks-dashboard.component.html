@@ -60,9 +60,9 @@
             <td>
 
               <input type="file" [id]="'fileInput' + task.id" (change)="onFileSelected(task.id, $event)" hidden
-                [disabled]="task.numberOfFilesToAssignment == 2">
-              <label [for]="'fileInput' + task.id" class="btn"
-                [ngClass]="{'btn-disabled': task.numberOfFilesToAssignment == 2, 'btn-primary': task.numberOfFilesToAssignment == 1}">
+                >
+              <label [for]="'fileInput' + task.id" class="btn btn-primary"
+                >
                 <i class="fa-solid fa-file-arrow-up"></i> Upload
               </label>
             </td>

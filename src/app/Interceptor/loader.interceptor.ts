@@ -30,24 +30,4 @@ export const loaderInterceptor: HttpInterceptorFn = (request, next) => {
       loaderService.stopLoading(); // Hide spinner
     })
   );
-  // loaderService.startLoading();
-
-  // return next.handle(request).pipe(
-  //   tap(
-  //     event => {
-  //       if (event instanceof HttpResponse) {
-  //         loaderService.stopLoading();
-
-  //       }
-  //     },
-  //     (error: HttpErrorResponse) => {
-  //      loaderService.stopLoading();
-  //       return throwError(error);
-  //     }
-  //   ),
-  //   finalize(() => {
-
-  //    loaderService.stopLoading(); // Ensure loading is stopped if the response is cached etc.
-  //   })
-  // );
 };
