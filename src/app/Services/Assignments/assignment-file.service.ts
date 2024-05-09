@@ -4,21 +4,22 @@ import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment.development';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AssignmentFileService {
-
-
   httpOptions = {
-   headers: new HttpHeaders({
+    headers: new HttpHeaders({
+      Accept: 'text/plain',
+    }),
+  };
+  constructor(private http: HttpClient) {}
 
-     'Accept': 'text/plain'
-
-   })
- };
- constructor(private http: HttpClient) {}
-
- uploadFile(formData: FormData): Observable<any> { // Changed type to FormData
-   return this.http.post(`${environment.baseApiURL}/Assignments`, formData, this.httpOptions);
- }
+  uploadFile(formData: FormData): Observable<any> {
+    // Changed type to FormData
+    return this.http.post(
+      `${environment.baseApiURL}/Assignments`,
+      formData,
+      this.httpOptions
+    );
+  }
 }
