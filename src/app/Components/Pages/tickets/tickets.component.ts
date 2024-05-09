@@ -3,14 +3,13 @@ import { FormsModule, NgForm } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { TicketsService } from '../../../Services/Tickets/tickets.service';
 import { Tickets } from '../../../Models/Tickets/tickets';
-import { SuccessTicketPopupComponent } from '../success-ticket-popup/success-ticket-popup.component';
 import { ProjectToSelect } from '../../../Models/Projects/project-to-select';
 import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-tickets',
   standalone: true,
-  imports: [RouterModule, FormsModule, SuccessTicketPopupComponent,CommonModule],
+  imports: [RouterModule, FormsModule,CommonModule],
   templateUrl: './tickets.component.html',
   styleUrl: './tickets.component.scss',
 })

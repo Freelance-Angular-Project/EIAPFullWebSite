@@ -11,7 +11,7 @@
   <!--add role project manager,admin -->
   @if(userService.getuRoles('ProjectManager')||userService.getuRoles('Admin')&&userLogg){
 
-  <button class="btn btn-outline-primary mb-5" routerLink="/CreateProject">Create New Project</button>
+  <button class="btn btn-outline-primary mb-5" routerLink="/ProjectRoutes/CreateProject">Create New Project</button>
   }
   <section>
     <form class="mb-5">
@@ -62,10 +62,10 @@
               <!--add role only investgated,admin => add school-->
           @if(userService.getuRoles('Investigated')||userService.getuRoles('Admin')&&userLogg){
 
-              <button class="btn btn-primary me-2" [routerLink]="['/addSchooltoProject',project.id]"
+              <button class="btn btn-primary me-2" [routerLink]="['/ProjectRoutes/addSchooltoProject',project.id]"
                 title="Add School To Project"><i class="fa-solid fa-school"></i></button>
           }
-              <button class="btn btn-success me-2" [routerLink]="['/UpdateProject',project.id]"
+              <button class="btn btn-success me-2" [routerLink]="['/ProjectRoutes/UpdateProject',project.id]"
                 title="Update Project"><i class="fa-solid fa-pen-to-square"></i></button>
               <button class="btn btn-danger" (click)="openConfirmModal()" title="Delete Project"><i
                   class="fa-solid fa-trash-can"></i></button>

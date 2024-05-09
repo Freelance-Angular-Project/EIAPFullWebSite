@@ -46,7 +46,7 @@ export class GetAssignmentComponent {
     this.router.navigate(['/TasksDashboard']);
   }
   EditAssignment(id: string) {
-    this.router.navigate(['/EditAssignment', id]);
+    this.router.navigate(['/Assignment/EditAssignment', id]);
   }
   private extractFilename(url: string): string {
     // Extract filename from URL

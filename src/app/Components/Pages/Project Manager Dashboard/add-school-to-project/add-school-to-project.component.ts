@@ -114,7 +114,7 @@ export class AddSchoolToProjectComponent {
             'School has been successfully added to ptoject.',
             false
           );
-          this.router.navigate(['/ProjectDashboard']);
+          this.router.navigate(['/ProjectRoutes/ProjectDashboard']);
         },
         error: (err) => {
           // console.log(err);
@@ -127,6 +127,6 @@ export class AddSchoolToProjectComponent {
     }
   }
   backToDashboard() {
-    this.router.navigate(['/ProjectDashboard']);
+    this.router.navigate(['/ProjectRoutes/ProjectDashboard']);
   }
 }

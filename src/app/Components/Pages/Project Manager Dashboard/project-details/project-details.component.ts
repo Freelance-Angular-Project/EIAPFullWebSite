@@ -2,7 +2,12 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProjectService } from '../../../../Services/Project/project.service';
-import { ProjectDetailsAll, ProjectFileForProjectDetails, SchoolForProjectDetails, TaskForProjectDetails } from '../../../../Models/Projects/project-details-all';
+import {
+  ProjectDetailsAll,
+  ProjectFileForProjectDetails,
+  SchoolForProjectDetails,
+  TaskForProjectDetails,
+} from '../../../../Models/Projects/project-details-all';
 import { FilesService } from '../../../../Services/Files/files.service';
 import { TaskService } from '../../../../Services/Task/task.service';
 declare var bootstrap: any;
@@ -15,19 +20,19 @@ declare var bootstrap: any;
 })
 export class ProjectDetailsComponent implements OnInit {
   project: ProjectDetailsAll = {} as ProjectDetailsAll;
-  ProjectFiles : ProjectFileForProjectDetails[] | undefined=[];
-  SchoolsProject:SchoolForProjectDetails[]| undefined=[];
-  TasksProject : TaskForProjectDetails[] | undefined=[];
+  ProjectFiles: ProjectFileForProjectDetails[] | undefined = [];
+  SchoolsProject: SchoolForProjectDetails[] | undefined = [];
+  TasksProject: TaskForProjectDetails[] | undefined = [];
   currentProjectID: string = '';
-  selectedProjectFileId : string = '';
-  selectedProjectSchoolId:string = '';
-  selectedProjectTaskId:string = '';
+  selectedProjectFileId: string = '';
+  selectedProjectSchoolId: string = '';
+  selectedProjectTaskId: string = '';
   constructor(
     private activatedrouter: ActivatedRoute,
     private router: Router,
     private projectservices: ProjectService,
-    private filesService:FilesService,
-    private taskService:TaskService
+    private filesService: FilesService,
+    private taskService: TaskService
   ) {}
   ngOnInit(): void {
     this.currentProjectID =
@@ -39,33 +44,33 @@ export class ProjectDetailsComponent implements OnInit {
 
         this.ProjectFiles = this.project.files;
         this.SchoolsProject = this.project.schools;
-        this.TasksProject= this.project.tasks
+        this.TasksProject = this.project.tasks;
       },
       error: (err) => {
         console.log(err);
       },
     });
   }
-  goBack(){
-    this.router.navigate(['/ProjectDashboard'])
+  goBack() {
+    this.router.navigate(['/ProjectRoutes/ProjectDashboard']);
   }
-  selectProjectFile(id :string){
+  selectProjectFile(id: string) {
     this.selectedProjectFileId = id;
   }
-  selectSchoolFile(id :string){
+  selectSchoolFile(id: string) {
     this.selectedProjectSchoolId = id;
   }
-  selectProjectTask(id :string){
+  selectProjectTask(id: string) {
     this.selectedProjectTaskId = id;
   }
   reloadComponent() {
     // Navigate away and back to the current route
     let currentUrl = this.router.url;
-    this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
       this.router.navigate([currentUrl]);
     });
   }
-  openConfirmModal(){
+  openConfirmModal() {
     const confirmModal = new bootstrap.Modal(
       document.getElementById('confirmDeleteModal'),
       {
@@ -74,7 +79,7 @@ export class ProjectDetailsComponent implements OnInit {
     );
     confirmModal.show();
   }
-  openConfirmModal1(){
+  openConfirmModal1() {
     const confirmModal = new bootstrap.Modal(
       document.getElementById('confirmDeleteModal1'),
       {
@@ -83,7 +88,7 @@ export class ProjectDetailsComponent implements OnInit {
     );
     confirmModal.show();
   }
-  openConfirmModal2(){
+  openConfirmModal2() {
     const confirmModal = new bootstrap.Modal(
       document.getElementById('confirmDeleteModal2'),
       {
@@ -93,49 +98,52 @@ export class ProjectDetailsComponent implements OnInit {
     confirmModal.show();
   }
 
-
-  deleteProjectFile(){
+  deleteProjectFile() {
     this.filesService.deleteFile(this.selectedProjectFileId).subscribe({
-      next:()=>{
+      next: () => {
         const confirmModal = bootstrap.Modal.getInstance(
           document.getElementById('confirmDeleteModal')
         );
         confirmModal.hide();
         this.reloadComponent();
-
       },
-      error: (err) => {console.log(err);
-      }
-     });
-
-  }
-  deleteProjectSchool(){
-    this.projectservices.deleteSchoolFromProject(this.currentProjectID, this.selectedProjectSchoolId).subscribe({
-      next:()=>{
-        const confirmModal = bootstrap.Modal.getInstance(
-          document.getElementById('confirmDeleteModal1')
-        );
-        confirmModal.hide();
-        this.reloadComponent();
-
+      error: (err) => {
+        console.log(err);
       },
-      error: (err) => {console.log(err);
-      }
-     });
+    });
+  }
+  deleteProjectSchool() {
+    this.projectservices
+      .deleteSchoolFromProject(
+        this.currentProjectID,
+        this.selectedProjectSchoolId
+      )
+      .subscribe({
+        next: () => {
+          const confirmModal = bootstrap.Modal.getInstance(
+            document.getElementById('confirmDeleteModal1')
+          );
+          confirmModal.hide();
+          this.reloadComponent();
+        },
+        error: (err) => {
+          console.log(err);
+        },
+      });
   }
 
-  deleteProjectTask(){
+  deleteProjectTask() {
     this.taskService.deleteTask(this.selectedProjectTaskId).subscribe({
-      next:()=>{
+      next: () => {
         const confirmModal = bootstrap.Modal.getInstance(
           document.getElementById('confirmDeleteModal2')
         );
         confirmModal.hide();
         this.reloadComponent();
-
       },
-      error: (err) => {console.log(err);
-      }
-    })
+      error: (err) => {
+        console.log(err);
+      },
+    });
   }
 }
