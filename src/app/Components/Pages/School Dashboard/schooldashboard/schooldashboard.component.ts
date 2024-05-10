@@ -73,6 +73,8 @@ export class SchooldashboardComponent {
     this.schoolService.getOneSchool().subscribe({
       next: (data) => {
         this.school = data;
+        console.log(data);
+
         this.displayedProjectInSchool = this.school.projects;
         this.lastIndexProjectInSchool = this.school.projects.length;
         this.updateDisplayedNews();

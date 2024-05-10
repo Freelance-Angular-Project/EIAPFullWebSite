@@ -15,7 +15,6 @@ import {
 } from '@angular/forms';
 import { UserService } from '../../../Services/User/user.service';
 import { SpinnerComponent } from '../../Shared/spinner/spinner.component';
-import { LoadingService } from '../../../Services/Loading/loading.service';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { LastNewsComponent } from '../../Shared/last-news/last-news.component';
 
@@ -33,7 +32,6 @@ import { LastNewsComponent } from '../../Shared/last-news/last-news.component';
     ReactiveFormsModule,
     SpinnerComponent,
     NgxSpinnerModule,
-
   ],
   templateUrl: './main-home.component.html',
   styleUrl: './main-home.component.scss',
@@ -49,10 +47,11 @@ export class MainHomeComponent implements OnInit {
   // handle login
   loginForm: FormGroup;
   userLog: boolean = true;
+  errorMessage: string = ''; // Property to store error message
   constructor(
     private projectService: ProjectService,
     private formBuilder: FormBuilder,
-    private userService: UserService,
+    private userService: UserService
   ) {
     this.loginForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
@@ -62,28 +61,13 @@ export class MainHomeComponent implements OnInit {
 
   ngOnInit(): void {
     // get all projects
-    // this.projectService.getAllProjects().subscribe({
-    //   next: (data) => {
-    //     this.projects = data;
-
-    //     // related with next , previous
-    //     this.displayedNews = this.projects;
-    //     this.lastIndexOfdisplayedNews = this.projects.length;
-    //     this.updateDisplayedNews();
-    //   },
-    //   error: (err) => {
-    //     console.log(err);
-    //   },
-    // });
     this.projectService.getAllProjects().subscribe({
       next: (data) => {
         this.projects = data;
         this.updateDisplayedNews();
       },
-      error: (err) => console.error(err)
+      error: (err) => console.error(err),
     });
-
-    // this.userLog = this.userService.isUserLogged;
     this.userService.getUserLoggedStatus().subscribe({
       next: (userStatus) => {
         this.userLog = userStatus;
@@ -94,7 +78,6 @@ export class MainHomeComponent implements OnInit {
     });
 
     this.adjustItemsPerScreen();
-
   }
   get email() {
     return this.loginForm.get('email');
@@ -103,7 +86,6 @@ export class MainHomeComponent implements OnInit {
     return this.loginForm.get('password');
   }
   onLogin() {
-
     if (this.loginForm.invalid) {
       return;
     }
@@ -112,16 +94,14 @@ export class MainHomeComponent implements OnInit {
     this.userService.login(email, password).subscribe({
       next: (response) => {
         if (response.isAuthenticated) {
-          console.log('Login successful:', response.message, response.role[0]);
           this.userLog = this.userService.isUserLogged;
-          console.log(this.userLog);
-          this.loginForm.reset()
+          this.loginForm.reset();
         } else {
-          console.log('Login failed:', response.message);
+          this.errorMessage = 'Login failed: Invalid email or password.';
         }
       },
       error: (error) => {
-        console.error('Login error:', error);
+        this.errorMessage = `${error.error}`;
       },
     });
   }
@@ -151,7 +131,9 @@ export class MainHomeComponent implements OnInit {
   }
 
   updateDisplayedNews(): void {
-    this.displayedNews = this.projects.slice(this.currentIndex, this.currentIndex + this.itemsPerPage);
+    this.displayedNews = this.projects.slice(
+      this.currentIndex,
+      this.currentIndex + this.itemsPerPage
+    );
   }
-
 }

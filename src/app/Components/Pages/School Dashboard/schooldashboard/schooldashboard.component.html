@@ -8,71 +8,64 @@
 <div class="container-fluid">
   <div class="row g-5 gy-3 mt-5 w-90 mx-auto">
     <div class="col-lg-6">
-      <!-- <div class="rectangle1 rectangleFontColor2">
-
-        <h1 id="schoolName fw-bold">School name: {{school.name}}</h1>
-        <div class="schoolDetails">
-          <p>school id : {{school.code}}</p>
-          <p>school email : {{school.schoolEmail}}</p>
-          <p>Curriculums : {{school.curriculums}}</p>
-          <p>grade : {{school.grade}}</p>
-          <p>Education Type : {{school.educationType}}</p>
-          <p>zone : {{school.zone}}</p>
-        </div>
-        <button class="submit-button float-lg-end me-2">Update Profile</button>
-      </div> -->
       <div class="rectangle1 rectangleFontColor2">
         @if(editMode){
 
-          <div class="container">
-            <!-- School Name -->
-            <div class="row form-group mb-2">
-              <label for="name" class="col-sm-4 col-form-label">School Name</label>
-              <div class="col-sm-8">
-                <input type="text" [(ngModel)]="school.name" id="name" name="name" class="form-control" placeholder="School Name">
-              </div>
-            </div>
-
-            <!-- School Code -->
-            <div class="row form-group mb-2">
-              <label for="code" class="col-sm-4 col-form-label">School Code</label>
-              <div class="col-sm-8">
-                <input type="text" [(ngModel)]="school.code" id="code" name="code" class="form-control" placeholder="School Code">
-              </div>
-            </div>
-
-            <!-- School Curriculums -->
-            <div class="row form-group mb-2">
-              <label for="curriculums" class="col-sm-4 col-form-label">School Curriculums</label>
-              <div class="col-sm-8">
-                <input type="text" [(ngModel)]="school.curriculums" id="curriculums" name="curriculums" class="form-control" placeholder="School Curriculums">
-              </div>
-            </div>
-
-            <!-- School Grade -->
-            <div class="row form-group mb-2">
-              <label for="grade" class="col-sm-4 col-form-label">School Cycle</label>
-              <div class="col-sm-8">
-                <input type="text" [(ngModel)]="school.grade" id="grade" name="grade" class="form-control" placeholder="School Grade">
-              </div>
-            </div>
-
-            <!-- School Education Type -->
-            <div class="row form-group mb-2">
-              <label for="educationType" class="col-sm-4 col-form-label">Education Type</label>
-              <div class="col-sm-8">
-                <input type="text" [(ngModel)]="school.educationType" id="educationType" name="educationType" class="form-control" placeholder="School Education Type">
-              </div>
-            </div>
-
-            <!-- School Zone -->
-            <div class="row form-group mb-2">
-              <label for="zone" class="col-sm-4 col-form-label">School Zone</label>
-              <div class="col-sm-8">
-                <input type="text" [(ngModel)]="school.zone" id="zone" name="zone" class="form-control" placeholder="School Zone">
-              </div>
+        <div class="container">
+          <!-- School Name -->
+          <div class="row form-group mb-2">
+            <label for="name" class="col-sm-4 col-form-label">School Name</label>
+            <div class="col-sm-8">
+              <input type="text" [(ngModel)]="school.name" id="name" name="name" class="form-control"
+                placeholder="School Name">
             </div>
           </div>
+
+          <!-- School Code -->
+          <div class="row form-group mb-2">
+            <label for="code" class="col-sm-4 col-form-label">School Code</label>
+            <div class="col-sm-8">
+              <input type="text" [(ngModel)]="school.code" id="code" name="code" class="form-control"
+                placeholder="School Code">
+            </div>
+          </div>
+
+          <!-- School Curriculums -->
+          <div class="row form-group mb-2">
+            <label for="curriculums" class="col-sm-4 col-form-label">School Curriculums</label>
+            <div class="col-sm-8">
+              <input type="text" [(ngModel)]="school.curriculums" id="curriculums" name="curriculums"
+                class="form-control" placeholder="School Curriculums">
+            </div>
+          </div>
+
+          <!-- School Grade -->
+          <div class="row form-group mb-2">
+            <label for="grade" class="col-sm-4 col-form-label">School Cycle</label>
+            <div class="col-sm-8">
+              <input type="text" [(ngModel)]="school.grade" id="grade" name="grade" class="form-control"
+                placeholder="School Grade">
+            </div>
+          </div>
+
+          <!-- School Education Type -->
+          <div class="row form-group mb-2">
+            <label for="educationType" class="col-sm-4 col-form-label">Education Type</label>
+            <div class="col-sm-8">
+              <input type="text" [(ngModel)]="school.educationType" id="educationType" name="educationType"
+                class="form-control" placeholder="School Education Type">
+            </div>
+          </div>
+
+          <!-- School Zone -->
+          <div class="row form-group mb-2">
+            <label for="zone" class="col-sm-4 col-form-label">School Zone</label>
+            <div class="col-sm-8">
+              <input type="text" [(ngModel)]="school.zone" id="zone" name="zone" class="form-control"
+                placeholder="School Zone">
+            </div>
+          </div>
+        </div>
 
         }
 
@@ -184,12 +177,14 @@
                 </canvas>
               </div>
             </div>
-            <button class="submit-button align-self-end" [routerLink]="['/SchoolDashboardTask', projectt.id]">Tasks</button>
+            <button class="submit-button align-self-end"
+              [routerLink]="['/SchoolDashboardTask', projectt.id]">Tasks</button>
           </div>
         </div>
-      }
+        }
         <div class="col-lg-1 col-2 align-self-center">
-          <button class="btn btn-primary rounded-circle" (click)="next()" [disabled]="currentIndex >= lastIndexProjectInSchool - itemsPerPage">
+          <button class="btn btn-primary rounded-circle" (click)="next()"
+            [disabled]="currentIndex >= lastIndexProjectInSchool - itemsPerPage">
             <i class="fas fa-arrow-right"></i>
           </button>
         </div>
@@ -201,6 +196,7 @@
 
 
   <!-- reports -->
+  <!-- @if(school.files.length>0){ -->
   <div class="row mt-5 w-90 mx-auto marginBottom">
     <h1 class="reportTitle">Reports</h1>
     <div class="tableReports-container">
@@ -217,9 +213,6 @@
           <tr>
             <td>{{report.name}}</td>
             <td>{{report.endDate|date}}</td>
-            <!-- <td><a class="border border-1 rounded-2 p-1 downloadBtn" routerLink="/viewDownload">Download</a></td> -->
-            <!-- show it in another school page open model when click view -->
-            <!-- <td><button class="border border-1 rounded-2 p-1 downloadBtn text-light" (click)="showModel1()">Download</button></td> -->
             <td><button class="border border-1 rounded-2 p-1 downloadBtn text-light"
                 (click)="downloadFile(report.url)">Download</button></td>
           </tr>
@@ -228,6 +221,10 @@
       </table>
     </div>
   </div>
+<!-- } -->
 
+<!-- @else {
+  <h3 class="mt-4">No Tasks Added</h3>
+} -->
 </div>
 }

@@ -29,10 +29,11 @@
             <a class="text-primary text-decoration-none" [routerLink]="['/Project', project1.id]">Read More</a>
           </div>
         </div>
-      }
+        }
         <!-- Next button -->
         <div class="col-lg-1 col-2 align-self-center" [class.col-3]="itemsPerPage == 1">
-          <button class="btn btn-primary rounded-circle" (click)="next()" [disabled]="currentIndex >= projects.length - itemsPerPage">
+          <button class="btn btn-primary rounded-circle" (click)="next()"
+            [disabled]="currentIndex >= projects.length - itemsPerPage">
             &#62;
           </button>
         </div>
@@ -50,8 +51,7 @@
             <div class="input-group mb-5">
               <label class="form-label" for="email">Email</label>
               <input class="form-control" name="Email" type="email" id="email" placeholder="Enter Your Email"
-              autocomplete="Email"
-                formControlName="email" [ngClass]="{'is-invalid': (loginForm.get('email')?.touched ||
+                autocomplete="Email" formControlName="email" [ngClass]="{'is-invalid': (loginForm.get('email')?.touched ||
                 loginForm.get('email')?.dirty) &&
                 !loginForm.get('email')?.valid }" required email>
 
@@ -71,19 +71,23 @@
             <div class="input-group mb-5">
               <label class="form-label" for="password">Password</label>
               <input class="form-control" name="Password" type="password" id="password" placeholder="* * * * * * * * *"
-              autocomplete="Password"
-                formControlName="password" required [ngClass]="{'is-invalid': (loginForm.get('password')?.touched ||
+                autocomplete="Password" formControlName="password" required [ngClass]="{'is-invalid': (loginForm.get('password')?.touched ||
                 loginForm.get('password')?.dirty) &&
                 !loginForm.get('password')?.valid }">
-                 <span class="invalid-feedback">
-                  @if (loginForm.get('password')?.errors?.['required']) {
-                  <span>
-                    Please Enter Password.
-                  </span>
+              <span class="invalid-feedback">
+                @if (loginForm.get('password')?.errors?.['required']) {
+                <span>
+                  Please Enter Password.
+                </span>
                 }
-                  </span>
+              </span>
             </div>
-            <button type="submit" class="login-btn" [disabled]="loginForm.invalid" [style.cursor]="(loginForm.invalid)?'auto':'pointer'">LOGIN</button>
+            @if (errorMessage) {
+            <div class="text-danger mb-2">{{ errorMessage }}</div>
+            }
+            <button type="submit" class="login-btn" [disabled]="loginForm.invalid"
+              [style.cursor]="(loginForm.invalid)?'not-allowed':'pointer'">LOGIN</button>
+
           </form>
         </div>
       </div>
