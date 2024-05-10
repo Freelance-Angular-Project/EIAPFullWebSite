@@ -76,7 +76,7 @@ export class EditProjectComponent implements OnInit {
         .editProject(this.currentProjectId, this.project)
         .subscribe({
           next: () => {
-            this.router.navigate(['/ProjectDashboard']);
+            this.router.navigate(['/ProjectRoutes/ProjectDashboard']);
           },
           error: (error) => console.error(error),
         });

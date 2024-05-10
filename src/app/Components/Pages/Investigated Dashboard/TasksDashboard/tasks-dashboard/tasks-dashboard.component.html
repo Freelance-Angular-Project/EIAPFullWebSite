@@ -32,7 +32,7 @@
             <!-- <th>Add Note</th> -->
             <th>Actions</th>
             <th>Assignment</th>
-            <th>File</th>
+            <th>Template</th>
           </tr>
         </thead>
       </table>
@@ -54,16 +54,10 @@
               <button class="btn btn-danger" (click)="openConfirmModal()"><i class="fa-solid fa-trash-can"></i></button>
             </td>
             <td>
-              <button class="btn btn-success me-2" [routerLink]="['/Getassignment',task.id]"><i
+              <button class="btn btn-success me-2" [routerLink]="['/Assignment/Getassignment',task.id]"><i
                   class="fa-solid fa-layer-group"></i></button>
             </td>
             <td>
-
-              <!-- <input type="file" [id]="'fileInput' + task.id" hidden (change)="onFileSelected(task.id, $event)"
-                [disabled]="uploadedFiles[task.id]">
-              <label [for]="'fileInput' + task.id" class="btn btn-primary" [class.disabled]="uploadedFiles[task.id]">
-                <i class="fa-solid fa-file-arrow-up"></i>
-              </label> -->
 
               <input type="file" [id]="'fileInput' + task.id" (change)="onFileSelected(task.id, $event)" hidden
                 >
@@ -71,19 +65,13 @@
                 >
                 <i class="fa-solid fa-file-arrow-up"></i> Upload
               </label>
-
-
-
-
-
-
-
-
-
             </td>
           </tr>
 
           }
+          @if(isUploading){
+            <div class="loader-container"><span class="loader"></span></div>
+            }
         </tbody>
       </table>
     </div>

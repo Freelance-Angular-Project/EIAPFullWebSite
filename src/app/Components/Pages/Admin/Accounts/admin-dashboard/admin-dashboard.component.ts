@@ -26,6 +26,8 @@ export class AdminDashboardComponent implements OnInit {
   ) {}
   accountForm!: FormGroup;
   account!: Account; // This will hold the account data
+  errorMessage: string = ''; // Property to store error message
+
   Roles: string[] = [
     'Admin',
     'Investigated',
@@ -83,6 +85,7 @@ export class AdminDashboardComponent implements OnInit {
             },
             error: (err) => {
               //console.log(err)
+              this.errorMessage = `${err.error}`;
               this.toastService.show(
                 'Error while create Admin Account check your inputs',
                 true

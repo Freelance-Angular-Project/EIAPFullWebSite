@@ -36,7 +36,7 @@ export class TasksDashboardComponent implements OnInit {
   isUploading: boolean = false;
   fileUploaded: boolean = false;
 
-  numberOfFileSelected: number = 0;
+  numberOfFileSelected: number = 1;
   uploadedFiles: { [taskId: string]: boolean } = {}; // Dictionary to track upload status per task
   CurrentTask: EditTask = {} as EditTask;
 
@@ -161,13 +161,16 @@ export class TasksDashboardComponent implements OnInit {
   }
 
   uploadFile(taskId: string, file: File): void {
+    this.isUploading = true;
+
     const formData = new FormData();
     formData.append('file', file);
+    formData.append('TaskId', taskId);
 
     this.fileService.uploadFile(formData).subscribe({
       next: (response) => {
         this.uploadedFiles[taskId] = true; // Set the upload flag to true for this task
-        //this.CurrentTask.numberOfFilesToAssignment = 2;
+        // this.CurrentTask.numberOfFilesToAssignment = 2;
 
         // Use switchMap to chain the updateTask call
         this.taskdashboardService
@@ -175,8 +178,12 @@ export class TasksDashboardComponent implements OnInit {
           .subscribe({
             next: () => {
               location.reload();
+              this.isUploading = false;
             },
-            error: (error) => console.error('Error updating task:', error),
+            error: (error) => {
+              console.error('Error updating task:', error);
+              this.isUploading = false;
+            },
           });
       },
       error: (error) =>
@@ -184,20 +191,12 @@ export class TasksDashboardComponent implements OnInit {
     });
   }
 
-  loadTasks(): void {
-    // Simulate fetching tasks
-    this.tasksInDashboard.forEach((task) => {
-      if (!this.uploadedFiles.hasOwnProperty(task.id)) {
-        this.uploadedFiles[task.id] = false; // Initialize upload status for new tasks
-      }
-    });
-  }
-
-  // deleteFile(fileId: string): void {
-  //   // You'd typically pass a fileId or some identifier to download specific file
-  //   this.fileService.deleteFile(fileId).subscribe({
-  //     next: (response) => console.log('File successfully deleted', response),
-  //     error: (error) => console.error('Error deleting file', error),
+  // loadTasks(): void {
+  //   // Simulate fetching tasks
+  //   this.tasksInDashboard.forEach((task) => {
+  //     if (!this.uploadedFiles.hasOwnProperty(task.id)) {
+  //       this.uploadedFiles[task.id] = false; // Initialize upload status for new tasks
+  //     }
   //   });
   // }
 }

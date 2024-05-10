@@ -49,30 +49,11 @@ export class SchooldashboardComponent {
   ) {}
 
   ngOnInit(): void {
-    // this.userId = this.userService.getCurrentUserId();
-    // console.log(this.userId);
-
-    // const r=(localStorage.getItem("role")=="SchoolManager")?true:false;
-    // const t=(localStorage.getItem("token"))?true:false;
-
-    // *********
-    // this.isAuthorized = this.schoolService.isUserAuthorized();
-    // console.log(this.isAuthorized);
-
-    // if(r&&t){
-    // if(this.isAuthorized){
-    // this.userService.getUsersInRole('SchoolManager').subscribe({
-    //   next: (data) => {
-    //     console.log(data);
-
-    //   },
-    //   error: (err) => {
-    //     console.log('school id error', err);
-    //   },
-    // });
     this.schoolService.getOneSchool().subscribe({
       next: (data) => {
         this.school = data;
+        console.log(data);
+
         this.displayedProjectInSchool = this.school.projects;
         this.lastIndexProjectInSchool = this.school.projects.length;
         this.updateDisplayedNews();
@@ -87,15 +68,7 @@ export class SchooldashboardComponent {
         console.error('There was an error!', error);
       },
     });
-    // this.schoolService.getSchoolById(this.userId).subscribe({
-    //   next: (data) => {
-    //     this.school = data;
-    //   },
-    //   error: (error) => {
-    //     console.error('There was an error!', error);
-    //   }
-    // });
-    // }
+
 
     this.adjustItemsPerScreen();
   }
@@ -136,7 +109,7 @@ export class SchooldashboardComponent {
   }
 
   private adjustItemsPerScreen(): void {
-    this.itemsPerPage = window.innerWidth <= 786 ? 1 : 3; // 768px is a common breakpoint for tablets
+    this.itemsPerPage = window.innerWidth <= 786 ? 1 : 3;  // Adjust if necessary
     this.updateDisplayedNews();
   }
 
@@ -155,13 +128,9 @@ export class SchooldashboardComponent {
   }
 
   private updateDisplayedNews(): void {
-    if (this.displayedProjectInSchool && Array.isArray(this.displayedProjectInSchool)) {
-    this.displayedProjectInSchool = this.school.projects.slice(
-      this.currentIndex,
-      this.currentIndex + this.itemsPerPage
-    );
-    }
+    this.displayedProjectInSchool = this.school.projects.slice(this.currentIndex, this.currentIndex + this.itemsPerPage);
   }
+
 
   //update Data School
   editMode = false;

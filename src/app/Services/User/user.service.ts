@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, catchError, tap, throwError } from 'rxjs';
 import { User } from '../../Models/Users/user';
 import { LoginResponse } from '../../Models/Accounts/login-response';
-import { jwtDecode } from "jwt-decode";
+import { jwtDecode } from 'jwt-decode';
 import { environment } from '../../../environments/environment.development';
 import { Account } from '../../Models/Accounts/account';
 import { Role } from '../../Models/Accounts/role';
@@ -13,13 +13,12 @@ import { UpdateAccount } from '../../Models/Accounts/update-account';
   providedIn: 'root',
 })
 export class UserService {
-  private baseUrl =
-  `${environment.baseApiURL}/Account`; // Replace with the actual base URL
+  private baseUrl = `${environment.baseApiURL}/Account`; // Replace with the actual base URL
   // Define the headers
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
-      'Accept': 'text/plain',
+      Accept: 'text/plain',
       // Add any other header you need here
     }),
   };
@@ -48,20 +47,18 @@ export class UserService {
             this.currentUser = { email: res.email, role: res.role.slice(0, 1) };
             this.userLoggedBehavior.next(true);
 
-            console.log(this.currentUser);
+            // console.log(this.currentUser);
           }
         }),
-        catchError((error) => {
-          console.error('Login error:', error);
-          return throwError(() => new Error('Login failed'));
-        })
+        // catchError((error) => {
+        //   // console.error('Login error:', error);
+        //   return throwError(() => new Error(error.error));
+        // })
       );
   }
 
   getUsersInRole(roleName: string): Observable<any[]> {
-    return this.http.get<any[]>(
-      `${this.baseUrl}/usersInRole/${roleName}`
-    );
+    return this.http.get<any[]>(`${this.baseUrl}/usersInRole/${roleName}`);
   }
 
   // Helper method to check if the current user has a specific role
@@ -103,37 +100,54 @@ export class UserService {
     }
   }
 
-
-
-
-
-
   // Replace the parameter and return types with the correct ones based on your API
   registerProjectManager(account: Account): Observable<Account> {
-    return this.http.post<Account>(`${this.baseUrl}/registerProjectManager`, account, this.httpOptions);
+    return this.http.post<Account>(
+      `${this.baseUrl}/registerProjectManager`,
+      account,
+      this.httpOptions
+    );
   }
 
   registerSchoolManager(account: Account): Observable<Account> {
-    return this.http.post<Account>(`${this.baseUrl}/registerSchoolManager`, account, this.httpOptions);
+    return this.http.post<Account>(
+      `${this.baseUrl}/registerSchoolManager`,
+      account,
+      this.httpOptions
+    );
   }
 
   registerInvestigated(account: Account): Observable<Account> {
-    return this.http.post<Account>(`${this.baseUrl}/registerInvestigated`, account, this.httpOptions);
+    return this.http.post<Account>(
+      `${this.baseUrl}/registerInvestigated`,
+      account,
+      this.httpOptions
+    );
   }
 
   registerAdmin(account: Account): Observable<Account> {
-    return this.http.post<Account>(`${this.baseUrl}/registerAdmin`, account, this.httpOptions);
+    return this.http.post<Account>(
+      `${this.baseUrl}/registerAdmin`,
+      account,
+      this.httpOptions
+    );
   }
 
   getProfile(): Observable<Account> {
     return this.http.get<Account>(`${this.baseUrl}/Profile`);
   }
 
-
-  deleteAccount(id:string):Observable<Account> {
-    return this.http.delete<Account>(`${this.baseUrl}?id=${id}`,this.httpOptions);
+  deleteAccount(id: string): Observable<Account> {
+    return this.http.delete<Account>(
+      `${this.baseUrl}?id=${id}`,
+      this.httpOptions
+    );
   }
-  updateAccount(account:UpdateAccount): Observable<UpdateAccount> {
-    return this.http.put<UpdateAccount>(`${this.baseUrl}/UpdateUser`,account, this.httpOptions);
+  updateAccount(account: UpdateAccount): Observable<UpdateAccount> {
+    return this.http.put<UpdateAccount>(
+      `${this.baseUrl}/UpdateUser`,
+      account,
+      this.httpOptions
+    );
   }
 }

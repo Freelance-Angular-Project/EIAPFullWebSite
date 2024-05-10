@@ -54,7 +54,7 @@ constructor(private projectService : ProjectService,private router: Router,publi
     this.selectedProjectId = id;
   }
   goProjectDetails(id:string){
-    this.router.navigate(['/GetProjectDetails', id]);
+    this.router.navigate(['/ProjectRoutes/GetProjectDetails', id]);
   }
   openConfirmModal(){
     const confirmModal = new bootstrap.Modal(

@@ -131,7 +131,7 @@ export class AddNewProjectComponent {
       this.projectservice.createProject(formData).subscribe({
         next: () => {
 
-          this.router.navigate(['/ProjectDashboard']).then(success => {
+          this.router.navigate(['/ProjectRoutes/ProjectDashboard']).then(success => {
             if (success) {
               window.location.reload();
             } else {

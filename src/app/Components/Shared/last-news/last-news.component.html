@@ -4,7 +4,28 @@
   <div class="row row-bg mt-5">
     <h2 class="fw-bolder">Last News</h2>
     <div class="container">
-      <div class="row  g-4 mb-5">
+      <div class="row g-4 mb-5">
+        <div class="col-lg-1 col-2 align-self-center" [class.col-3]="itemsPerPage == 1">
+            <button class="btn btn-primary rounded-circle" (click)="previous()" [disabled]="currentIndex === 0">
+                <i class="fa fa-arrow-left"></i>
+            </button>
+        </div>
+        @for (item of displayedNews; track item.id) {
+        <div class="col-lg-5 col-6" [class.col-6]="itemsPerPage == 1">
+            <div class="shadow-card shadow">
+                <img [src]="item.imageUrl" class="img-responsive">
+                <p>{{item.details}}</p>
+            </div>
+        </div>
+      }
+        <div class="col-lg-1 col-2 align-self-center" [class.col-3]="itemsPerPage == 1">
+            <button class="btn btn-primary rounded-circle" (click)="next()" [disabled]="currentIndex >= news.length - itemsPerPage">
+                <i class="fas fa-arrow-right"></i>
+            </button>
+        </div>
+    </div>
+
+      <!-- <div class="row  g-4 mb-5">
 
         <div class="col-lg-1 col-2 align-self-center" [class.col-3]="itemsPerPage==1">
           <button class="btn btn-primary rounded-circle" (click)="previous()" [disabled]="currentIndex === 0">
@@ -29,7 +50,7 @@
           </button>
 
         </div>
-      </div>
+      </div> -->
     </div>
   </div>
 

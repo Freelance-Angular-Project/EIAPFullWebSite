@@ -156,3 +156,11 @@ $header-background: #FFFFFF; // Slightly darker than card background
   }
 }
 
+.projectContent{
+  height:110px;
+}
+@media screen and (max-width:1400px){
+  .projectContent{
+    height:auto;
+  }
+}
