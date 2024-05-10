@@ -49,27 +49,6 @@ export class SchooldashboardComponent {
   ) {}
 
   ngOnInit(): void {
-    // this.userId = this.userService.getCurrentUserId();
-    // console.log(this.userId);
-
-    // const r=(localStorage.getItem("role")=="SchoolManager")?true:false;
-    // const t=(localStorage.getItem("token"))?true:false;
-
-    // *********
-    // this.isAuthorized = this.schoolService.isUserAuthorized();
-    // console.log(this.isAuthorized);
-
-    // if(r&&t){
-    // if(this.isAuthorized){
-    // this.userService.getUsersInRole('SchoolManager').subscribe({
-    //   next: (data) => {
-    //     console.log(data);
-
-    //   },
-    //   error: (err) => {
-    //     console.log('school id error', err);
-    //   },
-    // });
     this.schoolService.getOneSchool().subscribe({
       next: (data) => {
         this.school = data;
@@ -89,15 +68,7 @@ export class SchooldashboardComponent {
         console.error('There was an error!', error);
       },
     });
-    // this.schoolService.getSchoolById(this.userId).subscribe({
-    //   next: (data) => {
-    //     this.school = data;
-    //   },
-    //   error: (error) => {
-    //     console.error('There was an error!', error);
-    //   }
-    // });
-    // }
+
 
     this.adjustItemsPerScreen();
   }

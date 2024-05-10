@@ -96,6 +96,9 @@
             Phone Number is required
           </div>
         }
+        @if (errorMessage) {
+          <div class="text-danger mb-2">{{ errorMessage }}</div>
+          }
       </div>
 
 

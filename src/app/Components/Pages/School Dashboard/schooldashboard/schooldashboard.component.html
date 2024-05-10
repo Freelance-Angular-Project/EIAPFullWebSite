@@ -204,15 +204,15 @@
         <thead>
           <tr>
             <th>Reports</th>
-            <th>Date</th>
+            <th>Created Date</th>
             <th>Details</th>
           </tr>
         </thead>
         <tbody>
-          @for (report of school.files; track report.id) {
+          @for (report of school.files; track $index) {
           <tr>
-            <td>{{report.name}}</td>
-            <td>{{report.endDate|date}}</td>
+            <td>Report {{$index+1}} </td>
+            <td>{{report.created|date}}</td>
             <td><button class="border border-1 rounded-2 p-1 downloadBtn text-light"
                 (click)="downloadFile(report.url)">Download</button></td>
           </tr>

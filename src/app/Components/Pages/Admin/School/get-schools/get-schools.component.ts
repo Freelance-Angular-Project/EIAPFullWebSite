@@ -3,6 +3,7 @@ import { SchoolService } from '../../../../../Services/School/school.service';
 import { School } from '../../../../../Models/Schools/school';
 import { Router, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { FilesService } from '../../../../../Services/Files/files.service';
 declare var bootstrap: any;
 @Component({
   selector: 'app-get-schools',
@@ -16,7 +17,13 @@ export class GetSchoolsComponent implements OnInit {
   filteredSchools: School[] = [];
   filter: string = '';
   selectedSchoolId: string | null = null;
-  constructor(private schoolservice: SchoolService, private router: Router) {}
+  fileTouched = false;
+  fileInvalid = false;
+  isUploading: boolean = false;
+  fileUploaded: boolean = false;
+  uploadedFiles: { [taskId: string]: boolean } = {}; // Dictionary to track upload status per task
+
+  constructor(private schoolservice: SchoolService, private router: Router, private fileService: FilesService) {}
   ngOnInit(): void {
     this.schoolservice.getAllSchools().subscribe({
       next: (allschools) => {
@@ -75,4 +82,32 @@ export class GetSchoolsComponent implements OnInit {
       console.log('No school selected for deletion');
     }
   }
+  onFileSelected(schoolId: string, event: Event): void {
+    const element = event.target as HTMLInputElement;
+    if (
+      element.files &&
+      element.files.length > 0 &&
+      !this.uploadedFiles[schoolId]
+    ) {
+      this.uploadFile(schoolId, element.files[0]);
+    }
+  }
+
+  uploadFile(schoolId: string, file: File): void {
+    this.isUploading = true;
+
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('schoolId', schoolId);
+
+    this.fileService.uploadFile(formData).subscribe({
+      next: (response) => {
+        this.uploadedFiles[schoolId] = true; // Set the upload flag to true for this task
+
+      },
+      error: (error) =>
+        console.error('Error uploading file for task', schoolId, error),
+    });
+  }
+
 }
