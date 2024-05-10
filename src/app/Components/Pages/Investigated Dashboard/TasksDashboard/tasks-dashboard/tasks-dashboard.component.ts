@@ -28,7 +28,7 @@ export class TasksDashboardComponent implements OnInit {
   projects: ProjectDashboard[] = [];
   form!: FormGroup;
 
-  selectedTaskId: string ='';
+  selectedTaskId: string = '';
   SelectedProjectId: string = '';
   // form file input check
   fileTouched = false;
@@ -36,9 +36,9 @@ export class TasksDashboardComponent implements OnInit {
   isUploading: boolean = false;
   fileUploaded: boolean = false;
 
-  numberOfFileSelected:number=0;
-  uploadedFiles: { [taskId: string]: boolean } = {};  // Dictionary to track upload status per task
-  CurrentTask : EditTask = {} as EditTask;
+  numberOfFileSelected: number = 0;
+  uploadedFiles: { [taskId: string]: boolean } = {}; // Dictionary to track upload status per task
+  CurrentTask: EditTask = {} as EditTask;
 
   model: AddAssignment = {} as AddAssignment;
 
@@ -63,7 +63,6 @@ export class TasksDashboardComponent implements OnInit {
       next: (allprojects) => {
         this.projects = allprojects;
         this.selectProjectId(this.SelectedProjectId);
-
       },
       error: (err) => {
         console.log(err);
@@ -94,10 +93,10 @@ export class TasksDashboardComponent implements OnInit {
   selectTask(task: TasksToDashboard) {
     this.selectedTaskId = task.id;
     this.CurrentTask = {
-      name:task.name,
-  details:task.details,
-  numberOfFilesToAssignment:task.numberOfFilesToAssignment,
-  endDate:this.convertDateDMYtoYMD(task.endDate.toString()),
+      name: task.name,
+      details: task.details,
+      numberOfFilesToAssignment: task.numberOfFilesToAssignment,
+      endDate: this.convertDateDMYtoYMD(task.endDate.toString()),
     };
   }
   convertDateDMYtoYMD(dateStr: string): string {
@@ -152,7 +151,11 @@ export class TasksDashboardComponent implements OnInit {
   }
   onFileSelected(taskId: string, event: Event): void {
     const element = event.target as HTMLInputElement;
-    if (element.files && element.files.length > 0 && !this.uploadedFiles[taskId]) {
+    if (
+      element.files &&
+      element.files.length > 0 &&
+      !this.uploadedFiles[taskId]
+    ) {
       this.uploadFile(taskId, element.files[0]);
     }
   }
@@ -163,30 +166,32 @@ export class TasksDashboardComponent implements OnInit {
 
     this.fileService.uploadFile(formData).subscribe({
       next: (response) => {
-        this.uploadedFiles[taskId] = true;  // Set the upload flag to true for this task
-        this.CurrentTask.numberOfFilesToAssignment = 2;
+        this.uploadedFiles[taskId] = true; // Set the upload flag to true for this task
+        //this.CurrentTask.numberOfFilesToAssignment = 2;
 
         // Use switchMap to chain the updateTask call
-        this.taskdashboardService.updateTask(taskId, this.CurrentTask).subscribe({
-          next: () => {
-            location.reload();
-          },
-          error: (error) => console.error('Error updating task:', error)
-        });
+        this.taskdashboardService
+          .updateTask(taskId, this.CurrentTask)
+          .subscribe({
+            next: () => {
+              location.reload();
+            },
+            error: (error) => console.error('Error updating task:', error),
+          });
       },
-      error: (error) => console.error('Error uploading file for task', taskId, error)
+      error: (error) =>
+        console.error('Error uploading file for task', taskId, error),
     });
   }
 
   loadTasks(): void {
     // Simulate fetching tasks
-    this.tasksInDashboard.forEach(task => {
+    this.tasksInDashboard.forEach((task) => {
       if (!this.uploadedFiles.hasOwnProperty(task.id)) {
-        this.uploadedFiles[task.id] = false;  // Initialize upload status for new tasks
+        this.uploadedFiles[task.id] = false; // Initialize upload status for new tasks
       }
     });
   }
-
 
   // deleteFile(fileId: string): void {
   //   // You'd typically pass a fileId or some identifier to download specific file
