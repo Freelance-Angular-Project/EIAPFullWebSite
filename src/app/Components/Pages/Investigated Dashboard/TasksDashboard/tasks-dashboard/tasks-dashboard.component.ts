@@ -177,8 +177,9 @@ export class TasksDashboardComponent implements OnInit {
           .updateTask(taskId, this.CurrentTask)
           .subscribe({
             next: () => {
-              location.reload();
               this.isUploading = false;
+              this.reloadComponent();
+
             },
             error: (error) => {
               console.error('Error updating task:', error);
