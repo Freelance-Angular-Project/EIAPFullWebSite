@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { SchooldashboardComponent } from '../schooldashboard/schooldashboard.component';
 import { roleGuardGuard } from '../../../../Guards/role-guard.guard';
 import { SchooldashboardtasksComponent } from '../schooldashboardtasks/schooldashboardtasks.component';
+import { SchoolTicketsComponent } from '../school-tickets/school-tickets.component';
 
 const routes: Routes = [
   {
@@ -18,6 +19,13 @@ const routes: Routes = [
     title: 'School Tasks Page',
     canActivate: [roleGuardGuard],
     data: { role: ['SchoolManager'] },
+  },
+  {
+    path: 'schoolTickets',
+    component: SchoolTicketsComponent,
+    title: 'School Tickets Page',
+    canActivate: [roleGuardGuard],
+    data: { role: ['SchoolManager', 'Admin'] },
   },
 ];
 

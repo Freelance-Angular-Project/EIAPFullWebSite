@@ -1,8 +1,8 @@
 <!-- Header -->
 <header class="d-flex flex-lg-row flex-column align-items-center justify-content-between p-2">
   <div class="header-logo">
-    <img src="../../../../assets/UAE_MOEdu_brandmark_Horizontal_RGB_E.png" class="img-fluid"
-      alt="Ministry of Education Logo">
+    <!-- <img src="../../../../assets/UAE_MOEdu_brandmark_Horizontal_RGB_E.png" class="img-fluid"
+      alt="Ministry of Education Logo"> -->
   </div>
 
   <div class="header-branding mt-lg-0 mt-3 d-flex align-items-center">
@@ -83,8 +83,18 @@
           </li> -->
           }
 
+          @if(userService.getuRoles('Investigated')||userService.getuRoles('Admin')&&userLogg){
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/TicketsDashboard" routerLinkActive="active">Ticket Dashboard</a>
+            </li>
 
+            }
+            @if(userService.getuRoles('SchoolManager')||userService.getuRoles('Admin')&&userLogg){
+              <li class="nav-item">
+                <a class="nav-link" routerLink="/schoolTickets" routerLinkActive="active">School Tickets </a>
+              </li>
 
+              }
           @if(userService.getuRoles('Admin')&&userLogg){
           <li class="nav-item">
             <a class="nav-link" routerLink="/AdminDashboard" routerLinkActive="active">Admin Dashboard</a>

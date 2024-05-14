@@ -52,7 +52,6 @@ export class SchooldashboardComponent {
     this.schoolService.getOneSchool().subscribe({
       next: (data) => {
         this.school = data;
-        console.log(data);
 
         this.displayedProjectInSchool = this.school.projects;
         this.lastIndexProjectInSchool = this.school.projects.length;
@@ -128,6 +127,11 @@ export class SchooldashboardComponent {
   }
 
   private updateDisplayedNews(): void {
+    if (!this.school || !this.school.projects) {
+      //console.warn("Projects data is not available.");
+      return;
+    }
+
     this.displayedProjectInSchool = this.school.projects.slice(this.currentIndex, this.currentIndex + this.itemsPerPage);
   }
 

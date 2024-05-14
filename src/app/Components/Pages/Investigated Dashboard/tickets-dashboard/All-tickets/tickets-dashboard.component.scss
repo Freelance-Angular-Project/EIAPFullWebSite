@@ -1,0 +1,13 @@
+@import url('../../../../../../SharedStyles/table.scss');
+@import url('../../../../../../SharedStyles/loader.scss');
+
+.disabled {
+  opacity: .5;
+}
+
+.btn-disabled,
+[disabled] {
+  opacity: 0.5;
+
+  cursor: not-allowed;
+}

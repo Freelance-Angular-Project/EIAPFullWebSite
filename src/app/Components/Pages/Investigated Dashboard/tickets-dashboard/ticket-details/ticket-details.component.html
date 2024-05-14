@@ -1,0 +1,35 @@
+<div class="container-fluid background1 mb-5">
+  <div class="d-flex align-items-center h-50 p-5">
+
+    <h5 class="text-light project-header-title">Ticket Details</h5>
+  </div>
+</div>
+@if(ticket){
+<main>
+  <div class="card">
+    <div class="card__title">
+      <h3>Ticket Details</h3>
+    </div>
+    <div class="card__body">
+      <div class="half">
+        <div class="featured_text mb-3">
+          <h3 class="mb-5 fw-bold">School Name: {{ticket.schoolName}}</h3>
+          <p class="price"><span class="text-primary">Project Name: </span>{{ticket.projectName}}</p>
+          <p class="price"><span class="text-primary">Details:</span> {{ticket.description}}</p>
+          <p class="price"><span class="text-primary">Created Date: </span>{{ticket.createdAt}}</p>
+          <p class="price"><span class="text-primary">Subject: </span>{{ticket.subject}}</p>
+          @if (ticket.response) {
+          <p class="price"><span class="text-primary">Response: </span>{{ticket.response}}</p>
+          }
+        </div>
+      </div>
+    </div>
+
+    <div class="card__footer">
+      <div class="action">
+        <button type="button" (click)="goBack()">Back</button>
+      </div>
+    </div>
+  </div>
+</main>
+}

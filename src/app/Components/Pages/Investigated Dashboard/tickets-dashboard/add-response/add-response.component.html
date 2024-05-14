@@ -1,0 +1,35 @@
+<div class="container-fluid background1">
+  <div class="d-flex h-50 p-lg-5">
+
+    <h5 class="text-light project-header-title" style="word-break: normal;">Add Response</h5>
+  </div>
+</div>
+<div class="container mt-5 border border-4 border-primary p-5">
+  @if(toastService.showToast | async){
+    <div class="alert w-50 mx-auto alert-dismissible" [class.alert-success]="!(toastService.isError | async)"
+      [class.alert-danger]="(toastService.isError | async)">
+
+      {{ toastService.message | async }}
+      <button type="button" class="btn-close" (click)="toastService.showToast.next(false)"></button>
+    </div>
+    }
+  <form [formGroup]="AddResponseForm" (ngSubmit)="onSubmitResponse()" class="needs-validation" novalidate>
+
+
+    <div class="form-group mb-3 row">
+      <label for="Response" class="col-sm-2">Response</label>
+      <div class="col-sm-10">
+        <input type="text" formControlName="Response" class="form-control" id="Response" placeholder="Enter Response ">
+        @if(Response?.touched &&Response?.errors?.['required'])
+        {
+        <div class="text-danger">
+          Response is required
+        </div>
+        }
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary mb-5" [disabled]="!AddResponseForm.valid">Submit</button>
+  </form>
+
+</div>

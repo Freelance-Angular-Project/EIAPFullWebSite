@@ -45,10 +45,39 @@ export class TicketsService {
     );
   }
 
-
   AddResponse(id: string, response: string): Observable<any> {
-    const url = `${environment.baseApiURL}/Tickets/AddResponse?id=${encodeURIComponent(id)}&response=${encodeURIComponent(response)}`;
-    return this.httpclient.post(url, {}, {headers:this.httpOptions.headers, responseType: 'text' });
+    const url = `${
+      environment.baseApiURL
+    }/Tickets/AddResponse?id=${encodeURIComponent(
+      id
+    )}&response=${encodeURIComponent(response)}`;
+    return this.httpclient.post(
+      url,
+      {},
+      { headers: this.httpOptions.headers, responseType: 'text' }
+    );
+  }
 
-}
+  getTicketsByProject(
+    projectid: string,
+    take: number = 100,
+    skip: number = 0
+  ): Observable<TicketResponse[]> {
+    return this.httpclient.get<TicketResponse[]>(
+      `${environment.baseApiURL}/Tickets/GetTicketsByProjects?projectId=${projectid}&skip=${skip}&take=${take}`
+    );
+  }
+  getTicketById(ticketID: string): Observable<TicketResponse> {
+    return this.httpclient.get<TicketResponse>(
+      `${environment.baseApiURL}/Tickets/GetById?id=${ticketID}`
+    );
+  }
+  getTicketsToSchool(
+    take: number = 100,
+    skip: number = 0
+  ): Observable<TicketResponse[]> {
+    return this.httpclient.get<TicketResponse[]>(
+      `${environment.baseApiURL}/Tickets/GetTicketsToSchool?skip=${skip}&take=${take}`
+    );
+  }
 }
