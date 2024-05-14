@@ -9,7 +9,6 @@ import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { SchoolService } from '../../../../Services/School/school.service';
 import { ProjectInSchool } from '../../../../Models/Projects/project-in-school';
 import { CommonModule } from '@angular/common';
-import { TaskService } from '../../../../Services/Task/task.service';
 import { TaskDetails } from '../../../../Models/Tasks/task-details';
 import { HttpClient } from '@angular/common/http';
 import { FilesService } from '../../../../Services/Files/files.service';
@@ -52,7 +51,7 @@ export class SchooldashboardtasksComponent implements OnInit, AfterViewInit {
     private httpclient: HttpClient,
     private schoolService: SchoolService,
     private router: Router,
-    private assignmentsfile: AssignmentFileService
+    private assignmentsfile: AssignmentFileService,
   ) {}
   ngAfterViewInit(): void {
     this.initializeChart();

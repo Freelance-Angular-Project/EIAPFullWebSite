@@ -36,7 +36,7 @@ export class TasksDashboardComponent implements OnInit {
   isUploading: boolean = false;
   fileUploaded: boolean = false;
 
-  numberOfFileSelected: number = 0;
+  numberOfFileSelected: number = 1;
   uploadedFiles: { [taskId: string]: boolean } = {}; // Dictionary to track upload status per task
   CurrentTask: EditTask = {} as EditTask;
 
@@ -177,8 +177,9 @@ export class TasksDashboardComponent implements OnInit {
           .updateTask(taskId, this.CurrentTask)
           .subscribe({
             next: () => {
-              location.reload();
               this.isUploading = false;
+              this.reloadComponent();
+
             },
             error: (error) => {
               console.error('Error updating task:', error);
