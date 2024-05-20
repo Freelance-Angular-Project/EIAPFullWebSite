@@ -5,6 +5,9 @@ import { ProjectService } from '../../../../Services/Project/project.service';
 import { NgChartsModule } from 'ng2-charts';
 import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import * as XLSX from 'xlsx';
+import { saveAs } from 'file-saver';
+const EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
 @Component({
   selector: 'app-project-analytics',
   standalone: true,
@@ -156,5 +159,34 @@ export class ProjectAnalyticsComponent {
       ]
     };
   }
+  downloadExcel(): void {
+    const workbook = XLSX.utils.book_new();
+
+    // Convert projectProgress to a worksheet
+    const projectProgressSheet = XLSX.utils.json_to_sheet([this.progressData.projectProgress]);
+    XLSX.utils.book_append_sheet(workbook, projectProgressSheet, 'Project Progress');
+
+    // Convert schoolProgresses to a worksheet
+    const schoolProgressesSheet = XLSX.utils.json_to_sheet(
+      Object.values(this.progressData.schoolProgresses)
+    );
+    XLSX.utils.book_append_sheet(workbook, schoolProgressesSheet, 'School Progresses');
+
+    // Convert topSchoolsGlobal to a worksheet
+    const topSchoolsSheet = XLSX.utils.json_to_sheet(this.progressData.projectProgress.topSchoolsGlobal);
+    XLSX.utils.book_append_sheet(workbook, topSchoolsSheet, 'Top Schools Global');
+
+    // Write the workbook and trigger the download
+    const excelBuffer = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
+    this.saveAsExcelFile(excelBuffer, 'ProgressData');
+  }
+
+  saveAsExcelFile(buffer: any, fileName: string): void {
+    const data: Blob = new Blob([buffer], { type: EXCEL_TYPE });
+    saveAs(data, `${fileName}_export_${new Date().getTime()}.xlsx`);
+  }
 
 }
+
+
+
