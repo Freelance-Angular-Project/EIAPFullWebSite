@@ -11,7 +11,6 @@ import { ProjectInSchool } from '../../../../Models/Projects/project-in-school';
 import { CommonModule } from '@angular/common';
 import { TaskDetails } from '../../../../Models/Tasks/task-details';
 import { HttpClient } from '@angular/common/http';
-import { FilesService } from '../../../../Services/Files/files.service';
 import { FormsModule } from '@angular/forms';
 import { School } from '../../../../Models/Schools/school';
 import { NgChartsModule } from 'ng2-charts';
@@ -68,7 +67,7 @@ export class SchooldashboardtasksComponent implements OnInit, AfterViewInit {
           next: (project) => {
             this.schoolProject = project;
             // charts
-            const completed = project.taskCompletePercentage + 60;
+            const completed = project.taskCompletePercentage;
             const notcompleted = 100 - completed;
             this.updateChart([completed, notcompleted]);
           },

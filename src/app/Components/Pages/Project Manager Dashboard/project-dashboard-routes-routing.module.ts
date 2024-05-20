@@ -6,6 +6,7 @@ import { ProjectDetailsComponent } from './project-details/project-details.compo
 import { AddSchoolToProjectComponent } from './add-school-to-project/add-school-to-project.component';
 import { AddNewProjectComponent } from './add-new-project/add-new-project.component';
 import { ProjectDashboardComponent } from './project-dashboard/project-dashboard.component';
+import { ProjectAnalyticsComponent } from './project-analytics/project-analytics.component';
 
 
 const routes: Routes = [
@@ -44,7 +45,13 @@ const routes: Routes = [
       title: 'Add School to Project Page',
       canActivate: [roleGuardGuard],
       data: { role: ['ProjectManager', 'Admin'] },
-    },
+    },{
+      path: 'projectAnalytics/:id',
+      component: ProjectAnalyticsComponent,
+      title: 'Project Analytics Page',
+      canActivate: [roleGuardGuard],
+      data: { role: ['ProjectManager', 'Admin'] },
+    }
 ];
 
 @NgModule({

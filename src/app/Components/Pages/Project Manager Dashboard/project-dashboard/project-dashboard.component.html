@@ -31,6 +31,8 @@
             <th>Start Date</th>
             <th>End Date</th>
             <th>Image</th>
+            <th>Analytics</th>
+            <th>Details</th>
             <th>Actions</th>
           </tr>
         </thead>
@@ -52,11 +54,17 @@
                   (change)="onFileSelected($event, project.id)" required style="display: none;">
               </label>
             </td>
-
             <td>
-
+              <button class="btn btn-warning me-2" [routerLink]="['/ProjectRoutes/projectAnalytics',project.id]"
+                title="Update Project"><i class="fa-solid fa-chart-pie"></i></button>
+            </td>
+            <td>
               <button class="btn btn-primary me-2" (click)="goProjectDetails(project.id)"><i class="fa-solid fa-eye"
                   title="Show Project Details"></i></button>
+            </td>
+            <td>
+
+
 
               <!-- ############ -->
               <!--add role only investgated,admin => add school-->

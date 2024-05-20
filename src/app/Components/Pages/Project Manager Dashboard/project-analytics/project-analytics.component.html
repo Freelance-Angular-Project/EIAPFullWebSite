@@ -1,0 +1,35 @@
+<div class="container-fluid background1 mb-5">
+  <div class="d-flex align-items-center h-50 p-5">
+
+    <h5 class="text-light project-header-title">Project Analytics</h5>
+  </div>
+</div>
+<div class="container">
+  <div class="row">
+    @if(doughnutChartData){
+    <!-- <h3>Project Progress</h3> -->
+    <h3>{{ progressData.projectProgress.projectName }} Project Progress</h3>
+    <div class="col-sm-4">
+      <canvas baseChart [data]="doughnutChartData" [options]="doughnutChartOptions" [type]="'doughnut'">
+      </canvas>
+    </div>
+    }
+    @if(schoolChartData){
+    <div class="col-sm-4">
+      @for (schoolId of (progressData.schoolProgresses | keyvalue); track $index) {
+      <h3>{{ progressData.schoolProgresses[schoolId.key].schoolName }}</h3>
+      <canvas baseChart [data]="schoolChartData[schoolId.key]" [options]="barChartOptions" [type]="'bar'">
+      </canvas>
+      }
+    </div>
+    }
+
+    @if(topSchoolsChartData){
+    <div class="col-sm-4">
+      <h3>Top Schools Global</h3>
+      <canvas baseChart [data]="topSchoolsChartData" [options]="pieChartOptions" [type]="'pie'">
+      </canvas>
+    </div>
+    }
+  </div>
+</div>

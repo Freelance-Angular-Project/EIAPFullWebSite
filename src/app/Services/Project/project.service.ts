@@ -1,7 +1,11 @@
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpErrorResponse,
+  HttpHeaders,
+} from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Project } from '../../Models/Projects/project';
-import { Observable, catchError, tap, throwError } from 'rxjs';
+import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment.development';
 import { ProjectDashboard } from '../../Models/Projects/project-dashboard';
 import { CreateProject } from '../../Models/Projects/create-project';
@@ -11,6 +15,7 @@ import { AddSchoolToProject } from '../../Models/Projects/add-school-to-project'
 import { ProjectDetailsAll } from '../../Models/Projects/project-details-all';
 import { ProjectToSelect } from '../../Models/Projects/project-to-select';
 import { DeleteSchoolProject } from '../../Models/Projects/delete-school-project';
+import { ProgressData } from '../../Models/Projects/project-analytics';
 
 @Injectable({
   providedIn: 'root',
@@ -102,11 +107,17 @@ export class ProjectService {
     );
   }
 
-
-  deleteSchoolFromProject(projectId: string, schoolId: string): Observable<DeleteSchoolProject> {
+  deleteSchoolFromProject(
+    projectId: string,
+    schoolId: string
+  ): Observable<DeleteSchoolProject> {
     const url = `${this.baseUrl}/${projectId}/schools/${schoolId}`;
-    return  this.http.delete<DeleteSchoolProject>(url,this.httpOptions);
+    return this.http.delete<DeleteSchoolProject>(url, this.httpOptions);
   }
 
-
+  getProjectAnalytics(projectID: string): Observable<ProgressData> {
+    return this.http.get<ProgressData>(
+      `${this.baseUrl}/GetProjectAnalysisDashboard?projectId=${projectID}`
+    );
+  }
 }

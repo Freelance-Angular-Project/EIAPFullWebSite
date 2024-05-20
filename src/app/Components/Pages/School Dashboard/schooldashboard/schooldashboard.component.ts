@@ -59,7 +59,7 @@ export class SchooldashboardComponent {
         // charts
         const Completed =
           data.projects.filter((project) => project.taskCompletePercentage)
-            .length + 40;
+          .length;
         const notCompleted = 100 - Completed;
         this.pieChartData.datasets[0].data = [Completed, notCompleted];
       },

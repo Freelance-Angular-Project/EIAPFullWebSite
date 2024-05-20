@@ -89,7 +89,7 @@
             </li>
 
             }
-            @if(userService.getuRoles('SchoolManager')||userService.getuRoles('Admin')&&userLogg){
+            @if(userService.getuRoles('SchoolManager')){
               <li class="nav-item">
                 <a class="nav-link" routerLink="/schoolTickets" routerLinkActive="active">School Tickets </a>
               </li>
