@@ -7,7 +7,8 @@ import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import * as XLSX from 'xlsx';
 import { saveAs } from 'file-saver';
-const EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
+const EXCEL_TYPE =
+  'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
 @Component({
   selector: 'app-project-analytics',
   standalone: true,
@@ -33,17 +34,16 @@ export class ProjectAnalyticsComponent {
           const meta = chart.getDatasetMeta(index);
           meta.hidden = !meta.hidden;
           chart.update();
-        }
-      }
-    }
+        },
+      },
+    },
   };
 
   topSchoolChartData: { [key: string]: ChartData<'pie'> } = {};
   topSchoolsChartData!: ChartData<'pie'>;
   pieChartOptions: ChartOptions<'pie'> = {
     responsive: true,
-    }
-
+  };
 
   projectID: string = '';
   constructor(
@@ -83,7 +83,7 @@ export class ProjectAnalyticsComponent {
         'Total Schools Global',
         'Total Tasks Global',
         'Completed Tasks Global',
-        'Rejected Tasks Global'
+        'Rejected Tasks Global',
       ],
       datasets: [
         {
@@ -96,7 +96,7 @@ export class ProjectAnalyticsComponent {
             projectProgress.totalSchoolsGlobal ?? 0,
             projectProgress.totalTasksGlobal ?? 0,
             projectProgress.completedTasksGlobal ?? 0,
-            projectProgress.rejectedTasksGlobal ?? 0
+            projectProgress.rejectedTasksGlobal ?? 0,
           ],
           backgroundColor: [
             '#117DE9',
@@ -107,10 +107,10 @@ export class ProjectAnalyticsComponent {
             '#C1501B',
             '#4FAB0B',
             '#ADA926',
-            '#E9B56D'
+            '#E9B56D',
           ],
-        }
-      ]
+        },
+      ],
     };
   }
 
@@ -140,8 +140,8 @@ export class ProjectAnalyticsComponent {
             label: 'Review Tasks',
             data: [schoolData.reviewTasks ?? 0],
             backgroundColor: '#E5D50A',
-          }
-        ]
+          },
+        ],
       };
     }
   }
@@ -150,43 +150,62 @@ export class ProjectAnalyticsComponent {
     const topSchools = this.progressData.projectProgress.topSchoolsGlobal;
 
     this.topSchoolsChartData = {
-      labels: topSchools.map(school => school.schoolName),
+      labels: topSchools.map((school) => school.schoolName),
       datasets: [
         {
-          data: topSchools.map(school => school.completedTasks),
-          backgroundColor:'#48C1D5',
-        }
-      ]
+          data: topSchools.map((school) => school.completedTasks),
+          backgroundColor: '#48C1D5',
+        },
+      ],
     };
   }
+
+  // XLSX Utility Methods: The XLSX.utils.json_to_sheet method converts the JSON data to a worksheet. Separate sheets are created for projectProgress, schoolProgresses, and topSchoolsGlobal.
+  // Appending Sheets: The XLSX.utils.book_append_sheet method appends these sheets to the workbook.
+  // Writing and Saving the File: The XLSX.write method generates the Excel file, and file-saver's saveAs method triggers the download.
   downloadExcel(): void {
     const workbook = XLSX.utils.book_new();
-
     // Convert projectProgress to a worksheet
-    const projectProgressSheet = XLSX.utils.json_to_sheet([this.progressData.projectProgress]);
-    XLSX.utils.book_append_sheet(workbook, projectProgressSheet, 'Project Progress');
+    const projectProgressSheet = XLSX.utils.json_to_sheet([
+      this.progressData.projectProgress,
+    ]);
+    XLSX.utils.book_append_sheet(
+      workbook,
+      projectProgressSheet,
+      'Project Progress'
+    );
 
     // Convert schoolProgresses to a worksheet
     const schoolProgressesSheet = XLSX.utils.json_to_sheet(
       Object.values(this.progressData.schoolProgresses)
     );
-    XLSX.utils.book_append_sheet(workbook, schoolProgressesSheet, 'School Progresses');
+    XLSX.utils.book_append_sheet(
+      workbook,
+      schoolProgressesSheet,
+      'School Progresses'
+    );
 
     // Convert topSchoolsGlobal to a worksheet
-    const topSchoolsSheet = XLSX.utils.json_to_sheet(this.progressData.projectProgress.topSchoolsGlobal);
-    XLSX.utils.book_append_sheet(workbook, topSchoolsSheet, 'Top Schools Global');
+    const topSchoolsSheet = XLSX.utils.json_to_sheet(
+      this.progressData.projectProgress.topSchoolsGlobal
+    );
+    XLSX.utils.book_append_sheet(
+      workbook,
+      topSchoolsSheet,
+      'Top Schools Global'
+    );
 
     // Write the workbook and trigger the download
-    const excelBuffer = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
+    const excelBuffer = XLSX.write(workbook, {
+      bookType: 'xlsx',
+      type: 'array',
+    });
     this.saveAsExcelFile(excelBuffer, 'ProgressData');
   }
 
+  // save file to download
   saveAsExcelFile(buffer: any, fileName: string): void {
     const data: Blob = new Blob([buffer], { type: EXCEL_TYPE });
     saveAs(data, `${fileName}_export_${new Date().getTime()}.xlsx`);
   }
-
 }
-
-
-
