@@ -1,5 +1,3 @@
-
-
 <div class="container-fluid background1">
   <div class="d-flex h-50 p-lg-5">
 
@@ -30,10 +28,10 @@
           <td>{{ticket.description}}</td>
           <td>{{ticket.createdAt}}</td>
           @if (ticket.response) {
-            <td>{{ticket.response}}</td>
+          <td>{{ticket.response}}</td>
           }
           @else {
-            <td class="text-danger">No Response Yet</td>
+          <td class="text-danger">No Response Yet</td>
           }
         </tr>
         }
@@ -41,4 +39,3 @@
     </table>
   </div>
 </section>
-

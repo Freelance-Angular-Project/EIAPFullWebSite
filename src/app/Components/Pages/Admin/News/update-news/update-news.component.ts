@@ -40,7 +40,6 @@ export class UpdateNewsComponent {
     if (form.valid) {
       this.newsService.updateNews(this.id,this.news).subscribe({
         next: (updatednews) => {
-          // console.log('News updated:', updatednews);
           this.router.navigate(['/AllNewsDashboard']);
         },
         error: (error) => console.error(error),

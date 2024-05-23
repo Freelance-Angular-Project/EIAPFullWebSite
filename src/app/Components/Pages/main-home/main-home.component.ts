@@ -41,8 +41,6 @@ export class MainHomeComponent implements OnInit {
   //Handle Next and Previous
   currentIndex: number = 0;
   displayedNews: Project[] | null = null;
-  // lastIndexOfdisplayedNews: number = 0;
-  // itemsPerPage = 2; // Default value for large screens
   itemsPerPage: number = 3;
   // handle login
   loginForm: FormGroup;

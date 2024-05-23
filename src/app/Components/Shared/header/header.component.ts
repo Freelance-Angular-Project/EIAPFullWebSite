@@ -57,16 +57,6 @@ export class HeaderComponent implements OnInit {
   toggleNavbarCollapsing() {
     this.isNavbarCollapsed = !this.isNavbarCollapsed;
   }
-  // dropdownClick(event: MouseEvent): void {
-  // dropdownClick(): void {
-  // // event.stopPropagation();
-  // console.log("ddd");
-
-  // this.isProjectsDropdownOpen = !this.isProjectsDropdownOpen;
-  // // this.isProjectnav;
-  // console.log(this.isProjectsDropdownOpen);
-
-  // }
 
   logOutFunc() {
     this.userService.logout();

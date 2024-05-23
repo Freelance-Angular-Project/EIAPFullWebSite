@@ -145,11 +145,11 @@
 
 
   @for (note of currentTask.assignments; track $index) {
-    @if (note.commentToSchool) {
-      <div class="alert alert-danger mx-auto mt-2 w-75">
-        Comment : {{note.commentToSchool}}
-      </div>
-      }
+  @if (note.commentToSchool) {
+  <div class="alert alert-danger mx-auto mt-2 w-75">
+    Comment : {{note.commentToSchool}}
+  </div>
+  }
   }
   <div class="modal-content1">
 
@@ -178,7 +178,9 @@
               template</button>
             <div class="row pt-3">
               @if(currentTask.assignments && currentTask.assignments.length > 0){
-              <form (ngSubmit)="onSubmit()" [hidden]="currentTask.assignments[0].status==='Review'||currentTask.assignments[0].status=='Completed'" #form1="ngForm">
+              <form (ngSubmit)="onSubmit()"
+                [hidden]="currentTask.assignments[0].status==='Review'||currentTask.assignments[0].status=='Completed'"
+                #form1="ngForm">
                 <input class="form-control mb-3" type="text" [(ngModel)]="model.Name" name="name"
                   placeholder="describtion" #description="ngModel" required>
                 <input class="form-control mb-3" type="file" (change)="onFileSelected($event)" name="file" required>

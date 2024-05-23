@@ -28,7 +28,7 @@ export class EditSchoolComponent {
       this.schoolService.getSchoolById(this.id).subscribe({
         next: (data) => {
           this.school = data;
-          console.log(this.school);
+          // console.log(this.school);
         },
         error: (err) => console.error(err),
       });
@@ -39,7 +39,7 @@ export class EditSchoolComponent {
     if (form.valid) {
       this.schoolService.updateSchool(this.school).subscribe({
         next: (updatedSchool) => {
-          console.log('School updated:', updatedSchool);
+          // console.log('School updated:', updatedSchool);
           this.router.navigate(['/GetSchools']);
         },
         error: (error) => console.error(error),

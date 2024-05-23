@@ -4,6 +4,7 @@ import { School } from '../../../../../Models/Schools/school';
 import { Router, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { FilesService } from '../../../../../Services/Files/files.service';
+import { DownloadFileService } from '../../../../../Services/Download File/download-file.service';
 declare var bootstrap: any;
 @Component({
   selector: 'app-get-schools',
@@ -23,7 +24,15 @@ export class GetSchoolsComponent implements OnInit {
   fileUploaded: boolean = false;
   uploadedFiles: { [taskId: string]: boolean } = {}; // Dictionary to track upload status per task
 
-  constructor(private schoolservice: SchoolService, private router: Router, private fileService: FilesService) {}
+  // upload school  excel file
+  selectedFile: File | null = null;
+  errorMessage: string | null = null;
+  constructor(
+    private schoolservice: SchoolService,
+    private router: Router,
+    private fileService: FilesService,
+    private downloadservice: DownloadFileService
+  ) {}
   ngOnInit(): void {
     this.schoolservice.getAllSchools().subscribe({
       next: (allschools) => {
@@ -43,7 +52,7 @@ export class GetSchoolsComponent implements OnInit {
     this.filteredSchools = this.schools.filter((school) =>
       school.name.toLowerCase().includes(this.filter.toLowerCase())
     );
-    console.log(this.filteredSchools);
+    // console.log(this.filteredSchools);
   }
   openConfirmModal(): void {
     const confirmModal = new bootstrap.Modal(
@@ -60,7 +69,7 @@ export class GetSchoolsComponent implements OnInit {
   reloadComponent() {
     // Navigate away and back to the current route
     let currentUrl = this.router.url;
-    this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
       this.router.navigate([currentUrl]);
     });
   }
@@ -103,11 +112,42 @@ export class GetSchoolsComponent implements OnInit {
     this.fileService.uploadFile(formData).subscribe({
       next: (response) => {
         this.uploadedFiles[schoolId] = true; // Set the upload flag to true for this task
-
       },
       error: (error) =>
         console.error('Error uploading file for task', schoolId, error),
     });
   }
+  downloadFile(): void {
+    const fileName = 'Book1.xlsx';
+    const fileUrl = 'assets/Template/Book1.xlsx';
+    this.downloadservice.downloadFile(fileName, fileUrl);
+  }
+  onFileSelectedExcel(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+      const file = input.files[0];
+      if (file.type === 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' || file.type === 'application/vnd.ms-excel')  {
+        this.selectedFile = file;
+        this.errorMessage = null;
+      } else {
+        this.selectedFile = null;
+        this.errorMessage = 'Please select a valid Excel file.';
+      }
+    }
+  }
 
+  uploadFileExcel(): void {
+    if (this.selectedFile) {
+      this.schoolservice.AddSchoolFiles(this.selectedFile).subscribe({
+        next: (response) => {
+          // console.log('File uploaded successfully', response);
+          this.errorMessage = null;
+        },
+        error: (error) => {
+          console.error('File upload failed', error);
+          this.errorMessage = 'File upload failed. Please try again '+error.error;
+        },
+      });
+    }
+  }
 }

@@ -50,7 +50,7 @@ export class SchooldashboardtasksComponent implements OnInit, AfterViewInit {
     private httpclient: HttpClient,
     private schoolService: SchoolService,
     private router: Router,
-    private assignmentsfile: AssignmentFileService,
+    private assignmentsfile: AssignmentFileService
   ) {}
   ngAfterViewInit(): void {
     this.initializeChart();

@@ -18,7 +18,7 @@ export class SchoolTicketsComponent implements OnInit {
         this.schoolTickets = tickets;
       },
       error: (err) => {
-        console.log(err);
+        console.log(err.message);
       },
     });
   }

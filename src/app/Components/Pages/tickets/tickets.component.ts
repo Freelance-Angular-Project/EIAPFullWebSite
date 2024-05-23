@@ -21,7 +21,7 @@ export class TicketsComponent implements OnInit {
   ngOnInit(): void {
     this.ticketservice.getProjectsToSelect().subscribe({
       next: (projects) => {
-        console.log(projects);
+        // console.log(projects);
         this.projectsToselect = projects;
       },
       error: (err) => {
@@ -33,7 +33,7 @@ export class TicketsComponent implements OnInit {
   AddTicket(form: NgForm) {
     this.ticketservice.addTicket(this.ticket).subscribe({
       next: (data) => {
-        console.log('Success add ticket', data);
+        // console.log('Success add ticket', data);
         this.successModel = true;
         // this.router.navigate(['/Home']);
         // Clear the form

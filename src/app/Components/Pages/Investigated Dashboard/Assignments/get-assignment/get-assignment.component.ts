@@ -24,12 +24,10 @@ export class GetAssignmentComponent {
     private activatedrouter: ActivatedRoute,
     private router: Router,
     private assignmentservices: AssignmentService,
-    private fileService: FilesService,
     private http: HttpClient
   ) {}
   ngOnInit(): void {
     this.currentTaskID = this.activatedrouter.snapshot.paramMap.get('ID') || '';
-
     this.assignmentservices
       .getAssignmentByTaskID(this.currentTaskID)
       .subscribe({
@@ -64,7 +62,6 @@ export class GetAssignmentComponent {
       },
       (error) => {
         console.error('Error downloading the file:', error);
-        // alert(`Failed to download the file. Server responded with status: ${error.status}`);
       }
     );
   }

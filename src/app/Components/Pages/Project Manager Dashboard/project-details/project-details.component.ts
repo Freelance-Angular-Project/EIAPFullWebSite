@@ -41,7 +41,6 @@ export class ProjectDetailsComponent implements OnInit {
     this.projectservices.GetByIdToDashboard(this.currentProjectID).subscribe({
       next: (currentproject) => {
         this.project = currentproject;
-
         this.ProjectFiles = this.project.files;
         this.SchoolsProject = this.project.schools;
         this.TasksProject = this.project.tasks;

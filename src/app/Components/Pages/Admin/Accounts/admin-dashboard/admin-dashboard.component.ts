@@ -69,15 +69,13 @@ export class AdminDashboardComponent implements OnInit {
         phoneNumber: this.accountForm.value.phoneNumber,
         gender: +this.accountForm.value.gender,
       };
-      console.log('Account Data:', this.account);
+      // console.log('Account Data:', this.account);
       const selectedRole = this.accountForm.get('Role')!.value;
-      console.log(selectedRole);
 
       switch (selectedRole) {
         case 'Admin':
           this.userService.registerAdmin(this.account).subscribe({
             next: (response) => {
-              //console.log(response)
               this.toastService.show(
                 'Admin has been successfully created.',
                 false

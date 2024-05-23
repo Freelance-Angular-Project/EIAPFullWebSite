@@ -92,7 +92,7 @@ export class SchoolManagementComponent implements OnInit {
         zone: this.schoolForm.value.zone,
         userId: this.schoolForm.value.newUserId,
       };
-      console.log(this.school);
+      // console.log(this.school);
 
       this.schoolservice.createSchool(this.school).subscribe({
         next: (school) => {
@@ -118,7 +118,7 @@ export class SchoolManagementComponent implements OnInit {
     const filterByRole = (event.target as HTMLInputElement).value;
 
     if (filterByRole) {
-      console.log(filterByRole);
+      // console.log(filterByRole);
 
       this.filteredSchoolManagers = this.schoolmanagers.filter(
         (manager: Role) =>

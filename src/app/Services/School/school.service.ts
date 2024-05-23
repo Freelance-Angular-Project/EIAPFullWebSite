@@ -16,9 +16,14 @@ export class SchoolService {
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
-      'Accept': 'application/json'
-
-    })
+      Accept: 'application/json',
+    }),
+  };
+  httpOptionFormData = {
+    headers: new HttpHeaders({
+      // Accept: 'text/plain',
+      enctype: 'multipart/form-data',
+    }),
   };
   constructor(private http: HttpClient) {}
 
@@ -45,37 +50,46 @@ export class SchoolService {
       `${this.baseUrl}/GetAllSchoolsToSelect`
     );
   }
-  getProjectWithtaskstoschool(projectID:string): Observable<ProjectInSchool>  {
-    return this.http.get<ProjectInSchool>(`${this.baseUrl}/GetProjectWithTasksToSchool?projectId=${projectID}`);
-
-
+  getProjectWithtaskstoschool(projectID: string): Observable<ProjectInSchool> {
+    return this.http.get<ProjectInSchool>(
+      `${this.baseUrl}/GetProjectWithTasksToSchool?projectId=${projectID}`
+    );
   }
 
   // PUT /api/School/{id}
 
   updateSchool(school: School): Observable<School> {
-    school.userId="";
-    return this.http.put<School>(`${this.baseUrl}/${school.id}`, school, this.httpOptions);
+    school.userId = '';
+    return this.http.put<School>(
+      `${this.baseUrl}/${school.id}`,
+      school,
+      this.httpOptions
+    );
   }
 
-  GetTaskDetailsToSchool(taskId:string): Observable<TaskDetails>
-  {
-    return this.http.get<TaskDetails>(`${this.baseUrl}/GetTaskDetailsToSchool?taskId=${taskId}`);
-
+  GetTaskDetailsToSchool(taskId: string): Observable<TaskDetails> {
+    return this.http.get<TaskDetails>(
+      `${this.baseUrl}/GetTaskDetailsToSchool?taskId=${taskId}`
+    );
   }
-
 
   // POST /api/School
   createSchool(school: PostSchool): Observable<PostSchool> {
-    return this.http.post<PostSchool>(this.baseUrl, school,this.httpOptions);
+    return this.http.post<PostSchool>(this.baseUrl, school, this.httpOptions);
   }
-
-
-
-
 
   // DELETE /api/School/{id}
   deleteSchool(id: string): Observable<any> {
     return this.http.delete(`${this.baseUrl}?id=${id}`);
+  }
+
+  AddSchoolFiles(file: File): Observable<any> {
+    const formData = new FormData();
+    formData.append('file', file);
+    return this.http.post(
+      `${this.baseUrl}/import-and-register-school-managers`,
+      formData,
+      this.httpOptionFormData
+    );
   }
 }

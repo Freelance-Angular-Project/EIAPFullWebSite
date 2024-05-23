@@ -42,7 +42,7 @@ export class ViewEventsComponent {
 
         this.newsService.updateNewsImage(id, file).subscribe({
             next: () => {
-                console.log("Updated News Image");
+                // console.log("Updated News Image");
                 // Optionally refresh the list or image
                 this.eventsservice.getEvents().subscribe(newsItems => {
                   this.events = newsItems;
