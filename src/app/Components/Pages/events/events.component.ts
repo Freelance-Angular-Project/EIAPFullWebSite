@@ -22,7 +22,6 @@ export class EventsComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadEvents();
-
   }
 
   loadEvents() {
@@ -30,11 +29,11 @@ export class EventsComponent implements OnInit {
       next: (data) => {
         this.news = data;
         this.filteredNews = this.news;
+        console.log(this.filteredNews);
+
         this.extractUniqueYears();
         if (this.news.length > 0) {
-          const firstItemYear = new Date(this.news[0].year)
-            .getFullYear()
-            .toString();
+          const firstItemYear = this.getYearFromDate(this.news[0].year);
           this.FilterByYear(firstItemYear, this.selectedItem);
         }
       },
@@ -43,11 +42,11 @@ export class EventsComponent implements OnInit {
       },
     });
   }
+
   extractUniqueYears() {
     const yearsSet = new Set(
       this.news.map((item) => {
-        const date = new Date(item.year);
-        return date.getFullYear().toString();
+        return this.getYearFromDate(item.year);
       })
     );
 
@@ -55,15 +54,23 @@ export class EventsComponent implements OnInit {
       (a, b) => parseInt(b) - parseInt(a)
     );
   }
+
   FilterByYear(year: string, item: string) {
-    const selectedYear = new Date(`${year}-01-01`).getFullYear();
+    const selectedYear = parseInt(year);
 
     this.filteredNews = this.news.filter((item) => {
-      const itemYear = new Date(item.year).getFullYear();
+      const itemYear = parseInt(this.getYearFromDate(item.year));
       return itemYear === selectedYear;
     });
 
-    // console.log(this.filteredNews);
     this.selectedItem = item;
+  }
+
+  getYearFromDate(date: string): string {
+    const parts = date.split('/');
+    return parts[2];
+  }
+  trackById(index: number, item: News): string {
+    return item.id;
   }
 }

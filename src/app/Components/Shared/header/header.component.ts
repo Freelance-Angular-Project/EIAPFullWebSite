@@ -1,16 +1,14 @@
 import {
   Component,
-  ElementRef,
-  HostListener,
   OnInit,
-  ViewChild,
 } from '@angular/core';
-import { Router, RouterModule } from '@angular/router';
+import { NavigationEnd, Router, RouterModule } from '@angular/router';
 import { Project } from '../../../Models/Projects/project';
 import { ProjectService } from '../../../Services/Project/project.service';
 import { UserService } from '../../../Services/User/user.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { filter } from 'rxjs';
 
 @Component({
   selector: 'app-header',
@@ -53,6 +51,17 @@ export class HeaderComponent implements OnInit {
         console.log(err);
       },
     });
+    this.router.events
+    .pipe(
+      filter(event => event instanceof NavigationEnd)
+    )
+    .subscribe((event) => {
+      if (!(event as NavigationEnd).url.startsWith('/Project')) {
+        this.selectedProject = '';
+      }
+    });
+
+
   }
   toggleNavbarCollapsing() {
     this.isNavbarCollapsed = !this.isNavbarCollapsed;

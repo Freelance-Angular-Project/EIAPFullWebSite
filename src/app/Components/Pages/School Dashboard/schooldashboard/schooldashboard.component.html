@@ -95,51 +95,16 @@
         <hr>
         <table class="table-responsive">
           <tbody>
-            <tr>
-              <td style="white-space: nowrap;">School 1</td>
+            @for(topschool of topSchools;track $index) {
+              <tr>
+              <td style="white-space: nowrap;">{{topschool.schoolName}}</td>
               <td class="w-100">
                 <div class="progress">
                   <div class="progress-bar" style="width: 50%;"></div>
                 </div>
               </td>
-              <td>50%</td>
-            </tr>
-            <tr>
-              <td>School 2</td>
-              <td>
-                <div class="progress">
-                  <div class="progress-bar" style="width: 30%;"></div>
-                </div>
-              </td>
-              <td>30%</td>
-            </tr>
-            <tr>
-              <td>School 3</td>
-              <td>
-                <div class="progress">
-                  <div class="progress-bar" style="width: 20%;"></div>
-                </div>
-              </td>
-              <td>20%</td>
-            </tr>
-            <tr>
-              <td>School 4</td>
-              <td>
-                <div class="progress">
-                  <div class="progress-bar" style="width: 10%;"></div>
-                </div>
-              </td>
-              <td>10%</td>
-            </tr>
-            <tr>
-              <td>School 5</td>
-              <td>
-                <div class="progress">
-                  <div class="progress-bar" style="width: 10%;"></div>
-                </div>
-              </td>
-              <td>10%</td>
-            </tr>
+              <td>{{topschool.completedTasks}}</td>
+            </tr>}
           </tbody>
         </table>
       </div>
@@ -221,9 +186,9 @@
       </table>
     </div>
   </div>
-<!-- } -->
+  <!-- } -->
 
-<!-- @else {
+  <!-- @else {
   <h3 class="mt-4">No Tasks Added</h3>
 } -->
 </div>

@@ -12,7 +12,7 @@
       <div class="form-group mb-3 row">
         <label for="fullName" class="col-sm-2">News Details</label>
         <div class="col-sm-10">
-          <input type="text" formControlName="Details" class="form-control" id="fullName" placeholder="Enter News Details" minlength="200" maxlength="250">
+          <input type="text" formControlName="Details" class="form-control" id="fullName" placeholder="Enter News Details" maxlength="250">
           @if(Details?.touched && Details?.errors?.['required'])
           {
           <div class="text-danger">
@@ -85,7 +85,7 @@
           @if(Image?.touched &&Image?.errors?.['required'])
           {
           <div class="text-danger">
-            Image is required
+            Image is required and Image size must be 750 x 250
           </div>
           }
         </div>

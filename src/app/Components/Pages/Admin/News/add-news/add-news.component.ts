@@ -102,11 +102,11 @@ export class AddNewsComponent {
 
         next: () => {
           this.newsForm.reset();
-          this.toastService.show('News has been successfully created.', false);
+          this.toastService.show('Item has been successfully created.', false);
         },
         error: (err) => {
           console.log(err);
-          this.toastService.show('News has been error in create', true);
+          this.toastService.show('Item has been error in create', true);
         },
       });
     }

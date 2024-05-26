@@ -33,6 +33,7 @@ export class AdminDashboardComponent implements OnInit {
     'Investigated',
     'ProjectManager',
     'SchoolManager',
+    'DataViewer'
   ];
 
   ngOnInit() {
@@ -142,6 +143,24 @@ export class AdminDashboardComponent implements OnInit {
               //console.log(err)
               this.toastService.show(
                 'Error while create School Manager Account check your inputs',
+                true
+              );
+            },
+          });
+          break;
+          case 'DataViewer':
+          this.userService.registerDataViewer(this.account).subscribe({
+            next: (response) => {
+              //console.log(response)
+              this.toastService.show(
+                'Data Viewer has been successfully created.',
+                false
+              );
+            },
+            error: (err) => {
+              //console.log(err)
+              this.toastService.show(
+                'Error while create Data Viewer Account check your inputs',
                 true
               );
             },

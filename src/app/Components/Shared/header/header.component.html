@@ -8,7 +8,7 @@
   <div class="header-branding mt-lg-0 mt-3 d-flex align-items-center">
     <img src="../../../../assets/Group 15910.svg" alt="EIAP Logo" class="img-fluid">
     <span class="elap-text">
-      <img src="../../../../assets/EIAP.png" alt="EIAP Logo" class="w-lg-25 img-fluid">
+      <img src="../../../../assets/EIAP.png" alt="EIAP Logo" class="img-fluid" width="55">
     </span>
   </div>
 </header>
@@ -34,14 +34,12 @@
             <select class="form-select border-0 shadow-none marginT" [(ngModel)]="selectedProject"
               (change)="onProjectChange()" name="sel">
               <option value="" disabled>Projects</option>
-              @for (project of projects; track $index) {
-
-              <option [value]="project.id" [class.active]="selectedProject">{{project.name|uppercase|slice:0:5}}
-              </option>
-
-              }
+              <ng-container *ngFor="let project of projects; let i = index">
+                <option [value]="project.id" [class.active]="selectedProject === project.id">
+                  {{ project.name | uppercase | slice:0:5 }}
+                </option>
+              </ng-container>
             </select>
-
           </li>
           @if(userService.getuRoles('SchoolManager')&&userLogg){
           <li class="nav-item">
@@ -62,9 +60,10 @@
 
 
 
-          @if(userService.getuRoles('ProjectManager')||userService.getuRoles('Admin')&&userLogg||userService.getuRoles('Investigated')&&userLogg){
+          @if(userService.getuRoles('ProjectManager')||userService.getuRoles('Admin')&&userLogg||userService.getuRoles('Investigated')&&userLogg||userService.getuRoles('DataViewer')&&userLogg){
           <li class="nav-item">
-            <a class="nav-link" routerLink="/ProjectRoutes/ProjectDashboard" routerLinkActive="active">Project Dashboard</a>
+            <a class="nav-link" routerLink="/ProjectRoutes/ProjectDashboard" routerLinkActive="active">Project
+              Dashboard</a>
           </li>
 
           }
@@ -84,17 +83,17 @@
           }
 
           @if(userService.getuRoles('Investigated')||userService.getuRoles('Admin')&&userLogg){
-            <li class="nav-item">
-              <a class="nav-link" routerLink="/TicketsDashboard" routerLinkActive="active">Ticket Dashboard</a>
-            </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/TicketsDashboard" routerLinkActive="active">Ticket Dashboard</a>
+          </li>
 
-            }
-            @if(userService.getuRoles('SchoolManager')){
-              <li class="nav-item">
-                <a class="nav-link" routerLink="/schoolTickets" routerLinkActive="active">School Tickets </a>
-              </li>
+          }
+          @if(userService.getuRoles('SchoolManager')){
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/schoolTickets" routerLinkActive="active">School Tickets </a>
+          </li>
 
-              }
+          }
           @if(userService.getuRoles('Admin')&&userLogg){
           <li class="nav-item">
             <a class="nav-link" routerLink="/AdminDashboard" routerLinkActive="active">Admin Dashboard</a>

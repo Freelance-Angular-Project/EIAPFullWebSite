@@ -9,11 +9,14 @@ import { ChartData, ChartType } from 'chart.js';
 import { ProjectInSchool } from '../../../../Models/Projects/project-in-school';
 import { NgChartsModule } from 'ng2-charts';
 import { FormsModule } from '@angular/forms';
+import { TopSchool } from '../../../../Models/Schools/top-school';
+import { ProjectService } from '../../../../Services/Project/project.service';
+import { ProgressBarsDirective } from '../../../../Directives/progress-bars.directive';
 
 @Component({
   selector: 'app-schooldashboard',
   standalone: true,
-  imports: [CommonModule, RouterModule, NgChartsModule, FormsModule],
+  imports: [CommonModule, RouterModule, NgChartsModule, FormsModule,ProgressBarsDirective],
   templateUrl: './schooldashboard.component.html',
   styleUrl: './schooldashboard.component.scss',
 })
@@ -30,6 +33,10 @@ export class SchooldashboardComponent {
   lastIndexProjectInSchool: number = 0;
   itemsPerPage = 3; // Default value for large screens
 
+
+  // top school
+  topSchools:TopSchool[]=[];
+  totalTasks = 10;
   // charts
   // pie
   public pieChartType: ChartType = 'pie';
@@ -45,7 +52,8 @@ export class SchooldashboardComponent {
 
   constructor(
     private schoolService: SchoolService,
-    private httpclient: HttpClient
+    private httpclient: HttpClient,
+    private projectService: ProjectService
   ) {}
 
   ngOnInit(): void {
@@ -70,8 +78,24 @@ export class SchooldashboardComponent {
 
 
     this.adjustItemsPerScreen();
+    this.getTopSchool();
   }
 
+  // get top school
+  getTopSchool(){
+
+    this.projectService.getTopSchools().subscribe({
+      next:(top)=>{
+        this.topSchools=top;
+
+      },
+      error:(error)=>{
+        console.log(error);
+
+      }
+    })
+
+  }
   // move to another school component
   // showModel1(){
   //   this.showModel=true;

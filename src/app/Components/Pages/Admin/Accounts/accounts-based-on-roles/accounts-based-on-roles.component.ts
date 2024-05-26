@@ -18,6 +18,7 @@ export class AccountsBasedOnRolesComponent implements OnInit {
     'Investigated',
     'ProjectManager',
     'SchoolManager',
+    'DataViewer'
   ];
 
   selectedRole:string='';

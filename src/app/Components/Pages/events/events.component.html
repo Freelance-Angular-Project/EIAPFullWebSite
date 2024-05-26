@@ -1,4 +1,4 @@
-<div class="container-fluid background1">
+<!-- <div class="container-fluid background1">
   <div class="d-flex align-items-center h-50 p-5">
 
     <h5 class="text-light project-header-title">Events</h5>
@@ -40,4 +40,45 @@
     </div>
   </div>
 </div>
+<app-footer></app-footer> -->
+<div class="container-fluid background1">
+  <div class="d-flex align-items-center h-50 p-5">
+    <h5 class="text-light project-header-title">Events</h5>
+  </div>
+</div>
+
+<div class="container-fluid border rounded-5 backgroundEvents mb-5 p-5">
+  <div class="row gy-3 margintop w-90 mx-auto">
+    <div class="col-lg-2 col-11">
+      <p class="year-title">Year</p>
+      <div class="rectangle-card p-3">
+        <ng-container *ngFor="let year of uniqueYears; let i = index">
+          <ng-container *ngIf="year !== 'NaN'">
+            <p class="year-item cursorStyle fw-bold" (click)="FilterByYear(year, year)" [class.selected]="year === selectedItem">
+              {{ year }}
+            </p>
+          </ng-container>
+        </ng-container>
+      </div>
+    </div>
+    <div class="col-lg-10">
+      <div class="row g-3 eventFontColor">
+        <ng-container *ngIf="filteredNews.length; else noEvents">
+          <div class="col-lg-6 col-12" *ngFor="let item of filteredNews; trackBy: trackById">
+            <div class="shadow-card shadow h-100 d-flex flex-column">
+              <img [src]="item.imageUrl" class="img-fluid w-100" alt="Event Image" style="height: 200px; object-fit: cover;">
+              <div class="p-3 flex-grow-1">
+                <p>{{ item.details }}</p>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+        <ng-template #noEvents>
+          <h1 class="text-secondary">No Events to show</h1>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+</div>
+
 <app-footer></app-footer>

@@ -16,6 +16,7 @@ import { ProjectDetailsAll } from '../../Models/Projects/project-details-all';
 import { ProjectToSelect } from '../../Models/Projects/project-to-select';
 import { DeleteSchoolProject } from '../../Models/Projects/delete-school-project';
 import { ProgressData } from '../../Models/Projects/project-analytics';
+import { TopSchool } from '../../Models/Schools/top-school';
 
 @Injectable({
   providedIn: 'root',
@@ -119,5 +120,8 @@ export class ProjectService {
     return this.http.get<ProgressData>(
       `${this.baseUrl}/GetProjectAnalysisDashboard?projectId=${projectID}`
     );
+  }
+  getTopSchools(): Observable<TopSchool[]>{
+    return this.http.get<TopSchool[]>(`${this.baseUrl}/GetTopSchools`);
   }
 }

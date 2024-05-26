@@ -3,7 +3,7 @@ export interface News {
 
   id: string;
   details: string;
-  year: Date;
+  year: string;
   isEvent: boolean;
   imageUrl: File;
 }

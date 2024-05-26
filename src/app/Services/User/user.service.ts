@@ -132,6 +132,13 @@ export class UserService {
       this.httpOptions
     );
   }
+    registerDataViewer(account: Account): Observable<Account> {
+      return this.http.post<Account>(
+        `${this.baseUrl}/registerDataViewer`,
+        account,
+        this.httpOptions
+      );
+  }
 
   getProfile(): Observable<Account> {
     return this.http.get<Account>(`${this.baseUrl}/Profile`);
