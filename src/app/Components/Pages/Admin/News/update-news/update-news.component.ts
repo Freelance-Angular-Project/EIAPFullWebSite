@@ -9,7 +9,7 @@ import { FormsModule, NgForm } from '@angular/forms';
   standalone: true,
   imports: [FormsModule],
   templateUrl: './update-news.component.html',
-  styleUrl: './update-news.component.scss'
+  styleUrl: './update-news.component.scss',
 })
 export class UpdateNewsComponent {
   news: News = {} as News; // Assuming you have a class or interface named School
@@ -18,8 +18,7 @@ export class UpdateNewsComponent {
   constructor(
     private newsService: NewsService,
     private route: ActivatedRoute,
-    private router: Router,
-
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -34,11 +33,19 @@ export class UpdateNewsComponent {
     //     error: (err) => console.error(err),
     //   });
     // }
+
+    this.newsService.getNewsByID(this.id).subscribe({
+      next: (data) => {
+        this.news = data;
+        // console.log(data);
+      },
+      error: (err) => console.error(err),
+    });
   }
 
   onSubmit(form: NgForm): void {
     if (form.valid) {
-      this.newsService.updateNews(this.id,this.news).subscribe({
+      this.newsService.updateNews(this.id, this.news).subscribe({
         next: (updatednews) => {
           this.router.navigate(['/AllNewsDashboard']);
         },

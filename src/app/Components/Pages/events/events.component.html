@@ -1,46 +1,4 @@
-<!-- <div class="container-fluid background1">
-  <div class="d-flex align-items-center h-50 p-5">
 
-    <h5 class="text-light project-header-title">Events</h5>
-  </div>
-</div>
-
-<div class="container-fluid border rounded-5 backgroundEvents mb-5 p-5">
-  <div class="row gy-3 margintop w-90 mx-auto">
-
-    <div class="col-lg-2 col-11">
-      <p class="year-title">Year</p>
-      <div class="rectangle-card p-3">
-        @for (year of uniqueYears; track $index) {
-
-        @if(year != 'NaN')
-        {
-          <p class="year-item cursorStyle fw-bold" (click)="FilterByYear(year,year)" [class.selected]="year === selectedItem"
-        >{{year}}</p>
-        }
-        }
-      </div>
-    </div>
-    <div class="col-lg-10">
-
-      <div class="row  g-3 eventFontColor">
-      @for (item of filteredNews; track item.id) {
-        <div class="col-lg-6 col-12">
-          <div class="shadow-card shadow">
-            <img [src]="item.imageUrl" class="img-fluid">
-            <p>{{item.details}}</p>
-          </div>
-        </div>
-      }
-
-      @empty {
-        <h1 class="text-secondary">No Events to show</h1>
-      }
-      </div>
-    </div>
-  </div>
-</div>
-<app-footer></app-footer> -->
 <div class="container-fluid background1">
   <div class="d-flex align-items-center h-50 p-5">
     <h5 class="text-light project-header-title">Events</h5>

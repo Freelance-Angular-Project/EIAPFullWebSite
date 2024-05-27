@@ -146,6 +146,7 @@ $header-background: #FFFFFF; // Slightly darker than card background
 
 
 }
+
 @media (max-width: 768px) {
   .card {
     margin-top: 100px; // Increase space for header on small screens
@@ -156,11 +157,12 @@ $header-background: #FFFFFF; // Slightly darker than card background
   }
 }
 
-.projectContent{
-  height:110px;
+.projectContent {
+  height: 110px;
 }
-@media screen and (max-width:1400px){
-  .projectContent{
-    height:auto;
+
+@media screen and (max-width:1400px) {
+  .projectContent {
+    height: auto;
   }
 }

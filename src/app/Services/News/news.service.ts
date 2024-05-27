@@ -29,6 +29,10 @@ export class NewsService {
     return this.http.get<News[]>(`${this.baseUrl}/ProjectNews`);
   }
 
+  getNewsByID(newsID:string): Observable<News>{
+    return this.http.get<News>(`${this.baseUrl}/GetById?Id=${newsID}`)
+  }
+
   getEvents(take: number = 50, skip: number = 0): Observable<News[]> {
     return this.http.get<News[]>(
       `${this.baseUrl}/Events?take=${take}&skip=${skip}`
