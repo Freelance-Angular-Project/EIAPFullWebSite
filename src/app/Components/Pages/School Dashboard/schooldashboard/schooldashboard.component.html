@@ -100,10 +100,12 @@
               <td style="white-space: nowrap;">{{topschool.schoolName}}</td>
               <td class="w-100">
                 <div class="progress">
-                  <div class="progress-bar" style="width: 50%;"></div>
+                  <div class="progress-bar" [style.width.%]="calculatePercentage(topschool.completedTasks)"></div>
                 </div>
               </td>
+
               <td>{{topschool.completedTasks}}</td>
+              <td>Tasks</td>
             </tr>}
           </tbody>
         </table>

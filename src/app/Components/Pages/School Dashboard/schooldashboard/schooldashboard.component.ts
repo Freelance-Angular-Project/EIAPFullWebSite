@@ -11,12 +11,11 @@ import { NgChartsModule } from 'ng2-charts';
 import { FormsModule } from '@angular/forms';
 import { TopSchool } from '../../../../Models/Schools/top-school';
 import { ProjectService } from '../../../../Services/Project/project.service';
-import { ProgressBarsDirective } from '../../../../Directives/progress-bars.directive';
 
 @Component({
   selector: 'app-schooldashboard',
   standalone: true,
-  imports: [CommonModule, RouterModule, NgChartsModule, FormsModule,ProgressBarsDirective],
+  imports: [CommonModule, RouterModule, NgChartsModule, FormsModule],
   templateUrl: './schooldashboard.component.html',
   styleUrl: './schooldashboard.component.scss',
 })
@@ -36,7 +35,7 @@ export class SchooldashboardComponent {
 
   // top school
   topSchools:TopSchool[]=[];
-  totalTasks = 10;
+  totalTasks: number = 100;
   // charts
   // pie
   public pieChartType: ChartType = 'pie';
@@ -86,7 +85,7 @@ export class SchooldashboardComponent {
 
     this.projectService.getTopSchools().subscribe({
       next:(top)=>{
-        this.topSchools=top;
+        this.topSchools = top;
 
       },
       error:(error)=>{
@@ -149,7 +148,10 @@ export class SchooldashboardComponent {
       this.updateDisplayedNews();
     }
   }
-
+  calculatePercentage(completedTasks: string|number): number {
+    const completedTasksNumber = typeof completedTasks === 'string' ? parseInt(completedTasks, 10) : completedTasks;
+    return (completedTasksNumber / this.totalTasks) * 100;
+  }
   private updateDisplayedNews(): void {
     if (!this.school || !this.school.projects) {
       //console.warn("Projects data is not available.");
